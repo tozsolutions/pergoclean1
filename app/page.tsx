@@ -3,6 +3,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { FloatingContact } from "@/components/floating-contact";
 import { LeadForm } from "@/components/lead-form";
 import { pricing, siteConfig } from "@/lib/site";
+import Image from "next/image";
 
 const services = [
   { title: "Derin Temizlik", text: "Pergola RollingRoof BioClimatic CamTavan ZipPerde Tente kumaşlarınızdaki kir, yağ, duman ve buharlaşma kaynaklı atıkları profesyonel ekipmanlarla temizliyoruz." },
@@ -49,17 +50,29 @@ export default function HomePage() {
       <SiteHeader />
       <main>
         <section className="hero">
+          <div className="hero-bg">
+            <Image
+              src="/assets/hero1.jpeg"
+              alt="Pergola RollingRoof BioClimatic Temizlik"
+              fill
+              className="hero-bg-image"
+              priority
+              sizes="100vw"
+              style={{ objectFit: "cover" }}
+            />
+            <div className="hero-overlay"></div>
+          </div>
           <div className="container hero-content">
             <span className="eyebrow">Profesyonel Yerinde Temizlik</span>
             <h1 className="heading-xl">
-              Pergola BioClimatic RollingRoof
+              Pergola RollingRoof BioClimatic
               <br />
-              CamTavan ZipPerde Tente
+              ZipPerde Tente
               <br />
               <span className="hero-italic">Profesyonel Temizlik</span>
             </h1>
             <p className="lead" style={{ color: "rgba(255,255,255,.92)" }}>
-              Pergola RollingRoof BioClimatic CamTavan ZipPerde ve Tentelerinizde %85-90
+              Pergola RollingRoof BioClimatic ZipPerde ve Tentelerinizde %85-90
               oranında ilk günkü temizliğine ve hijyenik yeni görünümüne kavuşturuyoruz.
               Minimum maliyet, maksimum sonuç.
             </p>

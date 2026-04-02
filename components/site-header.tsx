@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { siteConfig } from "@/lib/site";
 
 const navItems = [
   ["Hakkımızda", "#hakkimizda"],
@@ -18,8 +19,8 @@ export function SiteHeader() {
         <Link href="/" aria-label="PergoClean ana sayfa">
           <Image
             src="/assets/PergoClean24_02.26_1.png"
-            alt="PergoClean logo"
-            width={120}
+            alt="PergoClean Logo"
+            width={140}
             height={58}
             style={{ height: 58, width: "auto" }}
             priority
@@ -30,6 +31,19 @@ export function SiteHeader() {
             <a key={href} href={href}>{label}</a>
           ))}
         </nav>
+        <div className="header-social">
+          {siteConfig.socials.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={social.label}
+            >
+              <i className={`ri-${social.label.toLowerCase()}-line`}></i>
+            </a>
+          ))}
+        </div>
       </div>
     </header>
   );

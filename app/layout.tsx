@@ -34,7 +34,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "PergoClean",
-    image: `${siteConfig.url}/assets/PergoClean24_02.26_3.png`,
+    image: `${siteConfig.url}/assets/PergoClean24_02.26_1.png`,
     url: siteConfig.url,
     telephone: siteConfig.phonePrimary,
     email: siteConfig.email,
@@ -52,11 +52,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
   return (
     <html lang="tr">
-      <body>
+      <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+      </head>
+      <body>
         {children}
       </body>
     </html>
