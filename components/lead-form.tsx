@@ -67,6 +67,7 @@ export function LeadForm({
           </label>
         )
       )}
+      <input type="text" name="_honey" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
       <button className="btn btn-accent" type="submit" disabled={isLoading}>
         {isLoading ? "Gönderiliyor..." : submitLabel}
       </button>

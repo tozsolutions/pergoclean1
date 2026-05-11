@@ -9,17 +9,24 @@ export const siteConfig = {
   address:
     "Timko İş Merkezi, Macun Mahallesi 177. Cadde V8 Kat 1, Yenimahalle / Ankara",
   socials: [
-    { label: "Instagram", href: "https://instagram.com/PergoClean" },
-    { label: "TikTok", href: "https://tiktok.com/@PergoClean" },
-    { label: "YouTube", href: "https://youtube.com/@PergoClean" },
-    { label: "Pinterest", href: "https://pinterest.com/PergoClean" }
+    { label: "LinkedIn", href: "https://linkedin.com/company/pergoclean" },
+    { label: "Instagram", href: "https://instagram.com/pergoclean.tr" },
+    { label: "TikTok", href: "https://tiktok.com/@pergoclean.tr" },
+    { label: "Pinterest", href: "https://pinterest.com/pergocleantr" },
+    { label: "YouTube", href: "https://youtube.com/@pergocleantr" },
+    { label: "Facebook", href: "https://facebook.com/pergoclean.tr" },
+    { label: "Twitter", href: "https://x.com/pergocleantr" }
   ]
 };
 
 export const pricing = {
-  light: 200,
-  medium: 300,
-  heavy: 400,
+  pergola: {
+    eco: { base: 5000, perM2: 350, threshold: 15 },
+    plus: { base: 7500, perM2: 450, threshold: 15 }
+  },
+  zip: {
+    base: 2500, perM2: 250, threshold: 10
+  },
   replacementRange: "50 m² için ortalama 70.000 TL – 90.000 TL"
 };
 

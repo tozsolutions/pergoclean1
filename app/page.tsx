@@ -2,7 +2,8 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { FloatingContact } from "@/components/floating-contact";
 import { LeadForm } from "@/components/lead-form";
-import { pricing, siteConfig } from "@/lib/site";
+import { PricingCalculator } from "@/components/pricing-calculator";
+import { siteConfig } from "@/lib/site";
 import Image from "next/image";
 
 const services = [
@@ -15,7 +16,7 @@ const services = [
 const compareItems = [
   { title: "Pergola Kumaş Temizliği", category: "Derin Temizlik" },
   { title: "LED Işık Değişimi", category: "LED Bakım" },
-  { title: "Tente Kumaş Yenileme", category: "Renk Yenileme" }
+  { title: "Tente Kumaş Temizleme", category: "Renk Yenileme" }
 ];
 
 const projects = [
@@ -88,35 +89,34 @@ export default function HomePage() {
             <div className="hero-stats">
               <div className="stat-box"><strong>500+</strong><span>Mutlu Müşteri</span></div>
               <div className="stat-box"><strong>2000+</strong><span>Temizlenen Sistem</span></div>
-              <div className="stat-box"><strong>%95</strong><span>Memnuniyet Oranı</span></div>
+              <div className="stat-box"><strong>%95+</strong><span>Memnuniyet Oranı</span></div>
             </div>
           </div>
         </section>
 
-        <section id="hakkimizda" className="section">
+        <section id="hakkimizda" className="dark-hero" style={{ padding: "120px 0", textAlign: "center" }}>
           <div className="container">
-            <div className="section-title-wrap">
-              <span className="eyebrow">Marka Pozisyonu</span>
-              <h2 className="heading-lg">Pergole kumaşınızı değiştirmeyin. Yerinde profesyonel temizlik ile yenileyin.</h2>
-              <p className="lead">
-                En büyük kozumuz net: kumaş değişiminde söküm + yeni kumaş + montaj maliyeti
-                oluşur, 50 m² için ortalama 70.000 – 90.000 TL bandına çıkılır ve mekan çoğu zaman
-                3 gün boyunca açık kalır ya da verimsiz çalışır. PergoClean ise söküm gerektirmeden,
-                iş kaybını azaltarak, aynı gün uygulama mantığıyla hareket eder.
+            <div className="section-title-wrap" style={{ margin: "0 auto", maxWidth: 900 }}>
+              <span className="eyebrow" style={{ background: "rgba(255,255,255,0.1)", color: "#ffb11a", marginBottom: 20 }}>Marka Pozisyonu</span>
+              <h2 className="heading-xl text-gradient" style={{ marginBottom: 30 }}>Pergole kumaşınızı değiştirmeyin.<br/>Yerinde profesyonel temizlik ile yenileyin.</h2>
+              <p className="lead" style={{ color: "rgba(255,255,255,0.9)", fontSize: "1.2rem", margin: "0 auto" }}>
+                En büyük kozumuz net: kumaş değişiminde söküm + yeni kumaş + montaj maliyeti oluşur,
+                <strong> 50 m² için ortalama 70.000 – 90.000 TL bandına çıkılır</strong> ve mekan çoğu zaman 3 gün boyunca açık kalır ya da verimsiz çalışır.
+              </p>
+              <p className="lead" style={{ color: "var(--brand)", fontSize: "1.3rem", fontWeight: 700, margin: "20px auto 40px" }}>
+                PergoClean ise söküm gerektirmeden, iş kaybını azaltarak, aynı gün uygulama mantığıyla hareket eder.
               </p>
             </div>
 
             <div className="grid kpi-grid">
-              <div className="card kpi-card"><h3 className="heading-md">%70-80 Tasarruf</h3><p className="lead">Değişim yerine yerinde temizlik ile ekonomik çözüm.</p></div>
-              <div className="card kpi-card"><h3 className="heading-md">Söküm Yok</h3><p className="lead">Mekan üstü açık kalmaz, ekstra operasyon yükü oluşmaz.</p></div>
-              <div className="card kpi-card"><h3 className="heading-md">Aynı Gün İşlem</h3><p className="lead">Planlı saha ekibiyle hızlı keşif ve kısa uygulama süresi.</p></div>
-              <div className="card kpi-card"><h3 className="heading-md">%80-90 Yenilenme</h3><p className="lead">Teknik kumaşlarda ilk günkü görünüme yakın güçlü sonuç.</p></div>
+              <div className="luxury-card card" style={{ padding: 32 }}><h3 className="heading-md" style={{ color: "#ffb11a" }}>%70-80 Tasarruf</h3><p style={{ color: "rgba(255,255,255,0.7)", margin: 0 }}>Değişim yerine yerinde temizlik ile ekonomik çözüm.</p></div>
+              <div className="luxury-card card" style={{ padding: 32 }}><h3 className="heading-md" style={{ color: "#ffb11a" }}>Söküm Yok</h3><p style={{ color: "rgba(255,255,255,0.7)", margin: 0 }}>Mekan üstü açık kalmaz, ekstra operasyon yükü oluşmaz.</p></div>
+              <div className="luxury-card card" style={{ padding: 32 }}><h3 className="heading-md" style={{ color: "#ffb11a" }}>Aynı Gün İşlem</h3><p style={{ color: "rgba(255,255,255,0.7)", margin: 0 }}>Planlı saha ekibiyle hızlı keşif ve kısa uygulama süresi.</p></div>
+              <div className="luxury-card card" style={{ padding: 32 }}><h3 className="heading-md" style={{ color: "#ffb11a" }}>%80-90 Yenilenme</h3><p style={{ color: "rgba(255,255,255,0.7)", margin: 0 }}>Teknik kumaşlarda ilk günkü görünüme yakın güçlü sonuç.</p></div>
             </div>
 
-            <div className="notice" style={{ marginTop: 28 }}>
-              Kumaş değişimi genellikle mekanın 1 gün söküm, 1 gün kumaş işlemi, 1 gün tekrar montaj
-              nedeniyle toplam 3 gün verimsiz kalmasına yol açar. Bu, özellikle restoran, kafe ve otel
-              işletmelerinde doğrudan ciro kaybı demektir.
+            <div className="notice luxury-card" style={{ marginTop: 40, border: "1px solid rgba(239,68,68,0.4)", color: "#fca5a5", fontSize: "1.1rem" }}>
+              Kumaş değişimi genellikle mekanın 1 gün söküm, 1 gün kumaş işlemi, 1 gün tekrar montaj nedeniyle toplam <strong>3 gün verimsiz kalmasına</strong> yol açar. Bu, özellikle restoran, kafe ve otel işletmelerinde doğrudan ciro kaybı demektir.
             </div>
           </div>
         </section>
@@ -169,26 +169,25 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="section-tight">
+        <section className="dark-hero" style={{ padding: "80px 0" }}>
           <div className="container">
-            <div className="section-title-wrap">
-              <span className="eyebrow">Önce / Sonra</span>
-              <h2 className="heading-lg">Farkı Gözlerinizle Görün</h2>
-              <p className="lead">Karşılaştırma kartları üzerinden temizlik ve bakım farkını hızlıca anlatan dönüşüm odaklı yapı.</p>
+            <div className="section-title-wrap" style={{ textAlign: "center", margin: "0 auto 40px" }}>
+              <span className="eyebrow" style={{ background: "rgba(255,255,255,0.1)", color: "#14b8a6" }}>Önce / Sonra</span>
+              <h2 className="heading-lg text-gradient">Farkı Gözlerinizle Görün</h2>
             </div>
 
             <div className="grid compare-grid">
               {compareItems.map((item) => (
-                <article key={item.title} className="card compare-card">
+                <article key={item.title} className="cinematic-slider">
                   <div className="compare-image">
                     <div className="compare-split">
                       <div className="compare-before"><span className="badge" style={{ background: "#ff6b35" }}>ÖNCE</span></div>
                       <div className="compare-after" style={{ justifyContent: "end" }}><span className="badge" style={{ background: "#10b981" }}>SONRA</span></div>
                     </div>
                   </div>
-                  <div className="compare-content">
-                    <h3>{item.title}</h3>
-                    <p className="form-note">{item.category}</p>
+                  <div className="compare-content" style={{ background: "#0f172a", color: "white" }}>
+                    <h3 style={{ margin: "0 0 4px" }}>{item.title}</h3>
+                    <p style={{ color: "rgba(255,255,255,0.6)", margin: 0, fontSize: "0.9rem" }}>{item.category}</p>
                   </div>
                 </article>
               ))}
@@ -198,34 +197,16 @@ export default function HomePage() {
 
         <section id="fiyat-hesapla" className="section">
           <div className="container">
-            <div className="card price-wrap">
-              <aside className="price-side">
-                <h2 className="heading-lg" style={{ color: "white", fontSize: "3rem" }}>Anında Fiyat Hesaplayın</h2>
-                <p>Pergola, Rolling Roof, BioClimatic, CamTavan, ZipPerde ve tente ölçülerinizi girin; n8n destekli teklif akışını tetikleyin.</p>
-                <div className="price-stat">500+</div><p>Mutlu müşteri</p>
-                <div className="price-stat">2000+</div><p>Temizlenen pergola</p>
-                <div className="price-stat">%95</div><p>Memnuniyet oranı</p>
+            <div className="card price-wrap" style={{ boxShadow: "0 30px 60px rgba(0,0,0,0.15)" }}>
+              <aside className="price-side" style={{ background: "linear-gradient(135deg, #020617 0%, #1e293b 100%)" }}>
+                <h2 className="heading-lg text-gradient" style={{ fontSize: "3rem" }}>Anında Fiyat Hesaplayın</h2>
+                <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.1rem" }}>Pergola, Rolling Roof, BioClimatic, CamTavan, ZipPerde ve tente ölçülerinizi girin, anında tahmini tutarı görün.</p>
+                <div className="price-stat">500+</div><p style={{ color: "rgba(255,255,255,0.6)" }}>Mutlu müşteri</p>
+                <div className="price-stat">2000+</div><p style={{ color: "rgba(255,255,255,0.6)" }}>Temizlenen sistem</p>
+                <div className="price-stat">%95+</div><p style={{ color: "rgba(255,255,255,0.6)" }}>Memnuniyet oranı</p>
               </aside>
 
-              <div className="price-form">
-                <div className="notice" style={{ marginBottom: 20 }}>
-                  Hafif kirlilik {pricing.light} TL/m² · Orta kirlilik {pricing.medium} TL/m² · Ağır / kurumsal hizmet {pricing.heavy} TL/m²
-                </div>
-
-                <LeadForm
-                  endpoint="/api/lead/quote"
-                  submitLabel="Fiyat Teklifi Al"
-                  extraText="n8n otomasyonu ile anında WhatsApp ve e-posta fiyat teklifi akışı için hazırlandı."
-                  fields={[
-                    { name: "genislik", label: "Genişlik (m)", required: true },
-                    { name: "uzunluk", label: "Uzunluk (m)", required: true },
-                    { name: "kirlilik", label: "Kirlilik Seviyesi", required: true, options: ["Hafif Kirlilik", "Orta Kirlilik", "Ağır / Kurumsal Hizmet"] },
-                    { name: "adSoyad", label: "Adınız Soyadınız", required: true },
-                    { name: "telefon", label: "Telefon", required: true, type: "tel" },
-                    { name: "email", label: "E-posta", type: "email" }
-                  ]}
-                />
-              </div>
+              <PricingCalculator endpoint="/api/lead/quote" />
             </div>
           </div>
         </section>
@@ -258,25 +239,24 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="portfolio" className="section">
+        <section id="portfolio" className="section" style={{ background: "#f8fafc" }}>
           <div className="container">
             <div className="portfolio-top">
               <div className="section-title-wrap">
                 <span className="eyebrow">Referans İşlerimiz</span>
                 <h2 className="heading-lg">Tamamlanan Projeler</h2>
-                <p className="lead">Ankara ve çevresinde gerçekleştirilmiş projelerin modern vitrin düzeni.</p>
-              </div>
-              <div className="chips">
-                <span className="chip active">Tümü</span><span className="chip">Pergola Temizlik</span><span className="chip">Tente Temizlik</span><span className="chip">Bioclimatic Temizlik</span><span className="chip">RollingRoof Temizlik</span><span className="chip">ZipPerde Temizlik</span><span className="chip">LED Değişim</span>
+                <p className="lead">Premium vitrin düzeni ile projelerimizi inceleyin.</p>
               </div>
             </div>
 
             <div className="grid portfolio-grid">
               {projects.map((project, index) => (
-                <article key={project.title}>
-                  <div className="project-cover" style={{ backgroundImage: `linear-gradient(135deg, rgba(7,21,46,.12), rgba(19,179,163,.14)), url(https://images.unsplash.com/photo-${["1505693416388-ac5ce068fe85","1513694203232-719a280e022f","1494526585095-c41746248156","1448630360428-65456885c650"][index]}?auto=format&fit=crop&w=900&q=80)`, backgroundSize: "cover", backgroundPosition: "center" }} />
-                  <h3>{project.title}</h3>
-                  <p className="form-note">{project.meta}</p>
+                <article key={project.title} className="hover-showcase">
+                  <div className="project-cover" style={{ backgroundImage: `url(https://images.unsplash.com/photo-${["1505693416388-ac5ce068fe85","1513694203232-719a280e022f","1494526585095-c41746248156","1448630360428-65456885c650"][index]}?auto=format&fit=crop&w=900&q=80)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+                  <div className="hover-showcase-overlay">
+                    <h3>{project.title}</h3>
+                    <p>{project.meta}</p>
+                  </div>
                 </article>
               ))}
             </div>
@@ -467,8 +447,16 @@ export default function HomePage() {
                 <p><strong>WhatsApp:</strong> {siteConfig.phoneSecondary}</p>
                 <p><strong>E-posta:</strong> {siteConfig.email}</p>
                 <p><strong>Web:</strong> www.pergoclean.com.tr</p>
-                <div className="project-cover" style={{ marginTop: 18, aspectRatio: "16/10", display: "grid", placeItems: "center", color: "#334155", fontWeight: 700 }}>
-                  Harita Alanı
+                <div className="project-cover" style={{ marginTop: 18, aspectRatio: "16/10", overflow: "hidden", borderRadius: 16 }}>
+                  <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3058.4610118559387!2d32.76632427659424!3d39.95344397151745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d3493e878479e5%3A0xcdaaa763ed404c06!2sTimko%20Sokak%20Makina%20Otomotiv%20G%C4%B1da%20Sanayi%20B%C3%B6lgesi!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" 
+                    width="100%" 
+                    height="100%" 
+                    style={{ border: 0 }} 
+                    allowFullScreen={false} 
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
                 </div>
               </article>
             </div>
