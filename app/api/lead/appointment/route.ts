@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { postWebhook } from "@/lib/utils";
-import { checkRateLimit, sanitizePayload, checkHoneypot, logRequest, baseFormSchema } from "@/lib/api-security";
+import { checkRateLimit, sanitizePayload, checkHoneypot, baseFormSchema } from "@/lib/api-security";
 import { z } from "zod";
+import { sendWebhookWithRetry } from "@/lib/webhook-client";
+import { buildStandardPayload } from "@/lib/payload-utils";
+import { logEvent } from "@/lib/monitoring";
 
 const appointmentSchema = baseFormSchema.extend({
   tarih: z.string().min(1, "Tarih alanı zorunludur."),
@@ -10,6 +12,10 @@ const appointmentSchema = baseFormSchema.extend({
 });
 
 export async function POST(request: Request) {
+  if (request.headers.get("content-type") !== "application/json") {
+    return NextResponse.json({ message: "Geçersiz istek tipi." }, { status: 400 });
+  }
+
   const ip = request.headers.get("x-forwarded-for") || "unknown";
 
   if (!checkRateLimit(ip)) {
@@ -26,31 +32,25 @@ export async function POST(request: Request) {
     const parsedBody = appointmentSchema.safeParse(rawBody);
     if (!parsedBody.success) {
       const errorMessage = parsedBody.error.issues.map(e => e.message).join(", ");
+      logEvent("validationFailed", { endpoint: "/api/lead/appointment", error: errorMessage, ip });
       return NextResponse.json({ message: errorMessage }, { status: 400 });
     }
 
     const cleanBody = sanitizePayload(parsedBody.data);
+    const payload = buildStandardPayload("appointment", cleanBody, request, ip);
 
-    const payload = {
-      source: "pergoclean-web",
-      type: "appointment",
-      createdAt: new Date().toISOString(),
-      data: cleanBody
-    };
+    logEvent("leadSubmitted", { endpoint: "/api/lead/appointment", payloadType: "appointment" });
 
-    logRequest("/api/lead/appointment", cleanBody, ip);
-
-    await postWebhook(process.env.APPOINTMENT_WEBHOOK_URL, payload);
+    await sendWebhookWithRetry(process.env.N8N_WEBHOOK_APPOINTMENT_URL, payload);
 
     return NextResponse.json({
       success: true,
-      message: "Randevu talebiniz kaydedildi.",
-      payload
+      message: "Randevu talebiniz kaydedildi."
     });
   } catch (error) {
-    console.error("Appointment API Error:", error);
+    logEvent("webhookFailed", { endpoint: "/api/lead/appointment", reason: "Sunucu hatası", error: String(error) });
     return NextResponse.json(
-      { message: "Sunucu hatası oluştu." },
+      { message: "İşlem sırasında bir hata oluştu." },
       { status: 500 }
     );
   }

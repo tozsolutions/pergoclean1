@@ -61,8 +61,8 @@ export function logRequest(endpoint: string, payload: any, ip: string = "unknown
 
 // Base Zod Schema that can be extended
 export const baseFormSchema = z.object({
-  adSoyad: z.string().min(2, "Ad Soyad en az 2 karakter olmalıdır.").max(100),
-  telefon: z.string().min(10, "Geçerli bir telefon numarası giriniz.").max(20),
-  email: z.string().email("Geçerli bir e-posta adresi giriniz.").optional().or(z.literal("")),
+  adSoyad: z.string().trim().min(2, "Ad Soyad en az 2 karakter olmalıdır.").max(100),
+  telefon: z.string().trim().min(10, "Geçerli bir telefon numarası giriniz.").max(20),
+  email: z.string().trim().email("Geçerli bir e-posta adresi giriniz.").optional().or(z.literal("")),
   _honey: z.string().optional()
 });

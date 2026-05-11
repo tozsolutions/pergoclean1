@@ -182,7 +182,7 @@ export default function HomePage() {
                   <div className="compare-image">
                     <div className="compare-split">
                       <div className="compare-before"><span className="badge" style={{ background: "#ff6b35" }}>ÖNCE</span></div>
-                      <div className="compare-after" style={{ justifyContent: "end" }}><span className="badge" style={{ background: "#10b981" }}>SONRA</span></div>
+                      <div className="compare-after" style={{ justifyContent: "flex-end" }}><span className="badge" style={{ background: "#10b981" }}>SONRA</span></div>
                     </div>
                   </div>
                   <div className="compare-content" style={{ background: "#0f172a", color: "white" }}>
@@ -252,7 +252,16 @@ export default function HomePage() {
             <div className="grid portfolio-grid">
               {projects.map((project, index) => (
                 <article key={project.title} className="hover-showcase">
-                  <div className="project-cover" style={{ backgroundImage: `url(https://images.unsplash.com/photo-${["1505693416388-ac5ce068fe85","1513694203232-719a280e022f","1494526585095-c41746248156","1448630360428-65456885c650"][index]}?auto=format&fit=crop&w=900&q=80)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+                  <div className="project-cover" style={{ position: "relative", width: "100%", height: "100%", minHeight: "250px" }}>
+                    <Image
+                      src={`https://images.unsplash.com/photo-${["1505693416388-ac5ce068fe85","1513694203232-719a280e022f","1494526585095-c41746248156","1448630360428-65456885c650"][index]}?auto=format&fit=crop&w=900&q=80`}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      style={{ objectFit: "cover" }}
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="hover-showcase-overlay">
                     <h3>{project.title}</h3>
                     <p>{project.meta}</p>
@@ -319,7 +328,17 @@ export default function HomePage() {
 
             <div className="blog-feature">
               <article className="card blog-feature-card">
-                <div className="cover cover-tall" style={{ backgroundImage: "linear-gradient(135deg, rgba(7,21,46,.14), rgba(19,179,163,.18)), url(https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80)", backgroundSize: "cover", backgroundPosition: "center" }} />
+                <div className="cover cover-tall" style={{ position: "relative", width: "100%", height: "100%", minHeight: "300px" }}>
+                  <Image
+                    src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80"
+                    alt="Blog Feature"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    style={{ objectFit: "cover" }}
+                    loading="lazy"
+                  />
+                  <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(135deg, rgba(7,21,46,.14), rgba(19,179,163,.18))" }} />
+                </div>
               </article>
               <article className="card blog-feature-card">
                 <div className="blog-content">
@@ -337,7 +356,17 @@ export default function HomePage() {
             <div className="grid blog-grid">
               {blogPosts.map((post, index) => (
                 <article key={post} className="card blog-card">
-                  <div className="cover" style={{ backgroundImage: `linear-gradient(135deg, rgba(7,21,46,.08), rgba(19,179,163,.15)), url(https://images.unsplash.com/photo-${["1494526585095-c41746248156","1513694203232-719a280e022f","1448630360428-65456885c650","1484154218962-a197022b5858","1505693416388-ac5ce068fe85","1523413651479-597eb2da0ad6"][index]}?auto=format&fit=crop&w=900&q=80)`, backgroundSize: "cover", backgroundPosition: "center" }} />
+                  <div className="cover" style={{ position: "relative", width: "100%", minHeight: "200px" }}>
+                    <Image
+                      src={`https://images.unsplash.com/photo-${["1494526585095-c41746248156","1513694203232-719a280e022f","1448630360428-65456885c650","1484154218962-a197022b5858","1505693416388-ac5ce068fe85","1523413651479-597eb2da0ad6"][index]}?auto=format&fit=crop&w=900&q=80`}
+                      alt={post}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      style={{ objectFit: "cover" }}
+                      loading="lazy"
+                    />
+                    <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(135deg, rgba(7,21,46,.08), rgba(19,179,163,.15))" }} />
+                  </div>
                   <div className="blog-content">
                     <span className="badge" style={{ background: "rgba(255,177,26,.14)", color: "#8a5e00" }}>Blog</span>
                     <h3>{post}</h3>

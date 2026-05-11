@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { postWebhook } from "@/lib/utils";
-import { checkRateLimit, sanitizePayload, checkHoneypot, logRequest, baseFormSchema } from "@/lib/api-security";
+import { checkRateLimit, sanitizePayload, checkHoneypot, baseFormSchema } from "@/lib/api-security";
 import { z } from "zod";
+import { sendWebhookWithRetry } from "@/lib/webhook-client";
+import { buildStandardPayload } from "@/lib/payload-utils";
+import { logEvent } from "@/lib/monitoring";
 
 const quoteSchema = baseFormSchema.extend({
   sistemTipi: z.string().min(1, "Sistem tipi seçilmelidir."),
@@ -11,7 +13,10 @@ const quoteSchema = baseFormSchema.extend({
 });
 
 export async function POST(request: Request) {
-  // Get IP for rate limiting (fallback to unknown)
+  if (request.headers.get("content-type") !== "application/json") {
+    return NextResponse.json({ message: "Geçersiz istek tipi." }, { status: 400 });
+  }
+
   const ip = request.headers.get("x-forwarded-for") || "unknown";
 
   if (!checkRateLimit(ip)) {
@@ -21,43 +26,35 @@ export async function POST(request: Request) {
   try {
     const rawBody = await request.json();
 
-    // Honeypot check
     if (!checkHoneypot(rawBody)) {
-      // Return 200 to fool bots
       return NextResponse.json({ success: true, message: "Talebiniz alındı." }, { status: 200 });
     }
 
-    // Zod validation
     const parsedBody = quoteSchema.safeParse(rawBody);
     if (!parsedBody.success) {
       const errorMessage = parsedBody.error.issues.map(e => e.message).join(", ");
+      logEvent("validationFailed", { endpoint: "/api/lead/quote", error: errorMessage, ip });
       return NextResponse.json({ message: errorMessage }, { status: 400 });
     }
 
-    // Sanitization
     const cleanBody = sanitizePayload(parsedBody.data);
+    const payload = buildStandardPayload("quote", cleanBody, request, ip);
 
-    const payload = {
-      source: "pergoclean-web",
-      type: "quote",
-      createdAt: new Date().toISOString(),
-      data: cleanBody
-    };
+    logEvent("leadSubmitted", { endpoint: "/api/lead/quote", payloadType: "quote" });
 
-    // Logging
-    logRequest("/api/lead/quote", cleanBody, ip);
-
-    await postWebhook(process.env.QUOTE_WEBHOOK_URL, payload);
+    // Send with robust retry mechanism
+    await sendWebhookWithRetry(process.env.N8N_WEBHOOK_QUOTE_URL, payload);
 
     return NextResponse.json({
       success: true,
-      message: "Teklif talebiniz kaydedildi.",
-      payload
+      message: "Teklif talebiniz kaydedildi."
     });
   } catch (error) {
-    console.error("Quote API Error:", error);
+    logEvent("webhookFailed", { endpoint: "/api/lead/quote", reason: "Sunucu hatası", error: String(error) });
+    // We still return 200 to user if it's a webhook error handled inside the queue,
+    // but if the JSON parsing itself fails, it drops here.
     return NextResponse.json(
-      { message: "Sunucu hatası oluştu." },
+      { message: "İşlem sırasında bir hata oluştu." },
       { status: 500 }
     );
   }

@@ -1,13 +1,19 @@
 import { NextResponse } from "next/server";
-import { postWebhook } from "@/lib/utils";
-import { checkRateLimit, sanitizePayload, checkHoneypot, logRequest, baseFormSchema } from "@/lib/api-security";
+import { checkRateLimit, sanitizePayload, checkHoneypot, baseFormSchema } from "@/lib/api-security";
 import { z } from "zod";
+import { sendWebhookWithRetry } from "@/lib/webhook-client";
+import { buildStandardPayload } from "@/lib/payload-utils";
+import { logEvent } from "@/lib/monitoring";
 
 const photoSchema = baseFormSchema.extend({
   detay: z.string().optional()
 });
 
 export async function POST(request: Request) {
+  if (request.headers.get("content-type") !== "application/json") {
+    return NextResponse.json({ message: "Geçersiz istek tipi." }, { status: 400 });
+  }
+
   const ip = request.headers.get("x-forwarded-for") || "unknown";
 
   if (!checkRateLimit(ip)) {
@@ -24,31 +30,25 @@ export async function POST(request: Request) {
     const parsedBody = photoSchema.safeParse(rawBody);
     if (!parsedBody.success) {
       const errorMessage = parsedBody.error.issues.map(e => e.message).join(", ");
+      logEvent("validationFailed", { endpoint: "/api/lead/photo", error: errorMessage, ip });
       return NextResponse.json({ message: errorMessage }, { status: 400 });
     }
 
     const cleanBody = sanitizePayload(parsedBody.data);
+    const payload = buildStandardPayload("photo", cleanBody, request, ip);
 
-    const payload = {
-      source: "pergoclean-web",
-      type: "photo",
-      createdAt: new Date().toISOString(),
-      data: cleanBody
-    };
+    logEvent("leadSubmitted", { endpoint: "/api/lead/photo", payloadType: "photo" });
 
-    logRequest("/api/lead/photo", cleanBody, ip);
-
-    await postWebhook(process.env.PHOTO_WEBHOOK_URL, payload);
+    await sendWebhookWithRetry(process.env.N8N_WEBHOOK_PHOTO_URL, payload);
 
     return NextResponse.json({
       success: true,
-      message: "Fotoğraf ön talebiniz kaydedildi.",
-      payload
+      message: "Fotoğraf ön talebiniz kaydedildi."
     });
   } catch (error) {
-    console.error("Photo API Error:", error);
+    logEvent("webhookFailed", { endpoint: "/api/lead/photo", reason: "Sunucu hatası", error: String(error) });
     return NextResponse.json(
-      { message: "Sunucu hatası oluştu." },
+      { message: "İşlem sırasında bir hata oluştu." },
       { status: 500 }
     );
   }
