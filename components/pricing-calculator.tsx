@@ -10,11 +10,12 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
   const [adSoyad, setAdSoyad] = useState("");
   const [telefon, setTelefon] = useState("");
   const [email, setEmail] = useState("");
-  
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+  // Only Pergola group needs ECO/PLUS package selection
   const needsPackage = systemType === "pergola";
+  // These systems require site inspection → "Fiyat Alınız"
   const showPriceInfo = ["cam_tavan", "gunes_paneli"].includes(systemType);
 
   let calculatedPrice: number | null = null;
@@ -32,7 +33,9 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
     setIsLoading(true);
     setMessage("");
 
-    // Create a form data object based on inputs
+    const formElement = e.target as HTMLFormElement;
+    const formData = new FormData(formElement);
+
     const payload: any = {
       sistemTipi: systemType,
       paketTipi: needsPackage ? packageType : "N/A",
@@ -40,26 +43,19 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
       adSoyad,
       telefon,
       email,
-      hesaplananFiyat: calculatedPrice ? `${calculatedPrice} TL` : "Fiyat Alınız"
+      hesaplananFiyat: calculatedPrice ? `${calculatedPrice} TL` : "Fiyat Alınız",
+      _honey: formData.get("_honey"),
     };
-
-    // Include honeypot field value by creating a hidden ref or directly attaching it
-    // Wait, the honeypot is naturally picked up if it's in the form.
-    const formElement = e.target as HTMLFormElement;
-    const formData = new FormData(formElement);
-    payload._honey = formData.get("_honey");
 
     try {
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.message || "Gönderim başarısız.");
-      setMessage("Talebiniz alındı. WhatsApp veya E-posta üzerinden detaylı teklifiniz iletilecektir.");
-      
-      // reset form mostly
+      setMessage("Talebiniz alındı. WhatsApp veya e-posta ile detaylı teklifiniz iletilecektir.");
       setM2("");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Bir hata oluştu.");
@@ -71,6 +67,7 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
   return (
     <div className="card price-form" style={{ padding: 34, background: "rgba(255,255,255,.90)" }}>
       <form onSubmit={handleSubmit} className="grid" style={{ gap: 16 }}>
+        {/* Sistem Tipi */}
         <label>
           <span style={{ display: "block", marginBottom: 8, fontWeight: 700 }}>Sistem Tipi</span>
           <select className="select" required value={systemType} onChange={(e) => setSystemType(e.target.value)}>
@@ -82,68 +79,90 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
           </select>
         </label>
 
+        {/* Paket Seçimi - Sadece Pergola grubu için */}
         {needsPackage && (
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-            <label style={{ 
-              border: `2px solid ${packageType === "eco" ? "var(--brand)" : "var(--line)"}`, 
-              padding: 12, borderRadius: 12, cursor: "pointer", background: packageType === "eco" ? "rgba(19,179,163,.05)" : "white" 
-            }}>
-              <input 
-                type="radio" name="package" value="eco" 
-                checked={packageType === "eco"} 
-                onChange={() => setPackageType("eco")} 
-                style={{ display: "none" }} 
-              />
-              <strong style={{ display: "block", color: "var(--brand-dark)" }}>ECO Paket</strong>
-              <span className="form-note" style={{ fontSize: "0.8rem" }}>Hafif kir, toz, rutin bakım.</span>
-            </label>
-            <label style={{ 
-              border: `2px solid ${packageType === "plus" ? "var(--accent)" : "var(--line)"}`, 
-              padding: 12, borderRadius: 12, cursor: "pointer", background: packageType === "plus" ? "rgba(255,177,26,.05)" : "white" 
-            }}>
-              <input 
-                type="radio" name="package" value="plus" 
-                checked={packageType === "plus"} 
-                onChange={() => setPackageType("plus")} 
-                style={{ display: "none" }} 
-              />
-              <strong style={{ display: "block", color: "#a96f00" }}>PLUS Paket</strong>
-              <span className="form-note" style={{ fontSize: "0.8rem" }}>Ağır kir, yıllanmış, yağ, is.</span>
-            </label>
+          <div>
+            <span style={{ display: "block", marginBottom: 8, fontWeight: 700 }}>Kirlilik Seviyesi / Paket</span>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <label style={{
+                border: `2px solid ${packageType === "eco" ? "var(--brand)" : "var(--line)"}`,
+                padding: 14, borderRadius: 14, cursor: "pointer",
+                background: packageType === "eco" ? "rgba(19,179,163,.06)" : "white"
+              }}>
+                <input type="radio" name="package" value="eco"
+                  checked={packageType === "eco"}
+                  onChange={() => setPackageType("eco")}
+                  style={{ display: "none" }}
+                />
+                <strong style={{ display: "block", color: "var(--brand-dark)", marginBottom: 4 }}>ECO Paket</strong>
+                <span className="form-note" style={{ fontSize: "0.8rem" }}>Hafif kir, toz, düzenli bakım.</span>
+                <span style={{ display: "block", marginTop: 6, fontWeight: 800, color: "var(--brand-dark)", fontSize: "0.95rem" }}>
+                  350 TL/m² · Min. 5.000 TL
+                </span>
+              </label>
+              <label style={{
+                border: `2px solid ${packageType === "plus" ? "var(--accent)" : "var(--line)"}`,
+                padding: 14, borderRadius: 14, cursor: "pointer",
+                background: packageType === "plus" ? "rgba(255,177,26,.06)" : "white"
+              }}>
+                <input type="radio" name="package" value="plus"
+                  checked={packageType === "plus"}
+                  onChange={() => setPackageType("plus")}
+                  style={{ display: "none" }}
+                />
+                <strong style={{ display: "block", color: "#a96f00", marginBottom: 4 }}>PLUS Paket</strong>
+                <span className="form-note" style={{ fontSize: "0.8rem" }}>Ağır kir, yağ, is, yıllanmış.</span>
+                <span style={{ display: "block", marginTop: 6, fontWeight: 800, color: "#a96f00", fontSize: "0.95rem" }}>
+                  450 TL/m² · Min. 7.500 TL
+                </span>
+              </label>
+            </div>
           </div>
         )}
 
+        {/* m² alanı - Fiyat Alınız sistemleri hariç */}
         {!showPriceInfo && systemType !== "" && (
           <label>
             <span style={{ display: "block", marginBottom: 8, fontWeight: 700 }}>Toplam Alan (m²)</span>
-            <input 
-              className="input" type="number" min="1" required 
-              value={m2} onChange={(e) => setM2(e.target.value ? Number(e.target.value) : "")} 
+            <input
+              className="input" type="number" min="1" max="9999" required
+              value={m2} onChange={(e) => setM2(e.target.value ? Number(e.target.value) : "")}
               placeholder="Örn: 25"
             />
+            {systemType === "zip" && (
+              <span className="form-note">0–10 m² arası sabit 2.500 TL, üzeri 250 TL/m²</span>
+            )}
           </label>
         )}
 
+        {/* Tahmini fiyat gösterimi */}
         {calculatedPrice !== null && !showPriceInfo && (
-          <div style={{ padding: 18, background: "rgba(19,179,163,.1)", borderRadius: 12, textAlign: "center" }}>
+          <div style={{ padding: 20, background: "rgba(19,179,163,.1)", borderRadius: 14, textAlign: "center", border: "1px solid rgba(19,179,163,.2)" }}>
             <span className="eyebrow" style={{ background: "transparent", color: "var(--brand-dark)", padding: 0 }}>Tahmini Tutar</span>
-            <div style={{ fontSize: "2.5rem", fontWeight: 800, color: "var(--text)", lineHeight: 1, marginTop: 8 }}>
+            <div style={{ fontSize: "2.6rem", fontWeight: 800, color: "var(--text)", lineHeight: 1, marginTop: 8 }}>
               {calculatedPrice.toLocaleString("tr-TR")} TL
             </div>
-            {systemType === "pergola" && packageType === "eco" && (m2 as number) <= 15 && <span className="form-note">0-15 m² arası sabit ECO fiyatı</span>}
-            {systemType === "pergola" && packageType === "plus" && (m2 as number) <= 15 && <span className="form-note">0-15 m² arası sabit PLUS fiyatı</span>}
-            {systemType === "zip" && (m2 as number) <= 10 && <span className="form-note">0-10 m² arası sabit fiyat</span>}
+            {systemType === "pergola" && packageType === "eco" && (m2 as number) <= 15 &&
+              <span className="form-note">0–15 m² arası sabit ECO fiyatı geçerlidir.</span>}
+            {systemType === "pergola" && packageType === "plus" && (m2 as number) <= 15 &&
+              <span className="form-note">0–15 m² arası sabit PLUS fiyatı geçerlidir.</span>}
+            {systemType === "zip" && (m2 as number) <= 10 &&
+              <span className="form-note">0–10 m² arası sabit ZipPerde fiyatı geçerlidir.</span>}
           </div>
         )}
 
+        {/* Fiyat Alınız ekranı */}
         {showPriceInfo && (
-          <div style={{ padding: 18, background: "rgba(31,41,55,.05)", borderRadius: 12, textAlign: "center" }}>
+          <div style={{ padding: 20, background: "rgba(31,41,55,.05)", borderRadius: 14, textAlign: "center", border: "1px solid rgba(0,0,0,.08)" }}>
             <div style={{ fontSize: "1.8rem", fontWeight: 800, color: "var(--text)", lineHeight: 1 }}>Fiyat Alınız</div>
-            <span className="form-note">Bu sistem için keşif yapılarak özel fiyat verilmektedir.</span>
+            <span className="form-note" style={{ marginTop: 8, display: "block" }}>
+              Bu sistem için keşif yapılarak özel fiyat belirlenmektedir.
+            </span>
           </div>
         )}
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 14, marginTop: 8 }}>
+        {/* Kişisel bilgiler */}
+        <div style={{ display: "grid", gap: 14 }}>
           <label>
             <span style={{ display: "block", marginBottom: 6, fontWeight: 700, fontSize: "0.9rem" }}>Adınız Soyadınız</span>
             <input className="input" type="text" required value={adSoyad} onChange={e => setAdSoyad(e.target.value)} />
@@ -158,16 +177,25 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
           </label>
         </div>
 
+        {/* Honeypot */}
         <input type="text" name="_honey" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
 
-        <button className="btn btn-accent" type="submit" disabled={isLoading} style={{ marginTop: 10, minHeight: 56, fontSize: "1.1rem" }}>
-          {isLoading ? "Hesaplanıyor..." : "Fiyat Teklifi Al"}
+        <button className="btn btn-accent" type="submit" disabled={isLoading}
+          style={{ marginTop: 10, minHeight: 56, fontSize: "1.1rem" }}>
+          {isLoading ? "Gönderiliyor..." : "Hemen Teklif Al →"}
         </button>
+
         <p className="form-note" style={{ textAlign: "center" }}>
-          n8n otomasyonu ile anında WhatsApp ve e-posta fiyat teklifi akışı.
+          Ücretsiz keşif ve fiyat teklifi. Söküm yok, aynı gün hizmet.
         </p>
+
         {message && (
-          <div style={{ padding: 14, background: message.includes("hata") ? "#fee2e2" : "#dcfce7", color: message.includes("hata") ? "#991b1b" : "#166534", borderRadius: 12, fontWeight: 500, textAlign: "center" }}>
+          <div style={{
+            padding: 14,
+            background: message.includes("hata") ? "#fee2e2" : "#dcfce7",
+            color: message.includes("hata") ? "#991b1b" : "#166534",
+            borderRadius: 12, fontWeight: 500, textAlign: "center"
+          }}>
             {message}
           </div>
         )}

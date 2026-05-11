@@ -9,13 +9,13 @@ export const siteConfig = {
   address:
     "Timko İş Merkezi, Macun Mahallesi 177. Cadde V8 Kat 1, Yenimahalle / Ankara",
   socials: [
-    { label: "LinkedIn", href: "https://linkedin.com/company/pergoclean" },
-    { label: "Instagram", href: "https://instagram.com/pergoclean.tr" },
-    { label: "TikTok", href: "https://tiktok.com/@pergoclean.tr" },
-    { label: "Pinterest", href: "https://pinterest.com/pergocleantr" },
-    { label: "YouTube", href: "https://youtube.com/@pergocleantr" },
-    { label: "Facebook", href: "https://facebook.com/pergoclean.tr" },
-    { label: "Twitter", href: "https://x.com/pergocleantr" }
+    { label: "LinkedIn", href: "http://linkedin.com/in/pergo-clean-33356a402" },
+    { label: "Instagram", href: "https://www.instagram.com/pergoclean.tr" },
+    { label: "TikTok", href: "https://www.tiktok.com/@pergoclean.tr" },
+    { label: "Pinterest", href: "https://tr.pinterest.com/pergocleantr" },
+    { label: "YouTube", href: "https://www.youtube.com/@PergoClean" },
+    { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61567359953530" },
+    { label: "Twitter", href: "https://x.com/PergoClean" }
   ]
 };
 

@@ -5,6 +5,36 @@ import { LeadForm } from "@/components/lead-form";
 import { PricingCalculator } from "@/components/pricing-calculator";
 import { siteConfig } from "@/lib/site";
 import Image from "next/image";
+import Script from "next/script";
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "PergoClean",
+  "description": "Pergola, bioclimatic, rolling roof, cam tavan, zip perde ve tente sistemleri için profesyonel yerinde temizlik ve bakım hizmetleri.",
+  "url": "https://www.pergoclean.com.tr",
+  "telephone": "+90-536-773-14-04",
+  "email": "pergoclean@tozyapi.com.tr",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Macun Mahallesi 177. Cadde V8 Kat 1",
+    "addressLocality": "Yenimahalle",
+    "addressRegion": "Ankara",
+    "addressCountry": "TR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 39.9534,
+    "longitude": 32.7663
+  },
+  "sameAs": [
+    "https://www.instagram.com/pergoclean.tr",
+    "https://www.youtube.com/@PergoClean",
+    "https://x.com/PergoClean"
+  ],
+  "openingHours": "Mo-Sa 08:00-18:00",
+  "priceRange": "₺₺"
+};
 
 const services = [
   { title: "Derin Temizlik", text: "Pergola RollingRoof BioClimatic CamTavan ZipPerde Tente kumaşlarınızdaki kir, yağ, duman ve buharlaşma kaynaklı atıkları profesyonel ekipmanlarla temizliyoruz." },
@@ -49,6 +79,11 @@ const faqs = [
 export default function HomePage() {
   return (
     <>
+      <Script
+        id="local-business-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
       <SiteHeader />
       <main>
         <section className="hero">
@@ -86,11 +121,11 @@ export default function HomePage() {
               </a>
             </div>
 
-            <div className="hero-stats">
-              <div className="stat-box"><strong>500+</strong><span>Mutlu Müşteri</span></div>
-              <div className="stat-box"><strong>2000+</strong><span>Temizlenen Sistem</span></div>
-              <div className="stat-box"><strong>%95+</strong><span>Memnuniyet Oranı</span></div>
-            </div>
+              <div className="hero-stats">
+                <div className="stat-box"><strong>500+</strong><span>Mutlu Müşteri</span></div>
+                <div className="stat-box"><strong>2000+</strong><span>Uygulama Tecrübesi</span></div>
+                <div className="stat-box"><strong>%95+</strong><span>Memnuniyet Oranı</span></div>
+              </div>
           </div>
         </section>
 
@@ -201,8 +236,24 @@ export default function HomePage() {
               <aside className="price-side" style={{ background: "linear-gradient(135deg, #020617 0%, #1e293b 100%)" }}>
                 <h2 className="heading-lg text-gradient" style={{ fontSize: "3rem" }}>Anında Fiyat Hesaplayın</h2>
                 <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.1rem" }}>Pergola, Rolling Roof, BioClimatic, CamTavan, ZipPerde ve tente ölçülerinizi girin, anında tahmini tutarı görün.</p>
+
+                {/* Trust Badges */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, margin: "20px 0" }}>
+                  {[
+                    { icon: "⚡", label: "Aynı Gün Hizmet" },
+                    { icon: "😊", label: "%95+ Memnuniyet" },
+                    { icon: "👥", label: "500+ Mutlu Müşteri" },
+                    { icon: "🏆", label: "2000+ Uygulama" },
+                  ].map(b => (
+                    <div key={b.label} style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 12, padding: "10px 12px", display: "flex", alignItems: "center", gap: 8 }}>
+                      <span style={{ fontSize: "1.2rem" }}>{b.icon}</span>
+                      <span style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.82rem", fontWeight: 600 }}>{b.label}</span>
+                    </div>
+                  ))}
+                </div>
+
                 <div className="price-stat">500+</div><p style={{ color: "rgba(255,255,255,0.6)" }}>Mutlu müşteri</p>
-                <div className="price-stat">2000+</div><p style={{ color: "rgba(255,255,255,0.6)" }}>Temizlenen sistem</p>
+                <div className="price-stat">2000+</div><p style={{ color: "rgba(255,255,255,0.6)" }}>Uygulama tecrübesi</p>
                 <div className="price-stat">%95+</div><p style={{ color: "rgba(255,255,255,0.6)" }}>Memnuniyet oranı</p>
               </aside>
 
@@ -323,7 +374,7 @@ export default function HomePage() {
             <div className="section-title-wrap">
               <span className="eyebrow" style={{ background: "rgba(34,197,94,.14)", color: "#15803d" }}>Blog Rehberleri</span>
               <h2 className="heading-lg">Uzman İpuçları & Bakım Rehberleri</h2>
-              <p className="lead">SEO omurgası güçlendirilmiş, Ankara ve Antalya odaklı blog mimarisi ile organik görünürlük hedeflendi.</p>
+              <p className="lead">Ankara ve çevresi odaklı blog rehberlerimizle sistemlerinizi daha uzun süre verimli kullanın.</p>
             </div>
 
             <div className="blog-feature">
@@ -401,7 +452,7 @@ export default function HomePage() {
                 {[0,1,2,3].map((i) => <div key={i} className="project-cover" style={{ aspectRatio: "1/1" }} />)}
               </div>
               <div style={{ marginTop: 18 }}>
-                <a className="btn btn-secondary" href="https://instagram.com/PergoClean" target="_blank">Instagram&apos;da Takip Et</a>
+                <a className="btn btn-secondary" href="https://www.instagram.com/pergoclean.tr" target="_blank" rel="noopener noreferrer">Instagram&apos;da Takip Et</a>
               </div>
             </div>
           </div>
@@ -476,15 +527,15 @@ export default function HomePage() {
                 <p><strong>WhatsApp:</strong> {siteConfig.phoneSecondary}</p>
                 <p><strong>E-posta:</strong> {siteConfig.email}</p>
                 <p><strong>Web:</strong> www.pergoclean.com.tr</p>
-                <div className="project-cover" style={{ marginTop: 18, aspectRatio: "16/10", overflow: "hidden", borderRadius: 16 }}>
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3058.4610118559387!2d32.76632427659424!3d39.95344397151745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d3493e878479e5%3A0xcdaaa763ed404c06!2sTimko%20Sokak%20Makina%20Otomotiv%20G%C4%B1da%20Sanayi%20B%C3%B6lgesi!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" 
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0 }} 
-                    allowFullScreen={false} 
-                    loading="lazy" 
+                {/* CLS-safe map container: explicit aspect-ratio prevents layout shift */}
+                <div style={{ marginTop: 18, position: "relative", width: "100%", aspectRatio: "16/9", borderRadius: 16, overflow: "hidden", background: "#e5e7eb" }}>
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3058.4610118559387!2d32.76632427659424!3d39.95344397151745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d3493e878479e5%3A0xcdaaa763ed404c06!2sTimko%20Sokak%20Makina%20Otomotiv%20G%C4%B1da%20Sanayi%20B%C3%B6lgesi!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str"
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+                    allowFullScreen={false}
+                    loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
+                    title="PergoClean Konum - Timko İş Merkezi, Yenimahalle Ankara"
                   />
                 </div>
               </article>
