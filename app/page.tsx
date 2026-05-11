@@ -41,7 +41,8 @@ const faqs = [
   ["LED değişimi de yapıyor musunuz?", "Evet. Arızalı veya eskimiş LED sistemleri için değişim ve renklendirme hizmeti veriyoruz."],
   ["Randevu nasıl alabilirim?", "WhatsApp, telefon ya da form aracılığıyla keşif ve fiyatlama sürecini başlatabilirsiniz."],
   ["Temizlik sonrası garanti var mı?", "Uygulanan işleme göre bakım önerisi ve kayıtlı süreç teslim ediyoruz."],
-  ["n8n otomasyonu nedir, nasıl çalışır?", "Formlarınız webhook ile n8n akışına düşer; otomatik WhatsApp, e-posta ve CRM adımları tetiklenir."]
+  ["ZipPerde sistemlerinde özel bir temizlik yöntemi uyguluyor musunuz?", "Evet. Zip perde sistemlerinde ray mekanizması ve fermuar bölgeleri için özel kimyasal ve basınçlı yıkama teknikleri kullanıyoruz. Kumaşa zarar vermeden derin temizlik yapıyoruz."],
+  ["ZipPerde rayları ve mekanizmaları bakımı yapılıyor mu?", "Evet, fermuar dişlileri, ray kanalları ve hareket mekanizması kontrolü dahildir. Gerekirse yağlama ve ayar da yapılır."]
 ];
 
 export default function HomePage() {
@@ -145,6 +146,24 @@ export default function HomePage() {
                 <div className="value-item"><div>✓</div><div><strong>Özel Kimyasal</strong><span>PVC kaplı polyester teknik kumaşlara özel profesyonel uygulama</span></div></div>
                 <div className="value-item"><div>✓</div><div><strong>Yağ, İs, Duman Temizliği</strong><span>Kumaşınızı ilk günkü haline yaklaştırıyoruz</span></div></div>
                 <div className="value-item"><div>✓</div><div><strong>Yapı Koruması</strong><span>Tüm işlemler yerinde yapılır, yapı korunur</span></div></div>
+              </div>
+            </div>
+
+            <div className="card" style={{ marginTop: 28, padding: "32px", background: "linear-gradient(135deg, rgba(99,102,241,.06), rgba(99,102,241,.12))", border: "1px solid rgba(99,102,241,.2)" }}>
+              <div style={{ display: "flex", gap: 24, flexWrap: "wrap", alignItems: "flex-start" }}>
+                <div style={{ flex: "0 0 auto", fontSize: "3rem" }}>🪟</div>
+                <div style={{ flex: 1, minWidth: 220 }}>
+                  <span className="badge" style={{ background: "rgba(99,102,241,.15)", color: "#4338ca", marginBottom: 12 }}>ZipPerde Nedir?</span>
+                  <h3 className="heading-md" style={{ marginBottom: 10 }}>ZipPerde Sistemi Ne İşe Yarar?</h3>
+                  <p style={{ color: "var(--muted)", lineHeight: 1.75, marginBottom: 12 }}>
+                    ZipPerde, özel fermuar rayları sayesinde rüzgar ve yağmura karşı mükemmel sızdırmazlık sağlayan modern cam yüzey alternatifleridir.
+                    Güneş, rüzgar ve yağışa karşı tam koruma sunarken terası veya açık alanı dört mevsim kullanılabilir hale getirir.
+                  </p>
+                  <p style={{ color: "var(--muted)", lineHeight: 1.75 }}>
+                    Zamanla biriken kir, toz ve UV etkisiyle küflenen zip perde kumaşları için <strong>PergoClean&apos;in özel yerinde temizlik servisi</strong> ile
+                    kumaşı sökmeden, mekanı kapatmadan %85-90 oranında ilk günkü berraklığına kavuşturabilirsiniz.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -393,6 +412,21 @@ export default function HomePage() {
                   <p className="form-note" style={{ marginTop: 12 }}>{answer}</p>
                 </details>
               ))}
+            </div>
+
+            <div className="card" style={{ marginTop: 32, padding: "28px 32px", background: "linear-gradient(135deg, #f0fdf4, #dcfce7)", border: "1px solid rgba(34,197,94,.25)", textAlign: "center" }}>
+              <p style={{ fontSize: "1.5rem", marginBottom: 8 }}>⭐</p>
+              <h3 className="heading-md" style={{ marginBottom: 10 }}>Memnun kaldınız mı? Google&apos;da yorum bırakın!</h3>
+              <p className="form-note" style={{ marginBottom: 18 }}>Yorumlarınız bizim için çok değerli. Sadece 30 saniyenizi alır.</p>
+              <a
+                className="btn btn-primary"
+                href="https://g.page/r/pergoclean/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: "inline-flex" }}
+              >
+                Google&apos;da Yorum Yaz →
+              </a>
             </div>
           </div>
         </section>

@@ -5,7 +5,7 @@ export const siteConfig = {
     "Pergola, bioclimatic, rolling roof, cam tavan, zip perde ve tente sistemleri için Ankara ve Antalya odaklı profesyonel yerinde temizlik, LED yenileme ve bakım hizmetleri.",
   phonePrimary: "+90 536 773 14 04",
   phoneSecondary: "+90 530 955 00 28",
-  email: "Merhaba@pergoclean.com.tr",
+  email: "pergoclean@tozyapi.com.tr",
   address:
     "Timko İş Merkezi, Macun Mahallesi 177. Cadde V8 Kat 1, Yenimahalle / Ankara",
   socials: [

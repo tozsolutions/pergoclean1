@@ -50,7 +50,8 @@ export function LeadForm({
         field.options ? (
           <label key={field.name}>
             <span style={{ display: "block", marginBottom: 8, fontWeight: 700 }}>{field.label}</span>
-            <select className="select" name={field.name} required={field.required}>
+            <select className="select" name={field.name} required={field.required} defaultValue="">
+              <option value="" disabled>Seçiniz...</option>
               {field.options.map((option) => <option key={option} value={option}>{option}</option>)}
             </select>
           </label>
