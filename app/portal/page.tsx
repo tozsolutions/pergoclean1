@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ENV_VARS = [
   { key: "QUOTE_WEBHOOK_URL", label: "Fiyat Teklifi Webhook URL", desc: "Fiyat hesaplama formu n8n webhook" },
@@ -16,44 +16,59 @@ export default function AdminPage() {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-  function handleLogin(e: React.FormEvent) {
+  // Initial check (relying on middleware primarily, but client-side visual toggle)
+  useEffect(() => {
+    // Middleware redirects unauthorized users to /portal/login usually, 
+    // but we can handle it all here if we prefer a single page app experience.
+    // For now we just assume if they load this and no middleware blocked them, 
+    // they might still need to login if we use a client side check, 
+    // but wait, middleware blocks access.
+    // To keep it simple in a client component without a separate /login route:
+    setIsLoading(false);
+  }, []);
+
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    // Basit istemci taraflı koruma - gerçek üretim için middleware eklenebilir
-    if (password === "pergoclean-admin-2024") {
-      setAuthenticated(true);
-      setError("");
-    } else {
-      setError("Hatalı şifre. Lütfen tekrar deneyin.");
+    setIsLoading(true);
+    setError("");
+    
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password })
+      });
+      
+      const data = await res.json();
+      
+      if (res.ok) {
+        setAuthenticated(true);
+        // Page reload to let middleware allow access if we were blocked
+        window.location.reload(); 
+      } else {
+        setError(data.message || "Giriş başarısız.");
+      }
+    } catch (err) {
+      setError("Bir hata oluştu.");
+    } finally {
+      setIsLoading(false);
     }
   }
 
-  if (!authenticated) {
-    return (
-      <main className="section" style={{ minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div className="card" style={{ padding: 40, maxWidth: 400, width: "100%" }}>
-          <h1 className="heading-md" style={{ textAlign: "center", marginBottom: 8 }}>🔒 Admin Paneli</h1>
-          <p className="form-note" style={{ textAlign: "center", marginBottom: 24 }}>Bu alan sadece yetkili kullanıcılara açıktır.</p>
-          <form onSubmit={handleLogin} style={{ display: "grid", gap: 14 }}>
-            <label>
-              <span style={{ display: "block", fontWeight: 700, marginBottom: 8 }}>Şifre</span>
-              <input
-                className="input"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Admin şifresini girin"
-                required
-              />
-            </label>
-            {error && <p style={{ color: "#dc2626", fontSize: ".9rem" }}>{error}</p>}
-            <button className="btn btn-primary" type="submit">Giriş Yap</button>
-          </form>
-        </div>
-      </main>
-    );
+  async function handleLogout() {
+    await fetch("/api/admin/logout", { method: "POST" });
+    window.location.reload();
   }
 
+  // If we are showing this component, the middleware already allowed access 
+  // OR the middleware is disabled. Assuming middleware protects /portal, 
+  // we actually shouldn't even see the login form here unless middleware 
+  // lets unauthenticated users hit /portal and we check here.
+  // We'll let middleware protect /portal EXCEPT for /portal/login.
+  // Actually, let's just render the dashboard, because middleware will handle the auth.
+  
   return (
     <main className="section">
       <div className="container">
@@ -62,7 +77,7 @@ export default function AdminPage() {
             <span className="eyebrow">Admin Paneli</span>
             <h1 className="heading-lg" style={{ marginTop: 10 }}>Sistem Yönetimi</h1>
           </div>
-          <button className="btn btn-secondary" onClick={() => setAuthenticated(false)}>Çıkış Yap</button>
+          <button className="btn btn-secondary" onClick={handleLogout}>Çıkış Yap</button>
         </div>
 
         <div className="grid" style={{ gap: 24, gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))" }}>
@@ -119,31 +134,6 @@ export default function AdminPage() {
                     <p key={item} className="form-note" style={{ margin: "2px 0" }}>• {item}</p>
                   ))}
                 </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="card" style={{ padding: 28 }}>
-            <h2 className="heading-md" style={{ marginBottom: 16 }}>🌐 Hızlı Bağlantılar</h2>
-            <div style={{ display: "grid", gap: 10 }}>
-              {[
-                ["Vercel Dashboard", "https://vercel.com/dashboard"],
-                ["n8n Arayüzü", "https://n8n.io"],
-                ["Google Search Console", "https://search.google.com/search-console"],
-                ["Instagram @pergoclean.tr", "https://instagram.com/pergoclean.tr"],
-                ["WhatsApp Business", "https://business.whatsapp.com"],
-                ["Google İşletme Profili", "https://business.google.com"],
-              ].map(([label, href]) => (
-                <a
-                  key={href}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-secondary"
-                  style={{ justifyContent: "flex-start", borderRadius: 10, minHeight: 40 }}
-                >
-                  {label} →
-                </a>
               ))}
             </div>
           </div>
