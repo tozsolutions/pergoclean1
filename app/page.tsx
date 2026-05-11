@@ -252,12 +252,12 @@ export default function HomePage() {
             <div className="grid portfolio-grid">
               {projects.map((project, index) => (
                 <article key={project.title} className="hover-showcase">
-                  <div className="project-cover" style={{ position: "relative", width: "100%", height: "100%", minHeight: "250px" }}>
+                  <div className="project-cover">
                     <Image
                       src={`https://images.unsplash.com/photo-${["1505693416388-ac5ce068fe85","1513694203232-719a280e022f","1494526585095-c41746248156","1448630360428-65456885c650"][index]}?auto=format&fit=crop&w=900&q=80`}
                       alt={project.title}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      sizes="(max-width: 760px) 100vw, (max-width: 1080px) 50vw, 25vw"
                       style={{ objectFit: "cover" }}
                       loading="lazy"
                     />

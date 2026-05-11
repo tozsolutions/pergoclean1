@@ -71,8 +71,8 @@ img { max-width: 100%; height: auto; display: block; }
 .compare-image { height: 260px; background: linear-gradient(135deg, #d7dde8, #f5f7fb); position: relative; }
 .compare-split { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; }
 .compare-before, .compare-after { display: flex; align-items: flex-start; justify-content: flex-start; padding: 14px; font-weight: 700; color: white; }
-.compare-before { background: linear-gradient(180deg, rgba(31,41,55,.50), rgba(31,41,55,.15)), url('https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=800&q=80') center/cover; }
-.compare-after { background: linear-gradient(180deg, rgba(19,179,163,.20), rgba(19,179,163,.05)), url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80') center/cover; }
+.compare-before { background: linear-gradient(180deg, rgba(31,41,55,.50), rgba(31,41,55,.15)) center/cover, #d7dde8; }
+.compare-after { background: linear-gradient(180deg, rgba(19,179,163,.20), rgba(19,179,163,.05)) center/cover, #c8ede9; }
 .compare-content { padding: 18px 20px 22px; }
 .price-wrap { margin-top: 38px; display: grid; grid-template-columns: 370px minmax(0,1fr); overflow: hidden; }
 .price-side { background: linear-gradient(180deg, #0b1832 0%, #121f3b 100%); color: white; padding: 34px 30px; }
@@ -90,7 +90,8 @@ img { max-width: 100%; height: auto; display: block; }
 .chip { padding: 10px 16px; border-radius: 999px; background: white; border: 1px solid var(--line); color: #31405f; }
 .chip.active { background: var(--brand); color: white; border-color: transparent; }
 .portfolio-grid { grid-template-columns: repeat(4, minmax(0,1fr)); margin-top: 30px; }
-.project-cover { width: 100%; aspect-ratio: 1.2/1; border-radius: 22px; background: linear-gradient(135deg, #d8e1f1, #fbfdff); }
+/* CLS-safe: explicit aspect-ratio + position:relative so next/image fill works without layout shift */
+.project-cover { width: 100%; aspect-ratio: 1.2 / 1; border-radius: 22px; background: linear-gradient(135deg, #d8e1f1, #fbfdff); position: relative; overflow: hidden; }
 .dual-forms { margin-top: 32px; grid-template-columns: repeat(2, minmax(0,1fr)); }
 .soft-panel { padding: 28px; }
 .soft-blue { background: linear-gradient(180deg, rgba(66,133,244,.10), rgba(66,133,244,.18)); }
@@ -98,7 +99,8 @@ img { max-width: 100%; height: auto; display: block; }
 .blog-feature { margin-top: 28px; display: grid; grid-template-columns: 1.25fr 1fr; gap: 18px; }
 .blog-card, .blog-feature-card { overflow: hidden; }
 .blog-grid { grid-template-columns: repeat(3, minmax(0,1fr)); margin-top: 18px; }
-.cover { width: 100%; min-height: 220px; background: linear-gradient(135deg, #dde6f7, #f7fafc); }
+/* CLS-safe covers: position:relative required for next/image fill */
+.cover { width: 100%; min-height: 220px; background: linear-gradient(135deg, #dde6f7, #f7fafc); position: relative; overflow: hidden; }
 .cover-tall { min-height: 300px; }
 .blog-content { padding: 18px; }
 .testimonial-grid { grid-template-columns: repeat(3, minmax(0,1fr)); margin-top: 24px; }
