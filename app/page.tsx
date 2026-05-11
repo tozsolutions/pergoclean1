@@ -5,36 +5,6 @@ import { LeadForm } from "@/components/lead-form";
 import { PricingCalculator } from "@/components/pricing-calculator";
 import { siteConfig } from "@/lib/site";
 import Image from "next/image";
-import Script from "next/script";
-
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "PergoClean",
-  "description": "Pergola, bioclimatic, rolling roof, cam tavan, zip perde ve tente sistemleri için profesyonel yerinde temizlik ve bakım hizmetleri.",
-  "url": "https://www.pergoclean.com.tr",
-  "telephone": "+90-536-773-14-04",
-  "email": "pergoclean@tozyapi.com.tr",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Macun Mahallesi 177. Cadde V8 Kat 1",
-    "addressLocality": "Yenimahalle",
-    "addressRegion": "Ankara",
-    "addressCountry": "TR"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 39.9534,
-    "longitude": 32.7663
-  },
-  "sameAs": [
-    "https://www.instagram.com/pergoclean.tr",
-    "https://www.youtube.com/@PergoClean",
-    "https://x.com/PergoClean"
-  ],
-  "openingHours": "Mo-Sa 08:00-18:00",
-  "priceRange": "₺₺"
-};
 
 const services = [
   { title: "Derin Temizlik", text: "Pergola RollingRoof BioClimatic CamTavan ZipPerde Tente kumaşlarınızdaki kir, yağ, duman ve buharlaşma kaynaklı atıkları profesyonel ekipmanlarla temizliyoruz." },
@@ -79,11 +49,6 @@ const faqs = [
 export default function HomePage() {
   return (
     <>
-      <Script
-        id="local-business-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
       <SiteHeader />
       <main>
         <section className="hero">
@@ -164,14 +129,30 @@ export default function HomePage() {
             </div>
 
             <div className="grid service-grid">
-              {services.map((service) => (
-                <article key={service.title} className="card service-card">
-                  <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Uzman Hizmet</span>
-                  <h3 className="heading-md" style={{ marginTop: 18 }}>{service.title}</h3>
-                  <p>{service.text}</p>
-                  <a href="#iletisim" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</a>
-                </article>
-              ))}
+              <article className="card service-card">
+                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Uzman Hizmet</span>
+                <h3 className="heading-md" style={{ marginTop: 18 }}>Pergola & Tente Temizliği</h3>
+                <p>Pergola, RollingRoof ve Tente kumaşlarınızdaki kir, yağ ve duman atıklarını profesyonel ekipmanlarla temizliyoruz.</p>
+                <a href="/hizmetler/pergola-tente-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</a>
+              </article>
+              <article className="card service-card">
+                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Uzman Hizmet</span>
+                <h3 className="heading-md" style={{ marginTop: 18 }}>ZipPerde Temizlik & Bakım</h3>
+                <p>Zip perde sistemleri için özel temizlik ve bakım uyguluyor, ray mekanizması ve fermuar bölgelerini temizliyoruz.</p>
+                <a href="/hizmetler/zip-perde-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</a>
+              </article>
+              <article className="card service-card">
+                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Uzman Hizmet</span>
+                <h3 className="heading-md" style={{ marginTop: 18 }}>Bioclimatic Temizliği</h3>
+                <p>Bioclimatic pergola lam ve yüzey temizliği. UV etkisi, yağ ve kir birikimini profesyonel ekiple temizliyoruz.</p>
+                <a href="/hizmetler/bioclimatic-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</a>
+              </article>
+              <article className="card service-card">
+                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Uzman Hizmet</span>
+                <h3 className="heading-md" style={{ marginTop: 18 }}>Cam Tavan Temizliği</h3>
+                <p>Cam tavan ve tavan zip sistemleri için özel temizlik. Keşif sonrası profesyonel yerinde uygulama.</p>
+                <a href="/hizmetler/cam-tavan-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</a>
+              </article>
             </div>
 
             <div className="card value-block">

@@ -2,7 +2,7 @@ import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 
 // The password should be at least 32 characters long.
-const sessionPassword = process.env.SESSION_PASSWORD || "pergoclean-super-secret-complex-password-1234567890";
+const sessionPassword = process.env.ADMIN_SESSION_SECRET || "pergoclean-super-secret-complex-password-1234567890";
 
 export interface SessionData {
   isAdmin: boolean;

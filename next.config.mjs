@@ -30,16 +30,15 @@ const securityHeaders = [
     value: "1; mode=block"
   },
   {
-    // Content-Security-Policy: permissive for maps/CDN but blocks inline scripts except ld+json
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",  // unsafe-inline for Next.js hydration
-      "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
-      "img-src 'self' data: blob: https://images.unsplash.com https://www.pergoclean.com.tr",
-      "font-src 'self' https://cdn.jsdelivr.net",
-      "frame-src https://www.google.com",   // Google Maps iframe
-      "connect-src 'self'",
+      "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.google.com https://*.gstatic.com",
+      "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com",
+      "img-src 'self' data: blob: https://images.unsplash.com https://www.pergoclean.com.tr https://*.google.com https://*.gstatic.com https://*.googleapis.com",
+      "font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com",
+      "frame-src 'self' https://www.google.com",
+      "connect-src 'self' https://*.google.com https://*.googleapis.com https://*.gstatic.com",
       "media-src 'self'",
       "object-src 'none'",
       "base-uri 'self'",
@@ -77,4 +76,3 @@ const nextConfig = {
 };
 
 export default nextConfig;
-
