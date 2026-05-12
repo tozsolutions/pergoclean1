@@ -28,7 +28,7 @@ export function FloatingContact() {
       {/* Sticky Mobile CTA — mobile only, iOS safe-area aware */}
       <div className="sticky-mobile-cta" role="complementary" aria-label="Mobil hızlı teklif">
         <a href="#fiyat-hesapla" className="sticky-cta-btn sticky-cta-quote">
-          📋 Hemen Teklif Al
+          📋 Analiz & Teklif Al
         </a>
         <a
           href="https://wa.me/905367731404"

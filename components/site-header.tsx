@@ -48,7 +48,7 @@ export function SiteHeader() {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${social.label} sayfamız`}
+              aria-label={`${social.label} sayfamız (Yeni sekmede açılır)`}
               title={social.label}
             >
               <i className={socialIconMap[social.label] || "ri-link"}></i>
@@ -58,7 +58,7 @@ export function SiteHeader() {
             href="https://wa.me/905367731404"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="WhatsApp ile ulaş"
+            aria-label="WhatsApp ile ulaşın (Yeni sekmede açılır)"
             title="WhatsApp"
             className="header-whatsapp"
           >

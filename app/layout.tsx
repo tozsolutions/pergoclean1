@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { seoKeywords, siteConfig } from "@/lib/site";
-import { buildFaqSchema } from "@/lib/seo";
+import { buildFaqSchema, buildOrganizationSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -44,41 +44,47 @@ const siteFaqs = [
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "PergoClean",
-  image: `${siteConfig.url}/assets/logo.png`,
-  url: siteConfig.url,
-  telephone: "+90-536-773-14-04",
-  email: siteConfig.email,
-  address: {
+  "name": "PergoClean",
+  "image": `${siteConfig.url}/assets/logo.png`,
+  "@id": `${siteConfig.url}/#localbusiness`,
+  "url": siteConfig.url,
+  "telephone": siteConfig.phonePrimary,
+  "email": siteConfig.email,
+  "address": {
     "@type": "PostalAddress",
-    streetAddress: "Timko İş Merkezi, Macun Mahallesi 177. Cadde V8 Kat 1",
-    addressLocality: "Yenimahalle",
-    addressRegion: "Ankara",
-    addressCountry: "TR",
-    postalCode: "06370"
+    "streetAddress": "Timko İş Merkezi, Macun Mahallesi 177. Cadde V8 Kat 1",
+    "addressLocality": "Yenimahalle",
+    "addressRegion": "Ankara",
+    "addressCountry": "TR",
+    "postalCode": "06370"
   },
-  geo: {
+  "geo": {
     "@type": "GeoCoordinates",
-    latitude: 39.9534,
-    longitude: 32.7663
+    "latitude": 39.9534,
+    "longitude": 32.7663
   },
-  areaServed: [
-    { "@type": "City", name: "Ankara" },
-    { "@type": "City", name: "Antalya" }
+  "areaServed": [
+    { "@type": "City", "name": "Ankara" },
+    { "@type": "City", "name": "Antalya" }
   ],
-  openingHours: "Mo-Sa 08:00-18:00",
-  priceRange: "₺₺",
-  sameAs: siteConfig.socials.map((item) => item.href),
-  description: siteConfig.description
+  "openingHours": "Mo-Sa 08:00-18:00",
+  "priceRange": "₺₺",
+  "sameAs": siteConfig.socials.map((item) => item.href),
+  "description": siteConfig.description
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const faqSchema = buildFaqSchema(siteFaqs);
+  const orgSchema = buildOrganizationSchema();
 
   return (
     <html lang="tr">
       <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
@@ -94,4 +100,3 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     </html>
   );
 }
-

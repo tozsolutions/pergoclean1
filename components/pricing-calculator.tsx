@@ -67,22 +67,24 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
   return (
     <div className="card price-form" style={{ padding: 34, background: "rgba(255,255,255,.90)" }}>
       <form onSubmit={handleSubmit} className="grid" style={{ gap: 16 }}>
+        <h3 className="heading-sm" style={{ textAlign: "center", marginBottom: 10 }}>Restorasyon Yatırım Analizi</h3>
+
         {/* Sistem Tipi */}
-        <label>
-          <span style={{ display: "block", marginBottom: 8, fontWeight: 700 }}>Sistem Tipi</span>
-          <select className="select" required value={systemType} onChange={(e) => setSystemType(e.target.value)}>
+        <label htmlFor="system-type">
+          <span style={{ display: "block", marginBottom: 8, fontWeight: 700 }}>Sistem Tipi Seçimi</span>
+          <select id="system-type" className="select" required value={systemType} onChange={(e) => setSystemType(e.target.value)}>
             <option value="" disabled>Seçiniz...</option>
-            <option value="pergola">Pergola / Tente / BioClimatic / RollingRoof</option>
-            <option value="zip">ZipPerde / Wintent</option>
+            <option value="pergola">Pergola / BioClimatic / RollingRoof</option>
+            <option value="zip">ZipPerde / Wintent Sistemleri</option>
             <option value="cam_tavan">Cam Tavan / Tavan Zip</option>
-            <option value="gunes_paneli">Güneş Paneli</option>
+            <option value="gunes_paneli">Güneş Paneli Üniteleri</option>
           </select>
         </label>
 
         {/* Paket Seçimi - Sadece Pergola grubu için */}
         {needsPackage && (
-          <div>
-            <span style={{ display: "block", marginBottom: 8, fontWeight: 700 }}>Kirlilik Seviyesi / Paket</span>
+          <fieldset style={{ border: "none", padding: 0, margin: 0 }}>
+            <legend style={{ display: "block", marginBottom: 8, fontWeight: 700, fontSize: "1rem" }}>Restorasyon Paketi / Kirlilik Analizi</legend>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
               <label style={{
                 border: `2px solid ${packageType === "eco" ? "var(--brand)" : "var(--line)"}`,
@@ -94,10 +96,10 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
                   onChange={() => setPackageType("eco")}
                   style={{ display: "none" }}
                 />
-                <strong style={{ display: "block", color: "var(--brand-dark)", marginBottom: 4 }}>ECO Paket</strong>
-                <span className="form-note" style={{ fontSize: "0.8rem" }}>Hafif kir, toz, düzenli bakım.</span>
+                <strong style={{ display: "block", color: "var(--brand-dark)", marginBottom: 4 }}>ECO Bakım</strong>
+                <span className="form-note" style={{ fontSize: "0.8rem" }}>Hafif kir, toz, periyodik koruma.</span>
                 <span style={{ display: "block", marginTop: 6, fontWeight: 800, color: "var(--brand-dark)", fontSize: "0.95rem" }}>
-                  350 TL/m² · Min. 5.000 TL
+                  350 TL/m² · Min. 5.250 TL
                 </span>
               </label>
               <label style={{
@@ -110,21 +112,22 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
                   onChange={() => setPackageType("plus")}
                   style={{ display: "none" }}
                 />
-                <strong style={{ display: "block", color: "#a96f00", marginBottom: 4 }}>PLUS Paket</strong>
-                <span className="form-note" style={{ fontSize: "0.8rem" }}>Ağır kir, yağ, is, yıllanmış.</span>
+                <strong style={{ display: "block", color: "#a96f00", marginBottom: 4 }}>PLUS Restorasyon</strong>
+                <span className="form-note" style={{ fontSize: "0.8rem" }}>Ağır is, yağ ve yıllanmış kir tabakası.</span>
                 <span style={{ display: "block", marginTop: 6, fontWeight: 800, color: "#a96f00", fontSize: "0.95rem" }}>
-                  450 TL/m² · Min. 7.500 TL
+                  450 TL/m² · Min. 6.750 TL
                 </span>
               </label>
             </div>
-          </div>
+          </fieldset>
         )}
 
         {/* m² alanı - Fiyat Alınız sistemleri hariç */}
         {!showPriceInfo && systemType !== "" && (
-          <label>
+          <label htmlFor="area-m2">
             <span style={{ display: "block", marginBottom: 8, fontWeight: 700 }}>Toplam Alan (m²)</span>
             <input
+              id="area-m2"
               className="input" type="number" min="1" max="9999" required
               value={m2} onChange={(e) => setM2(e.target.value ? Number(e.target.value) : "")}
               placeholder="Örn: 25"
@@ -137,7 +140,7 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
 
         {/* Tahmini fiyat gösterimi */}
         {calculatedPrice !== null && !showPriceInfo && (
-          <div style={{ padding: 20, background: "rgba(19,179,163,.1)", borderRadius: 14, textAlign: "center", border: "1px solid rgba(19,179,163,.2)" }}>
+          <div aria-live="polite" style={{ padding: 20, background: "rgba(19,179,163,.1)", borderRadius: 14, textAlign: "center", border: "1px solid rgba(19,179,163,.2)" }}>
             <span className="eyebrow" style={{ background: "transparent", color: "var(--brand-dark)", padding: 0 }}>Tahmini Tutar</span>
             <div style={{ fontSize: "2.6rem", fontWeight: 800, color: "var(--text)", lineHeight: 1, marginTop: 8 }}>
               {calculatedPrice.toLocaleString("tr-TR")} TL
@@ -153,7 +156,7 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
 
         {/* Fiyat Alınız ekranı */}
         {showPriceInfo && (
-          <div style={{ padding: 20, background: "rgba(31,41,55,.05)", borderRadius: 14, textAlign: "center", border: "1px solid rgba(0,0,0,.08)" }}>
+          <div aria-live="polite" style={{ padding: 20, background: "rgba(31,41,55,.05)", borderRadius: 14, textAlign: "center", border: "1px solid rgba(0,0,0,.08)" }}>
             <div style={{ fontSize: "1.8rem", fontWeight: 800, color: "var(--text)", lineHeight: 1 }}>Fiyat Alınız</div>
             <span className="form-note" style={{ marginTop: 8, display: "block" }}>
               Bu sistem için keşif yapılarak özel fiyat belirlenmektedir.
@@ -163,22 +166,22 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
 
         {/* Kişisel bilgiler */}
         <div style={{ display: "grid", gap: 14 }}>
-          <label>
+          <label htmlFor="quote-name">
             <span style={{ display: "block", marginBottom: 6, fontWeight: 700, fontSize: "0.9rem" }}>Adınız Soyadınız</span>
-            <input className="input" type="text" required value={adSoyad} onChange={e => setAdSoyad(e.target.value)} />
+            <input id="quote-name" className="input" type="text" required value={adSoyad} onChange={e => setAdSoyad(e.target.value)} />
           </label>
-          <label>
+          <label htmlFor="quote-phone">
             <span style={{ display: "block", marginBottom: 6, fontWeight: 700, fontSize: "0.9rem" }}>Telefon</span>
-            <input className="input" type="tel" required value={telefon} onChange={e => setTelefon(e.target.value)} />
+            <input id="quote-phone" className="input" type="tel" required value={telefon} onChange={e => setTelefon(e.target.value)} />
           </label>
-          <label>
+          <label htmlFor="quote-email">
             <span style={{ display: "block", marginBottom: 6, fontWeight: 700, fontSize: "0.9rem" }}>E-posta (İsteğe Bağlı)</span>
-            <input className="input" type="email" value={email} onChange={e => setEmail(e.target.value)} />
+            <input id="quote-email" className="input" type="email" value={email} onChange={e => setEmail(e.target.value)} />
           </label>
         </div>
 
         {/* Honeypot */}
-        <input type="text" name="_honey" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
+        <input type="text" name="_honey" style={{ display: "none" }} tabIndex={-1} aria-hidden="true" autoComplete="off" />
 
         <button className="btn btn-accent" type="submit" disabled={isLoading}
           style={{ marginTop: 10, minHeight: 56, fontSize: "1.1rem" }}>
@@ -190,7 +193,7 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
         </p>
 
         {message && (
-          <div style={{
+          <div role="status" style={{
             padding: 14,
             background: message.includes("hata") ? "#fee2e2" : "#dcfce7",
             color: message.includes("hata") ? "#991b1b" : "#166534",

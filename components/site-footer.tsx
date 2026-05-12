@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 
 export function SiteFooter() {
@@ -20,24 +21,24 @@ export function SiteFooter() {
           </div>
           <div>
             <h3>Hizmetler</h3>
-            <p><a href="/hizmetler/pergola-tente-temizligi">Pergola Temizliği</a></p>
-            <p><a href="/hizmetler/zip-perde-temizligi">Zip Perde Temizliği</a></p>
-            <p><a href="/hizmetler/bioclimatic-temizligi">Bioclimatic Temizlik</a></p>
-            <p><a href="#fiyat-hesapla">Fiyat Hesapla</a></p>
+            <p><Link href="/hizmetler/pergola-tente-temizligi">Pergola Temizliği</Link></p>
+            <p><Link href="/hizmetler/zip-perde-temizligi">Zip Perde Temizliği</Link></p>
+            <p><Link href="/hizmetler/bioclimatic-temizligi">Bioclimatic Temizlik</Link></p>
+            <p><Link href="/#fiyat-hesapla">Fiyat Hesapla</Link></p>
           </div>
           <div>
             <h3>Bölgeler</h3>
-            <p><a href="/ankara/cankaya-pergola-temizligi">Çankaya</a></p>
-            <p><a href="/ankara/yenimahalle-pergola-temizligi">Yenimahalle</a></p>
-            <p><a href="/ankara/kecioren-tente-temizligi">Keçiören</a></p>
-            <p><a href="/ankara/etimesgut-temizlik">Etimesgut</a></p>
+            <p><Link href="/ankara/cankaya-pergola-temizligi">Çankaya</Link></p>
+            <p><Link href="/ankara/yenimahalle-pergola-temizligi">Yenimahalle</Link></p>
+            <p><Link href="/ankara/kecioren-tente-temizligi">Keçiören</Link></p>
+            <p><Link href="/ankara/etimesgut-temizlik">Etimesgut</Link></p>
           </div>
           <div>
             <h3>Kurumsal</h3>
-            <p><a href="#portfolio">Referans İşlerimiz</a></p>
-            <p><a href="/blog">Blog</a></p>
-            <p><a href="/avrupa-standartlari">Avrupa Standartları</a></p>
-            <p><a href="#iletisim">İletişim</a></p>
+            <p><Link href="/#portfolio">Referans İşlerimiz</Link></p>
+            <p><Link href="/blog">Blog</Link></p>
+            <p><Link href="/avrupa-standartlari">Avrupa Standartları</Link></p>
+            <p><Link href="/#iletisim">İletişim</Link></p>
           </div>
           <div>
             <h3>İletişim Bilgileri</h3>

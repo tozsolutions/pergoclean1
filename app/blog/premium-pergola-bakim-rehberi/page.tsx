@@ -24,10 +24,11 @@ export default function PremiumGuidePage() {
 
           <div className="card" style={{ position: "relative", width: "100%", aspectRatio: "21/9", borderRadius: 24, overflow: "hidden", marginBottom: 48 }}>
             <Image 
-              src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80" 
-              alt="Pergola Bakım" 
+              src="/assets/hero2.jpeg" 
+              alt="Premium Pergola ve Tente Sistemleri Profesyonel Bakım Rehberi" 
               fill 
               style={{ objectFit: "cover" }}
+              priority
             />
           </div>
 

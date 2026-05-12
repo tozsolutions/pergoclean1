@@ -46,33 +46,34 @@ export function LeadForm({
 
   return (
     <form action={handleSubmit} className="grid" style={{ gap: 14 }}>
-      {fields.map((field) =>
-        field.options ? (
-          <label key={field.name}>
+      {fields.map((field) => {
+        const id = `${endpoint}-${field.name}`;
+        return field.options ? (
+          <label key={field.name} htmlFor={id}>
             <span style={{ display: "block", marginBottom: 8, fontWeight: 700 }}>{field.label}</span>
-            <select className="select" name={field.name} required={field.required} defaultValue="">
+            <select id={id} className="select" name={field.name} required={field.required} defaultValue="">
               <option value="" disabled>Seçiniz...</option>
               {field.options.map((option) => <option key={option} value={option}>{option}</option>)}
             </select>
           </label>
         ) : field.type === "textarea" ? (
-          <label key={field.name}>
+          <label key={field.name} htmlFor={id}>
             <span style={{ display: "block", marginBottom: 8, fontWeight: 700 }}>{field.label}</span>
-            <textarea className="textarea" name={field.name} required={field.required} />
+            <textarea id={id} className="textarea" name={field.name} required={field.required} />
           </label>
         ) : (
-          <label key={field.name}>
+          <label key={field.name} htmlFor={id}>
             <span style={{ display: "block", marginBottom: 8, fontWeight: 700 }}>{field.label}</span>
-            <input className="input" name={field.name} type={field.type || "text"} required={field.required} />
+            <input id={id} className="input" name={field.name} type={field.type || "text"} required={field.required} />
           </label>
-        )
-      )}
-      <input type="text" name="_honey" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
+        );
+      })}
+      <input type="text" name="_honey" style={{ display: "none" }} tabIndex={-1} aria-hidden="true" autoComplete="off" />
       <button className="btn btn-accent" type="submit" disabled={isLoading}>
         {isLoading ? "Gönderiliyor..." : submitLabel}
       </button>
       {extraText ? <p className="form-note">{extraText}</p> : null}
-      {message ? <p className="form-note"><strong>{message}</strong></p> : null}
+      {message ? <p className="form-note" role="status"><strong>{message}</strong></p> : null}
     </form>
   );
 }

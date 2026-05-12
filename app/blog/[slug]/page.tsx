@@ -1,6 +1,7 @@
 import { blogs } from "@/lib/blogs";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { FloatingContact } from "@/components/floating-contact";
@@ -156,7 +157,7 @@ export default async function BlogPostPage({ params }: Props) {
             <p style={{ opacity: 0.9, marginBottom: 24 }}>PergoClean, Ankara genelinde pergola, tente ve premium mekan bakım hizmetleri sunar. Profesyonel restorasyon ile sistem ömrünü uzatın.</p>
             <div className="btn-row" style={{ justifyContent: "center" }}>
               <a href="https://wa.me/905367731404" className="btn btn-secondary">WhatsApp Destek</a>
-              <a href="/#iletisim" className="btn btn-accent">Fiyat Hesapla</a>
+              <Link href="/#iletisim" className="btn btn-accent">Fiyat Hesapla</Link>
             </div>
           </div>
           

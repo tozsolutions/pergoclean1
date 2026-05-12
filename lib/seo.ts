@@ -58,6 +58,56 @@ export function buildFaqSchema(faqs: { question: string; answer: string }[]) {
   };
 }
 
+// ─── Organization Schema Builder ──────────────────────────────────────────────
+export function buildOrganizationSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "PergoClean",
+    "url": BASE_URL,
+    "logo": `${BASE_URL}/assets/logo.png`,
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": siteConfig.phonePrimary,
+      "contactType": "customer service",
+      "areaServed": "TR",
+      "availableLanguage": "Turkish"
+    },
+    "sameAs": siteConfig.socials.map(s => s.href)
+  };
+}
+
+// ─── Service Schema Builder ───────────────────────────────────────────────────
+export function buildServiceSchema(opts: {
+  name: string;
+  description: string;
+  url: string;
+  providerName?: string;
+  areaServed?: string[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": opts.name,
+    "description": opts.description,
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": opts.providerName || "PergoClean",
+      "image": `${BASE_URL}/assets/logo.png`,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ankara",
+        "addressCountry": "TR"
+      }
+    },
+    "areaServed": (opts.areaServed || ["Ankara"]).map(area => ({
+      "@type": "City",
+      "name": area
+    })),
+    "url": opts.url
+  };
+}
+
 // ─── Service Page Metadata Template ───────────────────────────────────────────
 export function serviceMetadata(opts: {
   serviceName: string;

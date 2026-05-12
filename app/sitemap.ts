@@ -1,45 +1,58 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site";
+import { blogs } from "@/lib/blogs";
 
 const BASE = siteConfig.url;
 const now = new Date();
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const blogEntries = blogs.map((post) => ({
+    url: `${BASE}/blog/${post.slug}`,
+    priority: 0.8,
+    changeFrequency: "monthly" as const,
+    lastModified: now,
+  }));
+
+  const staticPages = [
+    { url: BASE, priority: 1.0, changeFrequency: "weekly" as const, lastModified: now },
+    { url: `${BASE}/blog`, priority: 0.8, changeFrequency: "weekly" as const, lastModified: now },
+    { url: `${BASE}/avrupa-standartlari`, priority: 0.7, changeFrequency: "monthly" as const, lastModified: now },
+    { url: `${BASE}/blog/premium-pergola-bakim-rehberi`, priority: 0.9, changeFrequency: "monthly" as const, lastModified: now },
+  ];
+
+  const servicePages = [
+    "pergola-tente-temizligi",
+    "zip-perde-temizligi",
+    "bioclimatic-temizligi",
+    "rollingroof-temizligi",
+    "cam-tavan-temizligi"
+  ].map(slug => ({
+    url: `${BASE}/hizmetler/${slug}`,
+    priority: 0.9,
+    changeFrequency: "monthly" as const,
+    lastModified: now,
+  }));
+
+  const districtPages = [
+    "cankaya-pergola-temizligi",
+    "yenimahalle-pergola-temizligi",
+    "kecioren-tente-temizligi",
+    "etimesgut-temizlik",
+    "golbasi-temizlik",
+    "umitkoy-pergola-temizligi",
+    "cayyolu-premium-restorasyon"
+  ].map(slug => ({
+    url: `${BASE}/ankara/${slug}`,
+    priority: 0.9,
+    changeFrequency: "monthly" as const,
+    lastModified: now,
+  }));
+
   return [
-    // Core pages
-    { url: BASE, priority: 1.0, changeFrequency: "weekly", lastModified: now },
-    { url: `${BASE}/blog`, priority: 0.8, changeFrequency: "weekly", lastModified: now },
-    { url: `${BASE}/avrupa-standartlari`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-
-    // Hizmet sayfaları (skeleton — içerik gelince priority artacak)
-    { url: `${BASE}/hizmetler/pergola-tente-temizligi`, priority: 0.9, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/hizmetler/zip-perde-temizligi`, priority: 0.9, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/hizmetler/bioclimatic-temizligi`, priority: 0.8, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/hizmetler/rollingroof-temizligi`, priority: 0.8, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/hizmetler/cam-tavan-temizligi`, priority: 0.8, changeFrequency: "monthly", lastModified: now },
-
-    // İlçe landing pages (skeleton)
-    { url: `${BASE}/ankara/cankaya-pergola-temizligi`, priority: 0.9, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/yenimahalle-pergola-temizligi`, priority: 0.9, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/kecioren-tente-temizligi`, priority: 0.8, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/etimesgut-temizlik`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/yasamkent-pergola-temizligi`, priority: 0.8, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/umitkoy-pergola-temizligi`, priority: 0.8, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/bilkent-tente-bakimi`, priority: 0.8, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/incek-pergola-temizligi`, priority: 0.8, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/golbasi-temizlik`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/batikent-tente-temizligi`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/eryaman-pergola-bakimi`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/oran-pergola-temizligi`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/kizilay-tente-temizligi`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/sincan-pergola-temizligi`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/pursaklar-tente-bakimi`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/mamak-zip-perde-temizligi`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/dikmen-pergola-bakim`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/balgat-mekan-temizligi`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/ostim-sanayi-pergola-temizlik`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/ankara/cayyolu-premium-restorasyon`, priority: 0.7, changeFrequency: "monthly", lastModified: now },
-    { url: `${BASE}/blog/premium-pergola-bakim-rehberi`, priority: 0.9, changeFrequency: "monthly", lastModified: now },
+    ...staticPages,
+    ...servicePages,
+    ...districtPages,
+    ...blogEntries,
   ];
 }
 

@@ -35,7 +35,7 @@ const securityHeaders = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.google.com https://*.gstatic.com",
       "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com",
-      "img-src 'self' data: blob: https://images.unsplash.com https://www.pergoclean.com.tr https://*.google.com https://*.gstatic.com https://*.googleapis.com",
+      "img-src 'self' data: blob: https://www.pergoclean.com.tr https://*.google.com https://*.gstatic.com https://*.googleapis.com",
       "font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com",
       "frame-src 'self' https://www.google.com",
       "connect-src 'self' https://*.google.com https://*.googleapis.com https://*.gstatic.com",
@@ -51,7 +51,6 @@ const securityHeaders = [
 const nextConfig = {
   images: {
     remotePatterns: [
-      { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "www.pergoclean.com.tr" }
     ],
     formats: ["image/avif", "image/webp"],

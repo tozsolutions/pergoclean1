@@ -7,28 +7,29 @@ import { BeforeAfterSlider } from "@/components/before-after-slider";
 import { InstagramSlider } from "@/components/instagram-slider";
 import { siteConfig } from "@/lib/site";
 import Image from "next/image";
+import Link from "next/link";
 
 const services = [
-  { title: "Derin Temizlik", text: "Pergola RollingRoof BioClimatic CamTavan ZipPerde Tente kumaşlarınızdaki kir, yağ, duman ve buharlaşma kaynaklı atıkları profesyonel ekipmanlarla temizliyoruz." },
-  { title: "ZipPerde Temizlik & Bakım", text: "Zip perde sistemleri için özel temizlik ve bakım uyguluyor, ray mekanizması ve fermuar bölgelerini güvenli biçimde temizliyoruz." },
-  { title: "LED Bakım & Değişim", text: "Eskimiş veya hasar görmüş LED sistemlerini kayıt altına alınan süreçlerle değiştiriyor, şeffaf ve güvenilir teslim sağlıyoruz." },
-  { title: "Renk Yenileme", text: "LED ışık renklendirme ve yüzey görünüm yenileme ile pergola ve tente sistemlerinize daha estetik bir görünüm kazandırıyoruz." }
+  { title: "Profesyonel Restorasyon", text: "Pergola, RollingRoof, BioClimatic ve CamTavan sistemlerinizdeki zorlu kir, yağ ve is tabakalarını teknik ekipmanlarla arındırarak kumaş dokusunu yeniliyoruz." },
+  { title: "Mekanizma Bakımı & Koruma", text: "Zip perde ve motorlu sistemler için ray temizliği, kanal bakımı ve sürtünme azaltıcı koruma uygulamaları ile sistem ömrünü uzatıyoruz." },
+  { title: "Sistem Revizyonu & LED", text: "Eskimiş LED ünitelerinin değişimi ve elektrik bağlantı kontrolleri ile sisteminizi işlevsel ve estetik olarak tam kapasiteye ulaştırıyoruz." },
+  { title: "Görünüm Yenileme", text: "Yüzey koruyucu uygulamalar ve profesyonel detay bakımı ile dış mekan sistemlerinize ilk günkü premium duruşunu geri kazandırıyoruz." }
 ];
 
 const compareItems = [
-  { title: "Pergola Kumaş Temizliği", image: "yenimahalle" },
-  { title: "Pergola Kumaş Temizliği", image: "etimesgut" },
-  { title: "Pergola Kumaş Temizliği", image: "cayyolu" },
-  { title: "Pergola Kumaş Temizliği", image: "cankaya" }
+  { title: "Teknik Kumaş Restorasyonu", image: "yenimahalle" },
+  { title: "Pergola Yüzey Bakımı", image: "etimesgut" },
+  { title: "Sistem Bakımı & Koruma", image: "cayyolu" },
+  { title: "Kumaş Yenileme Uygulaması", image: "cankaya" }
 ];
 
 const projects = [
-  { title: "Keçiören Restoran Tente Bakımı", image: "ref-kecioren-1.jpg", meta: "Keçiören, Ankara" },
+  { title: "Keçiören Restoran Tente Restorasyonu", image: "ref-kecioren-1.jpg", meta: "Keçiören, Ankara" },
   { title: "AVM Referans Projelerimiz", image: "ref-malls.jpg", meta: "Ankara Geneli AVM'ler" },
   { title: "Zincir Kafe & Restoranlar", image: "ref-cafes.jpg", meta: "Kurumsal Referanslar" },
   { title: "Bilkent Konut Projesi", image: "ref-bilkent.jpg", meta: "Bilkent, Ankara" },
-  { title: "Çankaya Premium Mekan Bakımı", image: "ref-cankaya.jpg", meta: "Çankaya, Ankara" },
-  { title: "Çayyolu Villa Pergola Temizliği", image: "ref-cayyolu.jpg", meta: "Çayyolu, Ankara" },
+  { title: "Çankaya Premium Mekan Restorasyonu", image: "ref-cankaya.jpg", meta: "Çankaya, Ankara" },
+  { title: "Çayyolu Villa Pergola Bakımı", image: "ref-cayyolu.jpg", meta: "Çayyolu, Ankara" },
   { title: "Etimesgut Ticari İşletme Bakımı", image: "ref-etimesgut.jpg", meta: "Etimesgut, Ankara" },
   { title: "Gölbaşı Bahçe Alanı Restorasyonu", image: "ref-golbasi.jpg", meta: "Gölbaşı, Ankara" },
   { title: "İncek Modern Villa Sistemleri", image: "ref-incek.jpg", meta: "İncek, Ankara" },
@@ -36,7 +37,7 @@ const projects = [
   { title: "Kızılay Merkezi Lokasyon Bakımı", image: "ref-kizilay.jpg", meta: "Kızılay, Ankara" },
   { title: "Mamak Bölgesel Hizmetler", image: "ref-mamak.jpg", meta: "Mamak, Ankara" },
   { title: "Pursaklar Teknik Uygulama", image: "ref-pursaklar.jpg", meta: "Pursaklar, Ankara" },
-  { title: "Sincan Endüstriyel Temizlik", image: "ref-sincan.jpg", meta: "Sincan, Ankara" },
+  { title: "Sincan Endüstriyel Restorasyon", image: "ref-sincan.jpg", meta: "Sincan, Ankara" },
   { title: "Ümitköy Lüks Konut Çözümleri", image: "ref-umitkoy.jpg", meta: "Ümitköy, Ankara" },
   { title: "Nata Vega AVM Uygulaması 1", image: "ref-vega-2.jpg", meta: "Mamak, Ankara" },
   { title: "Nata Vega AVM Uygulaması 2", image: "ref-vega-3.jpg", meta: "Mamak, Ankara" },
@@ -45,22 +46,22 @@ const projects = [
 ];
 
 const blogPosts = [
-  "Pergola Temizliği Ne Sıklıkla Yapılmalı?",
+  "Pergola Restorasyonu Ne Sıklıkla Yapılmalı?",
   "RollingRoof Sistemlerinde Kış Hazırlığı",
-  "Bioclimatic Pergolalar: Temizlik ve Bakım Rehberi",
+  "Bioclimatic Pergolalar: Teknik Bakım Rehberi",
   "Cam Tavan Sistemlerinde Küf ve Yoğun Lekeler",
   "ZipPerde Sistemlerinde Güneş Işığı ve UV Koruması",
   "Kasetli Tente Motor Bakımı ve Uzaktan Kumanda Sorunları"
 ];
 
 const faqs = [
-  ["Pergola RollingRoof BioClimatic CamTavan ZipPerde Tente temizliği ne kadar sürer?", "Saha koşullarına göre çoğunlukla bir gün içinde tamamlanır. Söküm gerektirmez, mekan çalışmasını minimum seviyede etkiler."],
-  ["Hangi tür kumaşları temizliyorsunuz?", "Pergola, zip perde, rolling roof, tente ve birçok teknik dış mekan kumaşında çalışıyoruz."],
-  ["Fiyatlandırma nasıl yapılıyor?", "m², kirlilik seviyesi, erişim zorluğu ve ek LED / bakım ihtiyacına göre netleştiriliyor."],
+  ["Pergola, RollingRoof ve ZipPerde bakım süreci ne kadar sürer?", "Saha koşullarına göre çoğunlukla bir gün içinde tamamlanır. Söküm gerektirmez, mekan çalışmasını minimum seviyede etkiler."],
+  ["Hangi tür kumaşlarda restorasyon yapıyorsunuz?", "Pergola, zip perde, rolling roof, tente ve birçok teknik dış mekan kumaşında uzmanlığımız bulunmaktadır."],
+  ["Yatırım maliyeti nasıl belirleniyor?", "m², kirlilik seviyesi, erişim zorluğu ve ek LED / mekanizma bakım ihtiyacına göre netleştiriliyor."],
   ["LED değişimi de yapıyor musunuz?", "Evet. Arızalı veya eskimiş LED sistemleri için değişim ve renklendirme hizmeti veriyoruz."],
-  ["Randevu nasıl alabilirim?", "WhatsApp, telefon ya da form aracılığıyla keşif ve fiyatlama sürecini başlatabilirsiniz."],
-  ["Temizlik sonrası garanti var mı?", "Uygulanan işleme göre bakım önerisi ve kayıtlı süreç teslim ediyoruz."],
-  ["ZipPerde sistemlerinde özel bir temizlik yöntemi uyguluyor musunuz?", "Evet. Zip perde sistemlerinde ray mekanizması ve fermuar bölgeleri için özel kimyasal ve basınçlı yıkama teknikleri kullanıyoruz. Kumaşa zarar vermeden derin temizlik yapıyoruz."],
+  ["Ücretsiz keşif için nasıl ulaşabilirim?", "WhatsApp, telefon ya da form aracılığıyla teknik analiz sürecini başlatabilirsiniz."],
+  ["Uygulama sonrası teknik destek var mı?", "Uygulanan işleme göre bakım önerisi ve kayıtlı süreç dosyası teslim ediyoruz."],
+  ["ZipPerde sistemlerinde teknik bir yöntem uyguluyor musunuz?", "Evet. Zip perde sistemlerinde ray mekanizması ve fermuar bölgeleri için özel kimyasal ve profesyonel teknikler kullanıyoruz. Kumaşa zarar vermeden derinlemesine bakım yapıyoruz."],
   ["ZipPerde rayları ve mekanizmaları bakımı yapılıyor mu?", "Evet, fermuar dişlileri, ray kanalları ve hareket mekanizması kontrolü dahildir. Gerekirse yağlama ve ayar da yapılır."]
 ];
 
@@ -73,7 +74,7 @@ export default function HomePage() {
           <div className="hero-bg">
             <Image
               src="/assets/hero-main.jpg"
-              alt="PergoClean Premium Pergola Temizliği"
+              alt="PergoClean Premium Pergola Restorasyonu"
               fill
               className="hero-bg-image"
               priority
@@ -83,17 +84,17 @@ export default function HomePage() {
           </div>
           <div className="hero-overlay" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.75) 100%)" }} />
           <div className="container hero-content">
-            <span className="eyebrow" style={{ color: "#ffd057", background: "rgba(0,0,0,0.4)" }}>18+ Yıllık Sistem Uzmanlığı</span>
+            <span className="eyebrow" style={{ color: "#ffd057", background: "rgba(0,0,0,0.4)" }}>18+ Yıllık Teknik Uzmanlık</span>
             <h1 className="heading-xl" style={{ textShadow: "0 4px 12px rgba(0,0,0,0.8)" }}>
               Pergolanızı <span className="hero-italic">Korumaya</span> Alın,<br />
               Mekanınıza <span className="text-gradient">Değer</span> Katın.
             </h1>
             <p className="lead" style={{ color: "rgba(255,255,255,0.95)", fontWeight: 500, textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
-              Ankara&apos;nın en köklü pergola bakım markası PergoClean ile; kumaş değişimi maliyetine girmeden, yerinde restorasyon ve profesyonel hijyen.
+              Ankara&apos;nın en köklü dış mekan bakım markası PergoClean ile; kumaş değişimi maliyetine girmeden, yerinde restorasyon ve profesyonel koruma.
             </p>
 
             <div className="btn-row" style={{ marginTop: 26 }}>
-              <a className="btn btn-accent" href="#fiyat-hesapla">Ücretsiz Fiyat Teklifi Al</a>
+              <a className="btn btn-accent" href="#fiyat-hesapla">Ücretsiz Teknik Analiz Al</a>
               <a className="btn btn-primary" href="tel:+905367731404">
                 📞 Hemen Ara
               </a>
@@ -110,25 +111,40 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* AI Snippet & Semantic Authority Block */}
+        <section className="section-tight" style={{ background: "white", borderBottom: "1px solid var(--line)" }}>
+          <div className="container">
+            <div className="card" style={{ padding: "24px 32px", borderLeft: "4px solid var(--brand)", background: "#f8fafc" }}>
+              <h2 className="heading-sm" style={{ marginBottom: 12, color: "var(--brand-dark)" }}>Özet: PergoClean Nedir ve Ne Yapar?</h2>
+              <p style={{ fontSize: "1rem", lineHeight: 1.6, margin: 0 }}>
+                <strong>PergoClean</strong>, Ankara merkezli, 18+ yıllık teknik sistem tecrübesine dayanan profesyonel bir <strong>pergola, tente ve zip perde restorasyon</strong> markasıdır. 
+                Klasik temizlik firmalarından farklı olarak; kumaş dokusunu, ray mekanizmalarını ve profil yapılarını teknik düzeyde tanır. 
+                Ankara genelinde (Çankaya, Yenimahalle, Ümitköy, İncek vb.) kurumsal ve bireysel mekanlar için <strong>blackout kumaş temizliği, sigara isi giderme, yağ tabakası arındırma ve su iticilik koruması</strong> gibi uzmanlık isteyen yüzey restorasyonları gerçekleştirir. 
+                Amacımız, yüksek maliyetli kumaş değişimi yerine yerinde profesyonel bakım ile sistem ömrünü ve premium mekan algısını korumaktır.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section id="hakkimizda" className="dark-hero" style={{ padding: "120px 0", textAlign: "center" }}>
           <div className="container">
             <div className="section-title-wrap" style={{ margin: "0 auto", maxWidth: 900 }}>
               <span className="eyebrow" style={{ background: "rgba(255,255,255,0.1)", color: "#ffb11a", marginBottom: 20 }}>Marka Pozisyonu</span>
-              <h2 className="heading-xl text-gradient" style={{ marginBottom: 30 }}>Pergole kumaşınızı değiştirmeyin.<br />Yerinde profesyonel temizlik ile yenileyin.</h2>
+              <h2 className="heading-xl text-gradient" style={{ marginBottom: 30 }}>Pergole kumaşınızı değiştirmeyin.<br />Yerinde profesyonel restorasyon ile yenileyin.</h2>
               <p className="lead" style={{ color: "rgba(255,255,255,0.9)", fontSize: "1.2rem", margin: "0 auto" }}>
                 En büyük kozumuz net: kumaş değişiminde söküm + yeni kumaş + montaj maliyeti oluşur,
-                <strong> 50 m² için ortalama 70.000 – 90.000 TL bandına çıkılır</strong> ve mekan çoğu zaman 3 gün boyunca açık kalır ya da verimsiz çalışır.
+                <strong> 50 m² için ortalama 70.000 – 90.000 TL bandına çıkılır</strong> ve mekan çoğu zaman 3 gün boyunca kapalı kalır.
               </p>
               <p className="lead" style={{ color: "var(--brand)", fontSize: "1.3rem", fontWeight: 700, margin: "20px auto 40px" }}>
-                PergoClean ise söküm gerektirmeden, iş kaybını azaltarak, aynı gün uygulama mantığıyla hareket eder.
+                PergoClean ise söküm gerektirmeden, iş kaybını sıfırlayarak, yerinde profesyonel bakım yapar.
               </p>
             </div>
 
             <div className="grid kpi-grid">
-              <div className="luxury-card card" style={{ padding: 32 }}><h3 className="heading-md" style={{ color: "#ffb11a" }}>%70-80 Tasarruf</h3><p style={{ color: "rgba(255,255,255,0.7)", margin: 0 }}>Değişim yerine yerinde temizlik ile ekonomik çözüm.</p></div>
-              <div className="luxury-card card" style={{ padding: 32 }}><h3 className="heading-md" style={{ color: "#ffb11a" }}>Söküm Yok</h3><p style={{ color: "rgba(255,255,255,0.7)", margin: 0 }}>Mekan üstü açık kalmaz, ekstra operasyon yükü oluşmaz.</p></div>
-              <div className="luxury-card card" style={{ padding: 32 }}><h3 className="heading-md" style={{ color: "#ffb11a" }}>Aynı Gün İşlem</h3><p style={{ color: "rgba(255,255,255,0.7)", margin: 0 }}>Planlı saha ekibiyle hızlı keşif ve kısa uygulama süresi.</p></div>
-              <div className="luxury-card card" style={{ padding: 32 }}><h3 className="heading-md" style={{ color: "#ffb11a" }}>%80-90 Yenilenme</h3><p style={{ color: "rgba(255,255,255,0.7)", margin: 0 }}>Teknik kumaşlarda ilk günkü görünüme yakın güçlü sonuç.</p></div>
+              <div className="luxury-card card" style={{ padding: 32 }}><h3 className="heading-md" style={{ color: "#ffb11a" }}>%70-80 Tasarruf</h3><p style={{ color: "rgba(255,255,255,0.7)", margin: 0 }}>Değişim yerine yerinde restorasyon ile ekonomik çözüm.</p></div>
+              <div className="luxury-card card" style={{ padding: 32 }}><h3 className="heading-md" style={{ color: "#ffb11a" }}>Söküm Yok</h3><p style={{ color: "rgba(255,255,255,0.7)", margin: 0 }}>Mekan aksamadan, ekstra operasyon yükü oluşmadan uygulama.</p></div>
+              <div className="luxury-card card" style={{ padding: 32 }}><h3 className="heading-md" style={{ color: "#ffb11a" }}>Hızlı Uygulama</h3><p style={{ color: "rgba(255,255,255,0.7)", margin: 0 }}>Planlı saha ekibiyle hızlı keşif ve kısa restorasyon süresi.</p></div>
+              <div className="luxury-card card" style={{ padding: 32 }}><h3 className="heading-md" style={{ color: "#ffb11a" }}>%80-90 Yenilenme</h3><p style={{ color: "rgba(255,255,255,0.7)", margin: 0 }}>Teknik kumaşlarda ilk günkü dokuya en yakın sonuç.</p></div>
             </div>
 
             <div className="notice luxury-card" style={{ marginTop: 40, border: "1px solid rgba(239,68,68,0.4)", color: "#fca5a5", fontSize: "1.1rem" }}>
@@ -191,9 +207,9 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <a href="/blog/premium-pergola-bakim-rehberi" className="btn btn-secondary" style={{ marginTop: 32 }}>
+                <Link href="/blog/premium-pergola-bakim-rehberi" className="btn btn-secondary" style={{ marginTop: 32 }}>
                   Restorasyon Rehberini Oku →
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -208,38 +224,38 @@ export default function HomePage() {
 
             <div className="grid service-grid">
               <article className="card service-card">
-                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Uzman Hizmet</span>
-                <h3 className="heading-md" style={{ marginTop: 18 }}>Pergola & Tente Temizliği</h3>
-                <p>Pergola, RollingRoof ve Tente kumaşlarınızdaki kir, yağ ve duman atıklarını profesyonel ekipmanlarla temizliyoruz.</p>
-                <a href="/hizmetler/pergola-tente-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</a>
+                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Teknik Restorasyon</span>
+                <h3 className="heading-md" style={{ marginTop: 18 }}>Pergola & Tente Restorasyonu</h3>
+                <p>Pergola, RollingRoof ve Tente kumaşlarınızdaki zorlu lekeleri teknik solüsyonlarla arındırarak doku yenileme yapıyoruz.</p>
+                <Link href="/hizmetler/pergola-tente-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</Link>
               </article>
               <article className="card service-card">
-                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Uzman Hizmet</span>
-                <h3 className="heading-md" style={{ marginTop: 18 }}>ZipPerde Temizlik & Bakım</h3>
-                <p>Zip perde sistemleri için özel temizlik ve bakım uyguluyor, ray mekanizması ve fermuar bölgelerini temizliyoruz.</p>
-                <a href="/hizmetler/zip-perde-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</a>
+                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Sistem Bakımı</span>
+                <h3 className="heading-md" style={{ marginTop: 18 }}>ZipPerde Teknik Bakım</h3>
+                <p>Zip perde sistemleri için profesyonel bakım uyguluyor, ray mekanizması ve fermuar bölgelerini teknik korumaya alıyoruz.</p>
+                <Link href="/hizmetler/zip-perde-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</Link>
               </article>
               <article className="card service-card">
-                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Uzman Hizmet</span>
-                <h3 className="heading-md" style={{ marginTop: 18 }}>Bioclimatic Temizliği</h3>
-                <p>Bioclimatic pergola lam ve yüzey temizliği. UV etkisi, yağ ve kir birikimini profesyonel ekiple temizliyoruz.</p>
-                <a href="/hizmetler/bioclimatic-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</a>
+                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Uzman Uygulama</span>
+                <h3 className="heading-md" style={{ marginTop: 18 }}>Bioclimatic Bakımı</h3>
+                <p>Bioclimatic pergola lam ve yüzey restorasyonu. UV etkisi ve kir birikimini teknik ekipmanlarla arındırıyoruz.</p>
+                <Link href="/hizmetler/bioclimatic-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</Link>
               </article>
               <article className="card service-card">
-                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Uzman Hizmet</span>
-                <h3 className="heading-md" style={{ marginTop: 18 }}>Cam Tavan Temizliği</h3>
-                <p>Cam tavan ve tavan zip sistemleri için özel temizlik. Keşif sonrası profesyonel yerinde uygulama.</p>
-                <a href="/hizmetler/cam-tavan-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</a>
+                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Profesyonel Çözüm</span>
+                <h3 className="heading-md" style={{ marginTop: 18 }}>Cam Tavan Restorasyonu</h3>
+                <p>Cam tavan ve tavan zip sistemleri için yerinde restorasyon. Keşif sonrası profesyonel yüzey koruma uygulaması.</p>
+                <Link href="/hizmetler/cam-tavan-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</Link>
               </article>
             </div>
 
             <div className="card value-block">
-              <h3 className="heading-md" style={{ color: "white" }}>Neden PergoClean?</h3>
+              <h3 className="heading-md" style={{ color: "white" }}>Neden PergoClean Restorasyon?</h3>
               <div className="grid value-list">
-                <div className="value-item"><div>✓</div><div><strong>%70-80 Tasarruf</strong><span>Değiştirme yerine temizlik ile ekonomik çözüm</span></div></div>
-                <div className="value-item"><div>✓</div><div><strong>Özel Kimyasal</strong><span>PVC kaplı polyester teknik kumaşlara özel profesyonel uygulama</span></div></div>
-                <div className="value-item"><div>✓</div><div><strong>Yağ, İs, Duman Temizliği</strong><span>Kumaşınızı ilk günkü haline yaklaştırıyoruz</span></div></div>
-                <div className="value-item"><div>✓</div><div><strong>Yapı Koruması</strong><span>Tüm işlemler yerinde yapılır, yapı korunur</span></div></div>
+                <div className="value-item"><div>✓</div><div><strong>Maliyet Optimizasyonu</strong><span>Değiştirme maliyetinin %20-30&apos;una tam restorasyon çözümü.</span></div></div>
+                <div className="value-item"><div>✓</div><div><strong>Teknik Uzmanlık</strong><span>PVC, Akrilik ve Blackout teknik kumaşlara özel pH dengeli profesyonel bakım.</span></div></div>
+                <div className="value-item"><div>✓</div><div><strong>Zorlu Leke Müdahalesi</strong><span>Yağ, is, polen ve derinleşmiş kir tabakalarında yüksek başarı oranı.</span></div></div>
+                <div className="value-item"><div>✓</div><div><strong>Sistem Koruma</strong><span>Ray, fitil ve motorlu aksamların temizlik esnasında teknik korunması.</span></div></div>
               </div>
             </div>
 
@@ -254,7 +270,7 @@ export default function HomePage() {
                     Güneş, rüzgar ve yağışa karşı tam koruma sunarken terası veya açık alanı dört mevsim kullanılabilir hale getirir.
                   </p>
                   <p style={{ color: "var(--muted)", lineHeight: 1.75 }}>
-                    Zamanla biriken kir, toz ve UV etkisiyle küflenen zip perde kumaşları için <strong>PergoClean&apos;in özel yerinde temizlik servisi</strong> ile
+                    Zamanla biriken kir, toz ve UV etkisiyle küflenen zip perde kumaşları için <strong>PergoClean&apos;in teknik restorasyon servisi</strong> ile
                     kumaşı sökmeden, mekanı kapatmadan %85-90 oranında ilk günkü berraklığına kavuşturabilirsiniz.
                   </p>
                 </div>
@@ -287,13 +303,13 @@ export default function HomePage() {
           <div className="container">
             <div className="card price-wrap" style={{ boxShadow: "0 30px 60px rgba(0,0,0,0.15)" }}>
               <aside className="price-side" style={{ background: "linear-gradient(135deg, #020617 0%, #1e293b 100%)" }}>
-                <h2 className="heading-lg text-gradient" style={{ fontSize: "3rem" }}>Anında Fiyat Hesaplayın</h2>
-                <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.1rem" }}>Pergola, Rolling Roof, BioClimatic, CamTavan, ZipPerde ve tente ölçülerinizi girin, anında tahmini tutarı görün.</p>
+                <h2 className="heading-lg text-gradient" style={{ fontSize: "3rem" }}>Analiz & Yatırım Tahmini</h2>
+                <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.1rem" }}>Pergola, Rolling Roof, BioClimatic, CamTavan, ZipPerde ve tente ölçülerinizi girin, profesyonel restorasyon maliyetini görün.</p>
 
                 {/* Trust Badges */}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, margin: "20px 0" }}>
                   {[
-                    { icon: "⚡", label: "Aynı Gün Hizmet" },
+                    { icon: "⚡", label: "Hızlı Teknik Servis" },
                     { icon: "😊", label: "%95+ Memnuniyet" },
                     { icon: "👥", label: "500+ Mutlu Müşteri" },
                     { icon: "🏆", label: "2000+ Uygulama" },
@@ -318,16 +334,17 @@ export default function HomePage() {
         <section className="section">
           <div className="container">
             <div className="section-title-wrap" style={{ textAlign: "center", margin: "0 auto" }}>
-              <h2 className="heading-lg">Nasıl Çalışıyoruz?</h2>
-              <p className="lead">Basit ve hızlı süreç: iletişim → keşif ve fiyatlandırma → temizlik → teslim.</p>
+              <h2 className="heading-lg">Teknik Uygulama Sürecimiz</h2>
+              <p className="lead">5 Adımda Profesyonel Dış Mekan Bakımı ve Restorasyonu</p>
             </div>
 
             <div className="grid process-grid">
               {[
-                ["İletişim", "WhatsApp, telefon veya web sitesi formu ile bize ulaşırsınız."],
-                ["Keşif & Fiyatlandırma", "Ölçü, kirlilik ve kullanım senaryosuna göre teklif çıkarılır."],
-                ["Temizlik", "Profesyonel ekibimiz yerinde uygulama ile süreci tamamlar."],
-                ["Teslim", "Kumaş ilk günkü temizliğine yaklaşır, mekan hızla kullanıma döner."]
+                ["Talep & Randevu", "WhatsApp veya form üzerinden gelen talepleriniz için hızla randevu oluşturulur."],
+                ["Teknik Analiz & Keşif", "Saha ekibimiz kumaş tipini, kirlilik seviyesini ve mekanizma durumunu yerinde analiz eder."],
+                ["Profesyonel Uygulama", "pH dengeli solüsyonlar ve kontrollü tekniklerle sisteminiz zarar görmeden restore edilir."],
+                ["Kalite Kontrol", "Yapılan işlemlerin kumaş dokusu ve mekanizma üzerindeki etkisi son kez kontrol edilir."],
+                ["Güvenle Teslim", "Sisteminiz premium görünümüne kavuşmuş şekilde, bakım önerileriyle birlikte teslim edilir."]
               ].map(([title, text], index) => (
                 <div key={title} className="process-card">
                   <div className="process-number">{index + 1}</div>
@@ -338,7 +355,7 @@ export default function HomePage() {
             </div>
 
             <div style={{ textAlign: "center", marginTop: 30 }}>
-              <a className="btn btn-primary" href="https://wa.me/905367731404" target="_blank">Hemen Başlayalım</a>
+              <a className="btn btn-primary" href="https://wa.me/905367731404" target="_blank">Teknik Destek Alın</a>
             </div>
           </div>
         </section>
@@ -349,7 +366,7 @@ export default function HomePage() {
               <div className="section-title-wrap">
                 <span className="eyebrow">Referans İşlerimiz</span>
                 <h2 className="heading-lg">Tamamlanan Projeler</h2>
-                <p className="lead" style={{ fontWeight: 800, fontSize: "1.2rem", color: "var(--brand-dark)" }}>Projelerimizi İnceleyin</p>
+                <p className="lead" style={{ fontWeight: 800, fontSize: "1.2rem", color: "var(--brand-dark)" }}>Restorasyon Portfolyomuzu İnceleyin</p>
               </div>
             </div>
 
@@ -381,13 +398,13 @@ export default function HomePage() {
             <div className="grid dual-forms">
               <article className="card soft-panel soft-blue">
                 <div className="section-title-wrap">
-                  <span className="eyebrow" style={{ background: "rgba(66,133,244,.16)", color: "#285db5" }}>Fotoğraf Gönderin</span>
-                  <h2 className="heading-md">Pergola RollingRoof BioClimatic CamTavan ZipPerde Tente Fotoğraflarınızı Gönderin</h2>
-                  <p className="form-note">Ön analiz için görsel yükleyin, keşif öncesi daha hızlı fiyatlama yapalım.</p>
+                  <span className="eyebrow" style={{ background: "rgba(66,133,244,.16)", color: "#285db5" }}>Hızlı Analiz</span>
+                  <h2 className="heading-md">Sistem Fotoğraflarınızı Gönderin</h2>
+                  <p className="form-note">Ön teknik analiz için görsel yükleyin, keşif öncesi daha sağlıklı fiyatlandırma yapalım.</p>
                 </div>
                 <LeadForm
                   endpoint="/api/lead/photo"
-                  submitLabel="Fotoğraf Talebi Gönder"
+                  submitLabel="Analiz Talebi Gönder"
                   fields={[
                     { name: "adSoyad", label: "Adınız Soyadınız", required: true },
                     { name: "telefon", label: "Telefon Numaranız", required: true, type: "tel" },
@@ -399,13 +416,13 @@ export default function HomePage() {
 
               <article className="card soft-panel soft-green">
                 <div className="section-title-wrap">
-                  <span className="eyebrow" style={{ background: "rgba(34,197,94,.16)", color: "#198a43" }}>Randevu Alın</span>
-                  <h2 className="heading-md">Hemen Randevu Alın</h2>
-                  <p className="form-note">Uygun tarih ve saat bilgisiyle otomatik onay akışı oluşturun.</p>
+                  <span className="eyebrow" style={{ background: "rgba(34,197,94,.16)", color: "#198a43" }}>Teknik Randevu</span>
+                  <h2 className="heading-md">Keşif Randevusu Oluşturun</h2>
+                  <p className="form-note">Yerinde teknik analiz ve ölçüm için uygun tarih belirleyin.</p>
                 </div>
                 <LeadForm
                   endpoint="/api/lead/appointment"
-                  submitLabel="Randevu Oluştur"
+                  submitLabel="Randevu Talebi"
                   fields={[
                     { name: "adSoyad", label: "Adınız Soyadınız", required: true },
                     { name: "telefon", label: "Telefon Numaranız", required: true, type: "tel" },
@@ -423,16 +440,16 @@ export default function HomePage() {
         <section id="blog" className="section">
           <div className="container">
             <div className="section-title-wrap">
-              <span className="eyebrow" style={{ background: "rgba(34,197,94,.14)", color: "#15803d" }}>Blog Rehberleri</span>
-              <h2 className="heading-lg">Uzman İpuçları & Bakım Rehberleri</h2>
+              <span className="eyebrow" style={{ background: "rgba(34,197,94,.14)", color: "#15803d" }}>Uzman Rehberi</span>
+              <h2 className="heading-lg">Teknik İpuçları & Bakım Rehberleri</h2>
             </div>
 
             <div className="blog-feature">
               <article className="card blog-feature-card">
                 <div className="cover cover-tall" style={{ position: "relative", width: "100%", height: "100%", minHeight: "300px" }}>
                   <Image
-                    src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80"
-                    alt="Blog Feature"
+                    src="/assets/hero1.jpeg"
+                    alt="Pergola Bakım ve Restorasyon Uzman Rehberi"
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     style={{ objectFit: "cover" }}
@@ -443,13 +460,13 @@ export default function HomePage() {
               </article>
               <article className="card blog-feature-card">
                 <div className="blog-content">
-                  <span className="eyebrow">Bakım + Uzman Çözüm</span>
+                  <span className="eyebrow">Bakım + Teknik Çözüm</span>
                   <h3 className="heading-md">Tente Ömrünü 2 Katına Çıkaran 5 Bakım İpucu</h3>
                   <p className="lead" style={{ fontSize: ".98rem" }}>
-                    Teknik kumaşın ömrünü artıran rutin yıkama, is-duman temizliği, UV etkisini azaltan bakım ve doğru kimyasal seçimi.
+                    Teknik kumaşın ömrünü artıran rutin uygulama, is-duman arındırma, UV etkisini azaltan koruma ve doğru teknik seçimi.
                   </p>
                   <p className="form-note">15 Mart 2026 · 6 dk okuma</p>
-                  <a href="/blog" style={{ color: "#0b857d", fontWeight: 700 }}>Devamını Oku →</a>
+                  <Link href="/blog" style={{ color: "#0b857d", fontWeight: 700 }}>Devamını Oku →</Link>
                 </div>
               </article>
             </div>
@@ -471,7 +488,7 @@ export default function HomePage() {
                   <div className="blog-content">
                     <span className="badge" style={{ background: "rgba(255,177,26,.14)", color: "#8a5e00" }}>Blog</span>
                     <h3>{post}</h3>
-                    <p className="form-note">SEO odaklı içerik taslağı hazırlandı.</p>
+                    <p className="form-note">Teknik inceleme ve bakım notları.</p>
                   </div>
                 </article>
               ))}
@@ -483,9 +500,9 @@ export default function HomePage() {
           <div className="container">
             <div className="grid testimonial-grid">
               {[
-                "Restoran pergola kumaşımızı değiştirmek yerine temizlettik. Hem iş kaybımız azaldı hem ciddi tasarruf ettik.",
-                "Zip perde ve LED bakım süreci kayıtlı ilerledi. Hızlı, düzenli ve güven veren bir ekipti.",
-                "Kumaş değişimi yerine temizlik kararı işletme için çok daha mantıklı çıktı. Sonuç beklentimizin üstündeydi."
+                "Restoran pergola kumaşımızı değiştirmek yerine restore ettirdik. Hem iş kaybımız azaldı hem ciddi tasarruf ettik.",
+                "Zip perde ve LED bakım süreci teknik düzeyde ilerledi. Hızlı, düzenli ve güven veren bir ekipti.",
+                "Kumaş değişimi yerine profesyonel restorasyon kararı işletme için çok daha mantıklı çıktı. Sonuç beklentimizin üstündeydi."
               ].map((quote, index) => (
                 <article key={quote} className="card testimonial">
                   <div style={{ color: "#f59e0b", fontSize: 22 }}>★★★★★</div>
@@ -510,7 +527,7 @@ export default function HomePage() {
           <div className="container" style={{ maxWidth: 860 }}>
             <div className="section-title-wrap" style={{ margin: "0 auto", textAlign: "center" }}>
               <h2 className="heading-lg">Sık Sorulan Sorular</h2>
-              <p className="lead">Merak edilen kritik başlıklar burada.</p>
+              <p className="lead">Teknik süreçler ve bakım hakkında merak edilenler.</p>
             </div>
 
             <div className="faq-list">
@@ -524,8 +541,8 @@ export default function HomePage() {
 
             <div className="card" style={{ marginTop: 32, padding: "34px 32px", background: "linear-gradient(135deg, #f0fdf4, #dcfce7)", border: "1px solid rgba(34,197,94,.25)", textAlign: "center" }}>
               <div style={{ color: "#f59e0b", fontSize: 32, marginBottom: 12 }}>★★★★★</div>
-              <h3 className="heading-md" style={{ marginBottom: 12 }}>Memnun kaldınız mı? Google&apos;da yorum bırakın!</h3>
-              <p className="form-note" style={{ marginBottom: 20 }}>Yorumlarınız bizim için çok değerli. Sadece 30 saniyenizi alır.</p>
+              <h3 className="heading-md" style={{ marginBottom: 12 }}>Deneyiminizi paylaşın! Google&apos;da yorum bırakın.</h3>
+              <p className="form-note" style={{ marginBottom: 20 }}>Geri bildirimleriniz gelişimimiz için çok değerli.</p>
               <a
                 className="btn btn-primary"
                 href="https://g.page/r/Cdf_vvn-fscdEAg/review"
@@ -542,13 +559,13 @@ export default function HomePage() {
           <div className="container">
             <div className="section-title-wrap" style={{ textAlign: "center", margin: "0 auto" }}>
               <h2 className="heading-lg">Hemen Başlayalım</h2>
-              <p className="lead">Bugün bizimle iletişime geçin; keşif ve teklif sürecini başlatalım.</p>
+              <p className="lead">Bugün uzman ekibimizle iletişime geçin; teknik analiz sürecini başlatalım.</p>
             </div>
 
             <div className="btn-row" style={{ justifyContent: "center", marginTop: 24 }}>
-              <a className="btn btn-primary" href={`tel:${siteConfig.phonePrimary.replace(/\s+/g, "")}`}>{siteConfig.phonePrimary} (Ara)</a>
-              <a className="btn btn-primary" href={`tel:${siteConfig.phoneSecondary.replace(/\s+/g, "")}`}>{siteConfig.phoneSecondary} (Ara)</a>
-              <a className="btn btn-secondary" href="https://wa.me/905367731404" target="_blank">WhatsApp Destek</a>
+              <a className="btn btn-primary" href={`tel:${siteConfig.phonePrimary.replace(/\s+/g, "")}`}>{siteConfig.phonePrimary} (Teknik Destek)</a>
+              <a className="btn btn-primary" href={`tel:${siteConfig.phoneSecondary.replace(/\s+/g, "")}`}>{siteConfig.phoneSecondary} (Teknik Destek)</a>
+              <a className="btn btn-secondary" href="https://wa.me/905367731404" target="_blank">WhatsApp Uzman Hattı</a>
             </div>
 
             <div className="grid dual-forms" style={{ marginTop: 28 }}>
@@ -561,7 +578,7 @@ export default function HomePage() {
                     { name: "adSoyad", label: "Adınız Soyadınız", required: true },
                     { name: "email", label: "E-posta", type: "email" },
                     { name: "telefon", label: "Telefon", type: "tel", required: true },
-                    { name: "konu", label: "Konu", required: true, options: ["Teklif Talebi", "Randevu", "LED Bakımı", "Kurumsal Proje", "Genel Bilgi"] },
+                    { name: "konu", label: "Konu", required: true, options: ["Restorasyon Talebi", "Teknik Randevu", "LED Bakımı", "Kurumsal Proje", "Genel Bilgi"] },
                     { name: "mesaj", label: "Mesajınız", type: "textarea", required: true }
                   ]}
                 />
@@ -570,8 +587,8 @@ export default function HomePage() {
               <article className="card soft-panel">
                 <h3 className="heading-md">İletişim Bilgileri</h3>
                 <p className="lead">{siteConfig.address}</p>
-                <p><strong>WhatsApp:</strong> {siteConfig.phonePrimary}</p>
-                <p><strong>WhatsApp:</strong> {siteConfig.phoneSecondary}</p>
+                <p><strong>Teknik WhatsApp:</strong> {siteConfig.phonePrimary}</p>
+                <p><strong>Teknik WhatsApp:</strong> {siteConfig.phoneSecondary}</p>
                 <p><strong>E-posta:</strong> {siteConfig.email}</p>
                 <p><strong>Web:</strong> www.pergoclean.com.tr</p>
                 {/* CLS-safe map container: explicit aspect-ratio prevents layout shift */}
