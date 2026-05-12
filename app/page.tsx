@@ -81,7 +81,7 @@ export default function HomePage() {
           <div className="container hero-content">
             <span className="eyebrow" style={{ color: "#ffd057", background: "rgba(0,0,0,0.4)" }}>18+ Yıllık Sistem Uzmanlığı</span>
             <h1 className="heading-xl" style={{ textShadow: "0 4px 12px rgba(0,0,0,0.8)" }}>
-              Pergolanızı <span className="hero-italic">Korumaya</span> Alın,<br /> 
+              Pergolanızı <span className="hero-italic">Korumaya</span> Alın,<br />
               Mekanınıza <span className="text-gradient">Değer</span> Katın.
             </h1>
             <p className="lead" style={{ color: "rgba(255,255,255,0.95)", fontWeight: 500, textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
@@ -98,11 +98,11 @@ export default function HomePage() {
               </a>
             </div>
 
-              <div className="hero-stats">
-                <div className="stat-box"><strong>500+</strong><span>Mutlu Müşteri</span></div>
-                <div className="stat-box"><strong>2000+</strong><span>Uygulama Tecrübesi</span></div>
-                <div className="stat-box"><strong>%95+</strong><span>Memnuniyet Oranı</span></div>
-              </div>
+            <div className="hero-stats">
+              <div className="stat-box"><strong>500+</strong><span>Mutlu Müşteri</span></div>
+              <div className="stat-box"><strong>2000+</strong><span>Uygulama Tecrübesi</span></div>
+              <div className="stat-box"><strong>%95+</strong><span>Memnuniyet Oranı</span></div>
+            </div>
           </div>
         </section>
 
@@ -110,7 +110,7 @@ export default function HomePage() {
           <div className="container">
             <div className="section-title-wrap" style={{ margin: "0 auto", maxWidth: 900 }}>
               <span className="eyebrow" style={{ background: "rgba(255,255,255,0.1)", color: "#ffb11a", marginBottom: 20 }}>Marka Pozisyonu</span>
-              <h2 className="heading-xl text-gradient" style={{ marginBottom: 30 }}>Pergole kumaşınızı değiştirmeyin.<br/>Yerinde profesyonel temizlik ile yenileyin.</h2>
+              <h2 className="heading-xl text-gradient" style={{ marginBottom: 30 }}>Pergole kumaşınızı değiştirmeyin.<br />Yerinde profesyonel temizlik ile yenileyin.</h2>
               <p className="lead" style={{ color: "rgba(255,255,255,0.9)", fontSize: "1.2rem", margin: "0 auto" }}>
                 En büyük kozumuz net: kumaş değişiminde söküm + yeni kumaş + montaj maliyeti oluşur,
                 <strong> 50 m² için ortalama 70.000 – 90.000 TL bandına çıkılır</strong> ve mekan çoğu zaman 3 gün boyunca açık kalır ya da verimsiz çalışır.
@@ -161,18 +161,18 @@ export default function HomePage() {
           <div className="container">
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
               <div style={{ position: "relative", width: "100%", aspectRatio: "1/1", borderRadius: 32, overflow: "hidden", boxShadow: "var(--shadow)" }}>
-                <Image 
-                  src="/assets/restoration-main.jpg" 
-                  alt="Restorasyon Etkisi" 
-                  fill 
+                <Image
+                  src="/assets/restoration-main.jpg"
+                  alt="Restorasyon Etkisi"
+                  fill
                   style={{ objectFit: "cover" }}
                 />
               </div>
               <div>
                 <span className="eyebrow">Restorasyon Yaklaşımı</span>
-                <h2 className="heading-lg">Sadece Temizlik Değil,<br/>Profesyonel Restorasyon</h2>
+                <h2 className="heading-lg">Sadece Temizlik Değil,<br />Profesyonel Restorasyon</h2>
                 <p className="lead">
-                  PergoClean yaklaşımında amaç yalnızca yüzey temizliği değildir. 
+                  PergoClean yaklaşımında amaç yalnızca yüzey temizliği değildir.
                   Kumaşı sertleştirmeden bakım yapmak, su iticiliği korumak ve mekana ilk günkü premium görünümünü geri kazandırmak için çalışıyoruz.
                 </p>
                 <div className="grid" style={{ gridTemplateColumns: "1fr 1fr", gap: 20, marginTop: 24 }}>
@@ -268,7 +268,7 @@ export default function HomePage() {
 
             <div className="grid compare-grid">
               {compareItems.map((item) => (
-                <BeforeAfterSlider 
+                <BeforeAfterSlider
                   key={item.image}
                   title={item.title}
                   before={`/assets/${item.image}-before.jpg`}
@@ -455,7 +455,7 @@ export default function HomePage() {
                 <article key={post} className="card blog-card">
                   <div className="cover" style={{ position: "relative", width: "100%", minHeight: "200px" }}>
                     <Image
-                      src={`https://images.unsplash.com/photo-${["1494526585095-c41746248156","1513694203232-719a280e022f","1448630360428-65456885c650","1484154218962-a197022b5858","1505693416388-ac5ce068fe85","1523413651479-597eb2da0ad6"][index]}?auto=format&fit=crop&w=900&q=80`}
+                      src={`https://images.unsplash.com/photo-${["1494526585095-c41746248156", "1513694203232-719a280e022f", "1448630360428-65456885c650", "1484154218962-a197022b5858", "1505693416388-ac5ce068fe85", "1523413651479-597eb2da0ad6"][index]}?auto=format&fit=crop&w=900&q=80`}
                       alt={post}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
