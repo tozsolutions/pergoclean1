@@ -37,7 +37,11 @@ const projects = [
   { title: "Mamak Bölgesel Hizmetler", image: "ref-mamak.jpg", meta: "Mamak, Ankara" },
   { title: "Pursaklar Teknik Uygulama", image: "ref-pursaklar.jpg", meta: "Pursaklar, Ankara" },
   { title: "Sincan Endüstriyel Temizlik", image: "ref-sincan.jpg", meta: "Sincan, Ankara" },
-  { title: "Ümitköy Lüks Konut Çözümleri", image: "ref-umitkoy.jpg", meta: "Ümitköy, Ankara" }
+  { title: "Ümitköy Lüks Konut Çözümleri", image: "ref-umitkoy.jpg", meta: "Ümitköy, Ankara" },
+  { title: "Nata Vega AVM Uygulaması 1", image: "ref-vega-2.jpg", meta: "Mamak, Ankara" },
+  { title: "Nata Vega AVM Uygulaması 2", image: "ref-vega-3.jpg", meta: "Mamak, Ankara" },
+  { title: "Nata Vega AVM Uygulaması 3", image: "ref-vega-4.jpg", meta: "Mamak, Ankara" },
+  { title: "Nata Vega AVM Uygulaması 4", image: "ref-vega-5.jpg", meta: "Mamak, Ankara" }
 ];
 
 const blogPosts = [
@@ -455,7 +459,7 @@ export default function HomePage() {
                 <article key={post} className="card blog-card">
                   <div className="cover" style={{ position: "relative", width: "100%", minHeight: "200px" }}>
                     <Image
-                      src={`https://images.unsplash.com/photo-${["1494526585095-c41746248156", "1513694203232-719a280e022f", "1448630360428-65456885c650", "1484154218962-a197022b5858", "1505693416388-ac5ce068fe85", "1523413651479-597eb2da0ad6"][index]}?auto=format&fit=crop&w=900&q=80`}
+                      src={`/assets/${["blog-pergola-1.jpg", "blog-bioclimatic-1.jpg", "blog-zipperde-1.jpg", "blog-pergola-2.jpg", "blog-bioclimatic-2.jpg", "blog-zipperde-2.jpg"][index]}`}
                       alt={post}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
