@@ -56,29 +56,24 @@ export default function HomePage() {
         <section className="hero">
           <div className="hero-bg">
             <Image
-              src="/assets/hero1.jpeg"
-              alt="Pergola RollingRoof BioClimatic Temizlik"
+              src="/assets/hero-main.jpg"
+              alt="PergoClean Premium Pergola Temizliği"
               fill
               className="hero-bg-image"
               priority
               sizes="100vw"
               style={{ objectFit: "cover" }}
             />
-            <div className="hero-overlay"></div>
           </div>
+          <div className="hero-overlay" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.75) 100%)" }} />
           <div className="container hero-content">
-            <span className="eyebrow">Profesyonel Yerinde Temizlik</span>
-            <h1 className="heading-xl">
-              Pergola RollingRoof BioClimatic
-              <br />
-              ZipPerde Tente
-              <br />
-              <span className="hero-italic">Profesyonel Temizlik</span>
+            <span className="eyebrow" style={{ color: "#ffd057", background: "rgba(0,0,0,0.4)" }}>18+ Yıllık Sistem Uzmanlığı</span>
+            <h1 className="heading-xl" style={{ textShadow: "0 4px 12px rgba(0,0,0,0.8)" }}>
+              Pergolanızı <span className="hero-italic">Korumaya</span> Alın,<br /> 
+              Mekanınıza <span className="text-gradient">Değer</span> Katın.
             </h1>
-            <p className="lead" style={{ color: "rgba(255,255,255,.92)" }}>
-              Pergola RollingRoof BioClimatic ZipPerde ve Tentelerinizde %85-90
-              oranında ilk günkü temizliğine ve hijyenik yeni görünümüne kavuşturuyoruz.
-              Minimum maliyet, maksimum sonuç.
+            <p className="lead" style={{ color: "rgba(255,255,255,0.95)", fontWeight: 500, textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
+              Ankara&apos;nın en köklü pergola bakım markası PergoClean ile; kumaş değişimi maliyetine girmeden, yerinde restorasyon ve profesyonel hijyen.
             </p>
 
             <div className="btn-row" style={{ marginTop: 26 }}>
@@ -122,6 +117,68 @@ export default function HomePage() {
 
             <div className="notice luxury-card" style={{ marginTop: 40, border: "1px solid rgba(239,68,68,0.4)", color: "#fca5a5", fontSize: "1.1rem" }}>
               Kumaş değişimi genellikle mekanın 1 gün söküm, 1 gün kumaş işlemi, 1 gün tekrar montaj nedeniyle toplam <strong>3 gün verimsiz kalmasına</strong> yol açar. Bu, özellikle restoran, kafe ve otel işletmelerinde doğrudan ciro kaybı demektir.
+            </div>
+          </div>
+        </section>
+
+        <section id="hikayemiz" className="section" style={{ background: "#f8fbff" }}>
+          <div className="container">
+            <div style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
+              <span className="eyebrow" style={{ background: "rgba(19,179,163,0.1)", color: "var(--brand-dark)" }}>Biz Kimiz?</span>
+              <h2 className="heading-lg">18+ Yıllık Teknik Tecrübe ve Uzmanlık</h2>
+              <p className="lead" style={{ margin: "24px auto" }}>
+                PergoClean klasik bir temizlik firması değildir. 18+ yıllık pergola sistemleri üretim, montaj ve teknik servis geçmişinden gelen derin uzmanlığımızla, kumaşı ve mekanizmayı en ince ayrıntısına kadar tanıyoruz.
+              </p>
+              <div className="grid" style={{ gridTemplateColumns: "repeat(3, 1fr)", gap: 24, marginTop: 40 }}>
+                {[
+                  { title: "Kumaşı Tanıyoruz", desc: "Üretimden gelen bilgiyle kumaşın dokusuna ve yapısına uygun işlem yapıyoruz." },
+                  { title: "Mekanizmaya Hakimiz", desc: "Ray, oluk ve motor sistemlerini bozmadan, teknik hassasiyetle temizliyoruz." },
+                  { title: "Restorasyon Odaklı", desc: "Amacımız sadece silmek değil, kumaşın ilk günkü premium dokusunu geri kazandırmak." }
+                ].map((item, i) => (
+                  <div key={i} className="card" style={{ padding: 24, textAlign: "left", background: "white" }}>
+                    <h3 className="heading-md" style={{ fontSize: "1.1rem", color: "var(--brand)" }}>{item.title}</h3>
+                    <p style={{ margin: 0, fontSize: "0.9rem", color: "var(--muted)" }}>{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" style={{ background: "white" }}>
+          <div className="container">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
+              <div style={{ position: "relative", width: "100%", aspectRatio: "1/1", borderRadius: 32, overflow: "hidden", boxShadow: "var(--shadow)" }}>
+                <Image 
+                  src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80" 
+                  alt="Restorasyon Etkisi" 
+                  fill 
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+              <div>
+                <span className="eyebrow">Restorasyon Yaklaşımı</span>
+                <h2 className="heading-lg">Sadece Temizlik Değil,<br/>Profesyonel Restorasyon</h2>
+                <p className="lead">
+                  PergoClean yaklaşımında amaç yalnızca yüzey temizliği değildir. 
+                  Kumaşı sertleştirmeden bakım yapmak, su iticiliği korumak ve mekana ilk günkü premium görünümünü geri kazandırmak için çalışıyoruz.
+                </p>
+                <div className="grid" style={{ gridTemplateColumns: "1fr 1fr", gap: 20, marginTop: 24 }}>
+                  {[
+                    "pH Dengeli Ürünler",
+                    "Buharlı Uygulama",
+                    "UV Koruma Desteği",
+                    "Ray & Oluk Bakımı"
+                  ].map(item => (
+                    <div key={item} style={{ display: "flex", gap: 10, alignItems: "center", fontWeight: 700 }}>
+                      <span style={{ color: "var(--brand)" }}>✓</span> {item}
+                    </div>
+                  ))}
+                </div>
+                <a href="/blog/premium-pergola-bakim-rehberi" className="btn btn-secondary" style={{ marginTop: 32 }}>
+                  Restorasyon Rehberini Oku →
+                </a>
+              </div>
             </div>
           </div>
         </section>
