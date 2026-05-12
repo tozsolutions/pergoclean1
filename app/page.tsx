@@ -16,16 +16,28 @@ const services = [
 ];
 
 const compareItems = [
-  { title: "Pergola Kumaş Temizliği", category: "Derin Temizlik" },
-  { title: "LED Işık Değişimi", category: "LED Bakım" },
-  { title: "Tente Kumaş Temizleme", category: "Renk Yenileme" }
+  { title: "Pergola Kumaş Temizliği", image: "yenimahalle" },
+  { title: "Pergola Kumaş Temizliği", image: "etimesgut" },
+  { title: "Pergola Kumaş Temizliği", image: "cayyolu" },
+  { title: "Pergola Kumaş Temizliği", image: "cankaya" }
 ];
 
 const projects = [
-  { title: "Roof Temizliği", meta: "11-15" },
-  { title: "Keçiören Restoran Gerdirme Tente Bakımı", meta: "Keçiören, Ankara · 2024-10-22" },
-  { title: "Yenimahalle Cafe Hareketli Cam Tavan Temizlik", meta: "Yenimahalle, Ankara · 2024-09-18" },
-  { title: "Etimesgut Otel Kasetli Tente Bakımı", meta: "Etimesgut, Ankara · 2024-08-10" }
+  { title: "Keçiören Restoran Tente Bakımı", image: "ref-kecioren-1.jpg", meta: "Keçiören, Ankara" },
+  { title: "AVM Referans Projelerimiz", image: "ref-malls.jpg", meta: "Ankara Geneli AVM'ler" },
+  { title: "Zincir Kafe & Restoranlar", image: "ref-cafes.jpg", meta: "Kurumsal Referanslar" },
+  { title: "Bilkent Konut Projesi", image: "ref-bilkent.jpg", meta: "Bilkent, Ankara" },
+  { title: "Çankaya Premium Mekan Bakımı", image: "ref-cankaya.jpg", meta: "Çankaya, Ankara" },
+  { title: "Çayyolu Villa Pergola Temizliği", image: "ref-cayyolu.jpg", meta: "Çayyolu, Ankara" },
+  { title: "Etimesgut Ticari İşletme Bakımı", image: "ref-etimesgut.jpg", meta: "Etimesgut, Ankara" },
+  { title: "Gölbaşı Bahçe Alanı Restorasyonu", image: "ref-golbasi.jpg", meta: "Gölbaşı, Ankara" },
+  { title: "İncek Modern Villa Sistemleri", image: "ref-incek.jpg", meta: "İncek, Ankara" },
+  { title: "Keçiören Kurumsal Uygulama", image: "ref-kecioren-2.jpg", meta: "Keçiören, Ankara" },
+  { title: "Kızılay Merkezi Lokasyon Bakımı", image: "ref-kizilay.jpg", meta: "Kızılay, Ankara" },
+  { title: "Mamak Bölgesel Hizmetler", image: "ref-mamak.jpg", meta: "Mamak, Ankara" },
+  { title: "Pursaklar Teknik Uygulama", image: "ref-pursaklar.jpg", meta: "Pursaklar, Ankara" },
+  { title: "Sincan Endüstriyel Temizlik", image: "ref-sincan.jpg", meta: "Sincan, Ankara" },
+  { title: "Ümitköy Lüks Konut Çözümleri", image: "ref-umitkoy.jpg", meta: "Ümitköy, Ankara" }
 ];
 
 const blogPosts = [
@@ -255,12 +267,12 @@ export default function HomePage() {
             </div>
 
             <div className="grid compare-grid">
-              {compareItems.map((item, index) => (
+              {compareItems.map((item) => (
                 <BeforeAfterSlider 
-                  key={item.title}
+                  key={item.image}
                   title={item.title}
-                  before={`/assets/${["cankaya","yenimahalle","etimesgut"][index]}-before.jpg`}
-                  after={`/assets/${["cankaya","yenimahalle","etimesgut"][index]}-after.jpg`}
+                  before={`/assets/${item.image}-before.jpg`}
+                  after={`/assets/${item.image}-after.jpg`}
                 />
               ))}
             </div>
@@ -342,7 +354,7 @@ export default function HomePage() {
                 <article key={project.title} className="hover-showcase">
                   <div className="project-cover">
                     <Image
-                      src={`https://images.unsplash.com/photo-${["1505693416388-ac5ce068fe85","1513694203232-719a280e022f","1494526585095-c41746248156","1448630360428-65456885c650"][index]}?auto=format&fit=crop&w=900&q=80`}
+                      src={`/assets/${project.image}`}
                       alt={project.title}
                       fill
                       sizes="(max-width: 760px) 100vw, (max-width: 1080px) 50vw, 25vw"
