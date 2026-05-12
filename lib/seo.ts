@@ -84,13 +84,13 @@ export function serviceMetadata(opts: {
       siteName: "PergoClean",
       locale: "tr_TR",
       type: "website" as const,
-      images: [{ url: "/assets/PergoClean24_02.26_3.png", width: 1200, height: 630 }],
+      images: [{ url: "/assets/logo.png", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image" as const,
       title,
       description,
-      images: ["/assets/PergoClean24_02.26_3.png"],
+      images: ["/assets/logo.png"],
     },
     robots: { index: true, follow: true },
   };
@@ -121,7 +121,7 @@ export function districtMetadata(opts: {
       siteName: "PergoClean",
       locale: "tr_TR",
       type: "website" as const,
-      images: [{ url: "/assets/PergoClean24_02.26_3.png", width: 1200, height: 630 }],
+      images: [{ url: "/assets/logo.png", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image" as const,

@@ -19,13 +19,13 @@ export const metadata: Metadata = {
     siteName: "PergoClean",
     locale: "tr_TR",
     type: "website",
-    images: [{ url: "/assets/PergoClean24_02.26_3.png", width: 1200, height: 630, alt: "PergoClean - Profesyonel Temizlik" }]
+    images: [{ url: "/assets/logo.png", width: 1200, height: 630, alt: "PergoClean - Profesyonel Temizlik" }]
   },
   twitter: {
     card: "summary_large_image",
     title: "PergoClean | Profesyonel Pergola ve Tente Temizliği",
     description: siteConfig.description,
-    images: ["/assets/PergoClean24_02.26_3.png"]
+    images: ["/assets/logo.png"]
   },
   robots: { index: true, follow: true },
   verification: {
@@ -45,7 +45,7 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "PergoClean",
-  image: `${siteConfig.url}/assets/PergoClean24_02.26_1.png`,
+  image: `${siteConfig.url}/assets/logo.png`,
   url: siteConfig.url,
   telephone: "+90-536-773-14-04",
   email: siteConfig.email,
