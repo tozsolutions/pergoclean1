@@ -150,7 +150,7 @@ export default function HomePage() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
               <div style={{ position: "relative", width: "100%", aspectRatio: "1/1", borderRadius: 32, overflow: "hidden", boxShadow: "var(--shadow)" }}>
                 <Image 
-                  src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80" 
+                  src="/assets/restoration-main.jpg" 
                   alt="Restorasyon Etkisi" 
                   fill 
                   style={{ objectFit: "cover" }}
@@ -259,8 +259,8 @@ export default function HomePage() {
                 <BeforeAfterSlider 
                   key={item.title}
                   title={item.title}
-                  before={`https://images.unsplash.com/photo-${["1505693416388-ac5ce068fe85","1513694203232-719a280e022f","1494526585095-c41746248156"][index]}?auto=format&fit=crop&w=800&q=80`}
-                  after={`https://images.unsplash.com/photo-${["1523413651479-597eb2da0ad6","1484154218962-a197022b5858","1448630360428-65456885c650"][index]}?auto=format&fit=crop&w=800&q=80`}
+                  before={`/assets/${["cankaya","yenimahalle","etimesgut"][index]}-before.jpg`}
+                  after={`/assets/${["cankaya","yenimahalle","etimesgut"][index]}-after.jpg`}
                 />
               ))}
             </div>
@@ -333,7 +333,7 @@ export default function HomePage() {
               <div className="section-title-wrap">
                 <span className="eyebrow">Referans İşlerimiz</span>
                 <h2 className="heading-lg">Tamamlanan Projeler</h2>
-                <p className="lead">Premium vitrin düzeni ile projelerimizi inceleyin.</p>
+                <p className="lead" style={{ fontWeight: 800, fontSize: "1.2rem", color: "var(--brand-dark)" }}>Projelerimizi İnceleyin</p>
               </div>
             </div>
 
@@ -372,7 +372,6 @@ export default function HomePage() {
                 <LeadForm
                   endpoint="/api/lead/photo"
                   submitLabel="Fotoğraf Talebi Gönder"
-                  extraText="Not: gerçek dosya depolama altyapısı eklenirse Vercel Blob / S3 bağlantısı ile genişletilebilir."
                   fields={[
                     { name: "adSoyad", label: "Adınız Soyadınız", required: true },
                     { name: "telefon", label: "Telefon Numaranız", required: true, type: "tel" },
@@ -391,7 +390,6 @@ export default function HomePage() {
                 <LeadForm
                   endpoint="/api/lead/appointment"
                   submitLabel="Randevu Oluştur"
-                  extraText="Randevunuz n8n ile otomatik olarak e-posta ve WhatsApp teyidine bağlanabilir."
                   fields={[
                     { name: "adSoyad", label: "Adınız Soyadınız", required: true },
                     { name: "telefon", label: "Telefon Numaranız", required: true, type: "tel" },
@@ -411,7 +409,6 @@ export default function HomePage() {
             <div className="section-title-wrap">
               <span className="eyebrow" style={{ background: "rgba(34,197,94,.14)", color: "#15803d" }}>Blog Rehberleri</span>
               <h2 className="heading-lg">Uzman İpuçları & Bakım Rehberleri</h2>
-              <p className="lead">Ankara ve çevresi odaklı blog rehberlerimizle sistemlerinizi daha uzun süre verimli kullanın.</p>
             </div>
 
             <div className="blog-feature">
@@ -509,16 +506,15 @@ export default function HomePage() {
               ))}
             </div>
 
-            <div className="card" style={{ marginTop: 32, padding: "28px 32px", background: "linear-gradient(135deg, #f0fdf4, #dcfce7)", border: "1px solid rgba(34,197,94,.25)", textAlign: "center" }}>
-              <p style={{ fontSize: "1.5rem", marginBottom: 8 }}>⭐</p>
-              <h3 className="heading-md" style={{ marginBottom: 10 }}>Memnun kaldınız mı? Google&apos;da yorum bırakın!</h3>
-              <p className="form-note" style={{ marginBottom: 18 }}>Yorumlarınız bizim için çok değerli. Sadece 30 saniyenizi alır.</p>
+            <div className="card" style={{ marginTop: 32, padding: "34px 32px", background: "linear-gradient(135deg, #f0fdf4, #dcfce7)", border: "1px solid rgba(34,197,94,.25)", textAlign: "center" }}>
+              <div style={{ color: "#f59e0b", fontSize: 32, marginBottom: 12 }}>★★★★★</div>
+              <h3 className="heading-md" style={{ marginBottom: 12 }}>Memnun kaldınız mı? Google&apos;da yorum bırakın!</h3>
+              <p className="form-note" style={{ marginBottom: 20 }}>Yorumlarınız bizim için çok değerli. Sadece 30 saniyenizi alır.</p>
               <a
                 className="btn btn-primary"
-                href="https://g.page/r/pergoclean/review"
+                href="https://g.page/r/Cdf_vvn-fscdEAg/review"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ display: "inline-flex" }}
               >
                 Google&apos;da Yorum Yaz →
               </a>
