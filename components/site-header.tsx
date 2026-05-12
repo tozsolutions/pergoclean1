@@ -28,11 +28,11 @@ export function SiteHeader() {
       <div className="container header-inner">
         <Link href="/" aria-label="PergoClean ana sayfa">
           <Image
-            src="/assets/PergoClean24_02.26_1.png"
+            src="/assets/logo.png"
             alt="PergoClean Logo"
-            width={140}
-            height={58}
-            style={{ height: 58, width: "auto" }}
+            width={160}
+            height={160}
+            style={{ height: 64, width: "auto" }}
             priority
           />
         </Link>

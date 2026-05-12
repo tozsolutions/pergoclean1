@@ -3,6 +3,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { FloatingContact } from "@/components/floating-contact";
 import { LeadForm } from "@/components/lead-form";
 import { PricingCalculator } from "@/components/pricing-calculator";
+import { BeforeAfterSlider } from "@/components/before-after-slider";
+import { InstagramSlider } from "@/components/instagram-slider";
 import { siteConfig } from "@/lib/site";
 import Image from "next/image";
 
@@ -80,9 +82,12 @@ export default function HomePage() {
             </p>
 
             <div className="btn-row" style={{ marginTop: 26 }}>
-              <a className="btn btn-secondary" href="#fiyat-hesapla">Ücretsiz Fiyat Teklifi Al</a>
-              <a className="btn btn-primary" href="https://wa.me/905367731404" target="_blank">
-                WhatsApp&apos;tan Ulaş
+              <a className="btn btn-accent" href="#fiyat-hesapla">Ücretsiz Fiyat Teklifi Al</a>
+              <a className="btn btn-primary" href="tel:+905367731404">
+                📞 Hemen Ara
+              </a>
+              <a className="btn btn-secondary" href="https://wa.me/905367731404" target="_blank">
+                WhatsApp
               </a>
             </div>
 
@@ -193,19 +198,13 @@ export default function HomePage() {
             </div>
 
             <div className="grid compare-grid">
-              {compareItems.map((item) => (
-                <article key={item.title} className="cinematic-slider">
-                  <div className="compare-image">
-                    <div className="compare-split">
-                      <div className="compare-before"><span className="badge" style={{ background: "#ff6b35" }}>ÖNCE</span></div>
-                      <div className="compare-after" style={{ justifyContent: "flex-end" }}><span className="badge" style={{ background: "#10b981" }}>SONRA</span></div>
-                    </div>
-                  </div>
-                  <div className="compare-content" style={{ background: "#0f172a", color: "white" }}>
-                    <h3 style={{ margin: "0 0 4px" }}>{item.title}</h3>
-                    <p style={{ color: "rgba(255,255,255,0.6)", margin: 0, fontSize: "0.9rem" }}>{item.category}</p>
-                  </div>
-                </article>
+              {compareItems.map((item, index) => (
+                <BeforeAfterSlider 
+                  key={item.title}
+                  title={item.title}
+                  before={`https://images.unsplash.com/photo-${["1505693416388-ac5ce068fe85","1513694203232-719a280e022f","1494526585095-c41746248156"][index]}?auto=format&fit=crop&w=800&q=80`}
+                  after={`https://images.unsplash.com/photo-${["1523413651479-597eb2da0ad6","1484154218962-a197022b5858","1448630360428-65456885c650"][index]}?auto=format&fit=crop&w=800&q=80`}
+                />
               ))}
             </div>
           </div>
@@ -427,11 +426,9 @@ export default function HomePage() {
               ))}
             </div>
 
-            <div style={{ textAlign: "center", marginTop: 28 }}>
+            <div style={{ textAlign: "center", marginTop: 42 }}>
               <h3 className="heading-md">Instagram&apos;da Bizi Takip Edin</h3>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginTop: 18 }}>
-                {[0,1,2,3].map((i) => <div key={i} className="project-cover" style={{ aspectRatio: "1/1" }} />)}
-              </div>
+              <InstagramSlider />
               <div style={{ marginTop: 18 }}>
                 <a className="btn btn-secondary" href="https://www.instagram.com/pergoclean.tr" target="_blank" rel="noopener noreferrer">Instagram&apos;da Takip Et</a>
               </div>
@@ -480,9 +477,9 @@ export default function HomePage() {
             </div>
 
             <div className="btn-row" style={{ justifyContent: "center", marginTop: 24 }}>
-              <a className="btn btn-primary" href="https://wa.me/905367731404" target="_blank">{siteConfig.phonePrimary}</a>
-              <a className="btn btn-primary" href="https://wa.me/905309550028" target="_blank">{siteConfig.phoneSecondary}</a>
-              <a className="btn btn-secondary" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+              <a className="btn btn-primary" href={`tel:${siteConfig.phonePrimary.replace(/\s+/g, "")}`}>{siteConfig.phonePrimary} (Ara)</a>
+              <a className="btn btn-primary" href={`tel:${siteConfig.phoneSecondary.replace(/\s+/g, "")}`}>{siteConfig.phoneSecondary} (Ara)</a>
+              <a className="btn btn-secondary" href="https://wa.me/905367731404" target="_blank">WhatsApp Destek</a>
             </div>
 
             <div className="grid dual-forms" style={{ marginTop: 28 }}>
