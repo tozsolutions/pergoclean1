@@ -38,27 +38,65 @@ export default async function BlogPostPage({ params }: Props) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": post.title,
-    "description": post.metaDescription,
-    "image": post.image,
-    "author": {
-      "@type": "Organization",
-      "name": post.author
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "PergoClean",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.pergoclean.com.tr/assets/logo.png"
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.metaDescription,
+        "image": post.image,
+        "author": {
+          "@type": "Organization",
+          "name": post.author
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "PergoClean",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.pergoclean.com.tr/assets/logo.png"
+          }
+        },
+        "datePublished": "2026-05-12",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `https://www.pergoclean.com.tr/blog/${post.slug}`
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": post.faqs.map(faq => ({
+          "@type": "Question",
+          "name": faq.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.a
+          }
+        }))
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Ana Sayfa",
+            "item": "https://www.pergoclean.com.tr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://www.pergoclean.com.tr/blog"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": post.title,
+            "item": `https://www.pergoclean.com.tr/blog/${post.slug}`
+          }
+        ]
       }
-    },
-    "datePublished": "2026-05-12",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://www.pergoclean.com.tr/blog/${post.slug}`
-    }
+    ]
   };
 
   return (
@@ -96,9 +134,9 @@ export default async function BlogPostPage({ params }: Props) {
             dangerouslySetInnerHTML={{ __html: post.content }} 
           />
 
-          <div className="card" style={{ marginTop: 56, padding: 32, background: "linear-gradient(135deg, #f8fbff, #f0f7ff)", border: "1px solid var(--line)" }}>
-            <h3 className="heading-md">Özet (AI Snippet)</h3>
-            <p>{post.snippet}</p>
+          <div id="featured-snippet-container" className="card" style={{ marginTop: 56, padding: 32, background: "linear-gradient(135deg, #f8fbff, #f0f7ff)", border: "1px solid var(--line)" }}>
+            <h3 className="heading-md" style={{ fontSize: "1.1rem", marginBottom: 12 }}>Özet (AI Overview - Snippet)</h3>
+            <p className="lead" style={{ fontSize: "1.1rem", fontStyle: "italic", borderLeft: "4px solid var(--brand)", paddingLeft: 20 }}>{post.snippet}</p>
           </div>
 
           <section style={{ marginTop: 56 }}>
