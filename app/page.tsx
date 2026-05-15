@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { FloatingContact } from "@/components/floating-contact";
@@ -6,21 +9,319 @@ import { PricingCalculator } from "@/components/pricing-calculator";
 import { BeforeAfterSlider } from "@/components/before-after-slider";
 import { InstagramSlider } from "@/components/instagram-slider";
 import { siteConfig } from "@/lib/site";
+import VaporizeTextCycle from "@/components/ui/vapour-text-effect";
+import ImmersiveScrollGallery from "@/components/ui/immersive-scroll-gallery";
+import { RevealText } from "@/components/ui/reveal-text";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 const services = [
-  { title: "Profesyonel Restorasyon", text: "Pergola, RollingRoof, BioClimatic ve CamTavan sistemlerinizdeki zorlu kir, yağ ve is tabakalarını teknik ekipmanlarla arındırarak kumaş dokusunu yeniliyoruz." },
-  { title: "Mekanizma Bakımı & Koruma", text: "Zip perde ve motorlu sistemler için ray temizliği, kanal bakımı ve sürtünme azaltıcı koruma uygulamaları ile sistem ömrünü uzatıyoruz." },
-  { title: "Sistem Revizyonu & LED", text: "Eskimiş LED ünitelerinin değişimi ve elektrik bağlantı kontrolleri ile sisteminizi işlevsel ve estetik olarak tam kapasiteye ulaştırıyoruz." },
-  { title: "Görünüm Yenileme", text: "Yüzey koruyucu uygulamalar ve profesyonel detay bakımı ile dış mekan sistemlerinize ilk günkü premium duruşunu geri kazandırıyoruz." }
+  { 
+    title: "Pergola / Tente Kumaş Temizliği", 
+    icon: "🏛️",
+    text: "Pergola, RollingRoof, BioClimatic ve CamTavan sistemlerinizdeki zorlu kir, yağ ve is tabakalarını teknik ekipmanlarla arındırarak kumaş dokusunu yeniliyoruz.",
+    detail: `Pergola Kumaş Temizliği — Teknik Bakım ve Profesyonel Restorasyon Rehberi
+
+Pergola Kumaşları Neden Zamanla Kirlenir?
+
+Pergola sistemlerinde kullanılan PVC coated polyester, akrilik kumaş ve teknik membran yüzeyler dış ortam koşullarına sürekli maruz kaldığı için zaman içerisinde:
+
+UV kaynaklı yüzey matlaşması
+Atmosferik kir tabakası
+Egzoz partikülleri
+Organik küf oluşumu
+Kuş pisliği asidik lekeleri
+Yağmur minerali kalıntıları
+Reçine ve polen birikimi
+
+oluşturmaya başlar.
+
+Özellikle yanlış kimyasallar kullanıldığında kumaşın üzerindeki hydrophobic coating tabakası zarar görür. Bu durum kumaşın daha hızlı kir tutmasına, renk solmasına ve su geçirgenliğinin artmasına neden olur.
+
+PergoClean uygulamalarında kullanılan düşük basınçlı kontrollü temizleme yöntemleri sayesinde kumaş yüzeyi zarar görmeden derin temizlik sağlanır.
+
+Yanlış Pergola Temizliği Hangi Sorunlara Yol Açar?
+
+Birçok kullanıcı yüksek basınçlı yıkama sistemlerinin kumaşa zarar verdiğini fark etmez.
+
+Yanlış uygulamalar:
+
+PVC yüzey çatlaması
+Dikiş açılması
+Laminasyon ayrılması
+Kumaş elastikiyet kaybı
+Ray sistemi içine kir taşınması
+Motor sistemine nem ilerlemesi
+
+gibi ciddi problemlere sebep olabilir.
+
+Özellikle solvent bazlı kimyasallar teknik pergola kumaşlarında geri dönüşü olmayan yüzey bozulmalarına yol açabilir.
+
+Profesyonel Pergola Kumaş Temizliği Nasıl Yapılır?
+
+PergoClean bakım süreçlerinde:
+
+1. Yüzey Analizi - Kumaş tipi belirlenir (PVC coated polyester, Acrylic awning fabric, Blackout technical fabric, Micro perforated screen fabric)
+2. Kirlilik Analizi - Organik kir, Küf kolonisi, Mineral tabakası, Atmosferik karbon birikimi, Yağ tabakası tespit edilir
+3. Kimyasal Uyumluluk Kontrolü - Her kumaş tipi farklı pH toleransına sahiptir
+4. Kontrollü Temizlik - Düşük basınç, Fiber yönlü uygulama, Coating-safe cleaning, Durulama optimizasyonu uygulanır
+5. Mekanik Kontrol - Ray sistemi, Drenaj kanalları, Motor bağlantıları, Gergi mekanizmaları kontrol edilir
+
+Pergola Kumaşı Ne Sıklıkla Temizlenmelidir?
+
+Kullanım Alanı / Önerilen Süre:
+- Deniz kenarı işletmeler: 3-4 ay
+- Restoran & cafe: 4-6 ay
+- Konut sistemleri: 6-12 ay
+- Endüstriyel alanlar: 3-6 ay
+
+Düzenli bakım yapılmayan kumaşlarda UV yorgunluğu hızlanır.
+
+Teknik Pergola Bakımı Neden Önemlidir?
+
+Düzenli bakım: sistem ömrünü uzatır, motor yükünü azaltır, ray sürtünmesini düşürür, su tahliyesini iyileştirir, enerji tüketimini azaltır, arıza riskini düşürür ve yüksek maliyetli mekanik arızaları önler.`
+  },
+  { 
+    title: "BioClimatic / RollingRoof", 
+    icon: "🌿",
+    text: "Bioclimatic pergola lam ve yüzey restorasyonu. UV etkisi ve kir birikimini teknik ekipmanlarla arındırıyoruz.",
+    detail: `Bioclimatic / Rolling Roof Sistemleri — Teknik Bakım Rehberi
+
+Bioclimatic Sistemler Neden Düzenli Bakım Gerektirir?
+
+Bioclimatic roof ve rolling roof sistemleri yalnızca bir gölgelendirme çözümü değildir.
+
+Bu sistemlerde:
+
+motorlu hareket mekanizmaları
+lineer drenaj kanalları
+alüminyum louver paneller
+EPDM izolasyon elemanları
+senkronize ray sistemleri
+
+birlikte çalışır.
+
+Bakım yapılmadığında sistem toleransları bozulur ve uzun vadede ciddi arızalar oluşabilir.
+
+Rolling Roof Sistemlerinde En Sık Görülen Problemler
+
+Su Tahliye Problemleri:
+Lineer drenaj kanallarında oluşan yaprak birikimi, toz çamur tabakası ve polen yoğunluğu su taşmalarına sebep olur.
+
+Motor Zorlanması:
+Ray içinde biriken partiküller motor tork yükünü artırır, rulman aşınmasını hızlandırır ve hareket senkronizasyonunu bozar.
+
+Ses Problemleri:
+Metal sürtünmesi ve kuru rulman sistemleri zamanla yüksek ses oluşturur.
+
+Teknik Bakım Sürecinde Neler Yapılır?
+
+PergoClean bakım protokollerinde:
+
+Mekanik Kontroller:
+- Tubular motor analizi
+- Ray hizalama kontrolü
+- Hareket senkronizasyon testi
+- Vida gevşeme analizi
+
+Yüzey Temizliği:
+- Oksidasyon temizliği
+- Alüminyum yüzey bakımı
+- Drenaj temizliği
+- Silikon kalıntı temizliği
+
+Koruyucu Uygulamalar:
+- Mekanik yağlama
+- Conta bakımı
+- Sürtünme azaltıcı uygulamalar
+
+Bioclimatic Sistemlerde UV ve Oksidasyon Etkisi
+
+Uzun süre dış ortamda kalan alüminyum yüzeylerde oksidasyon, matlaşma, yüzey yorulması ve renk kaybı oluşabilir. Özellikle deniz kenarı bölgelerde tuzlu hava bu süreci hızlandırır.`
+  },
+  { 
+    title: "Wintent — Zip Perde Temizliği", 
+    icon: "🪟",
+    text: "Zip perde sistemleri için profesyonel bakım uyguluyor, ray mekanizması ve fermuar bölgelerini teknik korumaya alıyoruz.",
+    detail: `ZIP Perde Temizliği ve Ray Sistemi Bakımı
+
+ZIP Perde Sistemleri Neden Hassas Sistemlerdir?
+
+ZIP screen sistemleri klasik stor perde sistemlerinden farklıdır.
+
+Bu sistemlerde:
+
+yan ray baskısı
+gergi toleransı
+fermuarlı kumaş yapısı
+motor senkronizasyonu
+
+kritik öneme sahiptir.
+
+Yanlış temizlik uygulamaları kumaş deformasyonuna neden olabilir.
+
+ZIP Perde Sistemlerinde Görülen Yaygın Arızalar
+
+Perde Sıkışması:
+Genellikle ray içi kir birikimi, deformasyon veya yanlış yağlama sebebiyle oluşur.
+
+Dalgalı Kumaş Görünümü:
+Sebep aşırı güneş yükü, gergi kaybı veya nem etkisi olabilir.
+
+Teknik ZIP Perde Temizliği Nasıl Yapılır?
+
+Uygulama sürecinde:
+
+- Ray içleri temizlenir
+- Sürtünme noktaları analiz edilir
+- Kumaş yüzeyi düşük basınçla temizlenir
+- Motor çalışma toleransı kontrol edilir
+
+Ve sistem tekrar kalibre edilir.`
+  },
+  { 
+    title: "Kepenk — Panjur Temizliği", 
+    icon: "🚪",
+    text: "Endüstriyel ve konut kepenk sistemleri için profesyonel yağlama, ray temizliği ve motor bakımı hizmetleri.",
+    detail: `Kepenk ve Panjur Sistemleri — Koruyucu Mekanik Bakım
+
+Kepenk Sistemlerinde Bakım Neden Kritik?
+
+Kepenk ve panjur sistemleri sürekli yük altında çalışan mekanik yapılardır.
+
+Bakım yapılmadığında:
+
+motor zorlanması
+ray aşınması
+lamel sürtünmesi
+yatak arızaları
+
+oluşabilir.
+
+En Büyük Hata: Sadece Arıza Olduğunda Müdahale
+
+Birçok işletme bakım yaptırmaz, yalnızca sistem durduğunda servis çağırır.
+
+Bu durum:
+
+daha büyük maliyet
+motor yanması
+ray deformasyonu
+mekanik kırılma
+
+riskini artırır.
+
+Önleyici bakım, sistem arızalarının %80'ini önleyebilir.`
+  },
+  { 
+    title: "Güneş Panel Temizliği", 
+    icon: "☀️",
+    text: "Solar panel yüzeylerinin profesyonel temizliği ve verimlilik artırıcı bakım hizmetleri.",
+    detail: `Güneş Paneli Temizliği — Verimlilik ve Yüzey Koruma
+
+Kirli Güneş Paneli Ne Kadar Verim Kaybı Oluşturur?
+
+Uluslararası saha analizlerine göre kirli paneller:
+
+%5 ile %30'a kadar enerji kaybına neden olabilir.
+
+Özellikle:
+
+kuş pisliği
+kireçli su kalıntısı
+polen tabakası
+endüstriyel toz
+
+panel geçirgenliğini düşürür.
+
+Yanlış Panel Temizliği Neden Tehlikelidir?
+
+Basit görünen temizlik işlemleri bile:
+
+mikro çizik
+anti-reflective coating hasarı
+sıcak nokta oluşumu
+cam yüzey gerilimi
+
+oluşturabilir.
+
+Bu nedenle sert fırça ve yüksek mineral içeren su kullanımı önerilmez.
+
+Profesyonel Solar Panel Temizliği Süreci
+
+PergoClean uygulamalarında:
+
+saf su sistemi
+düşük iletkenlikli durulama
+residue-free cleaning
+yüzey sıcaklık kontrolü
+
+uygulanır.
+
+Bu yöntemler panel verimliliğinin korunmasına yardımcı olur.`
+  },
+  { 
+    title: "Mekanik Sistem Bakımı", 
+    icon: "⚙️",
+    text: "Motorlu pergola ve gölgelendirme sistemleri için kapsamlı mekanik bakım ve arıza önleyici hizmetler.",
+    detail: `Mekanik Sistem Bakımı — Arıza Önleyici Teknik Koruma
+
+Önleyici Bakım Neden Kritik?
+
+Motorlu pergola ve gölgelendirme sistemlerinde arızaların büyük kısmı aniden oluşmaz.
+
+Öncesinde:
+
+sürtünme artışı
+ses değişimi
+motor zorlanması
+yavaş hareket
+drenaj problemi
+
+gibi belirtiler verir.
+
+PergoClean Teknik Bakım Yaklaşımı
+
+Bakım süreçlerinde:
+
+motor yük analizi
+ray sürtünme kontrolü
+rulman kontrolü
+bağlantı noktası analizi
+drenaj optimizasyonu
+izolasyon kontrolü
+
+uygulanır.
+
+Amaç yalnızca temizlik değil:
+
+sistem ömrünü uzatmak
+arıza riskini azaltmak
+maliyetli servisleri önlemek
+operasyonel güvenliği artırmaktır.
+
+Sonuç
+
+PergoClean yaklaşımı klasik "temizlik hizmeti" mantığından farklıdır.
+
+Odak noktası:
+
+teknik koruma
+mekanik sürdürülebilirlik
+sistem restorasyonu
+önleyici bakım mühendisliği
+uzun vadeli performans optimizasyonudur.`
+  }
 ];
 
 const compareItems = [
+  { title: "Ankara · Çankaya Wintent / Pergola Temizliği", before: "/assets/Ankara_Pergola_Temizlik_Çankaya_1_before.jpg", after: "/assets/Ankara_Pergola_Temizlik_Çankaya_2_after.jpg" },
+  { title: "Ankara · Pursaklar Pergola Temizliği", before: "/assets/Ankara_Pergola_Temizlik_Pursaklar_q_before.jpg", after: "/assets/Ankara_Pergola_Temizlik_Pursaklar_2_after.jpg" },
+  { title: "Ankara · Sincan Pergola Temizliği", before: "/assets/Ankara_Pergola_Temizlik_Sincan_1_before.jpg", after: "/assets/Ankara_Pergola_Temizlik_Sincan_2_after.jpg" },
   { title: "Teknik Kumaş Restorasyonu", image: "yenimahalle" },
   { title: "Pergola Yüzey Bakımı", image: "etimesgut" },
-  { title: "Sistem Bakımı & Koruma", image: "cayyolu" },
-  { title: "Kumaş Yenileme Uygulaması", image: "cankaya" }
+  { title: "RollingRoof Temizliği", image: "cayyolu" }
 ];
 
 const projects = [
@@ -66,6 +367,7 @@ const faqs = [
 ];
 
 export default function HomePage() {
+  const [expandedService, setExpandedService] = useState<number | null>(null);
   return (
     <>
       <SiteHeader />
@@ -190,7 +492,7 @@ export default function HomePage() {
               </div>
               <div>
                 <span className="eyebrow">Restorasyon Yaklaşımı</span>
-                <h2 className="heading-lg">Sadece Temizlik Değil,<br />Profesyonel Restorasyon</h2>
+                <h2 className="heading-lg" style={{ fontSize: 'calc(clamp(2.4rem, 4vw, 4.5rem) * 1.1)', fontWeight: 800, color: '#ffffff', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>Profesyonel Temizlik</h2>
                 <p className="lead">
                   PergoClean yaklaşımında amaç yalnızca yüzey temizliği değildir.
                   Kumaşı sertleştirmeden bakım yapmak, su iticiliği korumak ve mekana ilk günkü premium görünümünü geri kazandırmak için çalışıyoruz.
@@ -219,34 +521,84 @@ export default function HomePage() {
           <div className="container">
             <div className="section-title-wrap">
               <span className="eyebrow">Hizmetlerimiz</span>
-              <h2 className="heading-lg">Neler Yapıyoruz?</h2>
+              <RevealText
+                text="NERELER YAPIYORUZ?"
+                textColor="text-[#0e1b3f]"
+                overlayColor="text-[#13b3a3]"
+                fontSize="text-[clamp(2.4rem,4vw,4.5rem)]"
+                letterDelay={0.04}
+              />
             </div>
 
             <div className="grid service-grid">
-              <article className="card service-card">
-                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Teknik Restorasyon</span>
-                <h3 className="heading-md" style={{ marginTop: 18 }}>Pergola & Tente Restorasyonu</h3>
-                <p>Pergola, RollingRoof ve Tente kumaşlarınızdaki zorlu lekeleri teknik solüsyonlarla arındırarak doku yenileme yapıyoruz.</p>
-                <Link href="/hizmetler/pergola-tente-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</Link>
-              </article>
-              <article className="card service-card">
-                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Sistem Bakımı</span>
-                <h3 className="heading-md" style={{ marginTop: 18 }}>ZipPerde Teknik Bakım</h3>
-                <p>Zip perde sistemleri için profesyonel bakım uyguluyor, ray mekanizması ve fermuar bölgelerini teknik korumaya alıyoruz.</p>
-                <Link href="/hizmetler/zip-perde-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</Link>
-              </article>
-              <article className="card service-card">
-                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Uzman Uygulama</span>
-                <h3 className="heading-md" style={{ marginTop: 18 }}>Bioclimatic Bakımı</h3>
-                <p>Bioclimatic pergola lam ve yüzey restorasyonu. UV etkisi ve kir birikimini teknik ekipmanlarla arındırıyoruz.</p>
-                <Link href="/hizmetler/bioclimatic-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</Link>
-              </article>
-              <article className="card service-card">
-                <span className="badge" style={{ background: "rgba(19,179,163,.12)", color: "#0b857d" }}>Profesyonel Çözüm</span>
-                <h3 className="heading-md" style={{ marginTop: 18 }}>Cam Tavan Restorasyonu</h3>
-                <p>Cam tavan ve tavan zip sistemleri için yerinde restorasyon. Keşif sonrası profesyonel yüzey koruma uygulaması.</p>
-                <Link href="/hizmetler/cam-tavan-temizligi" style={{ fontWeight: 700, color: "#0b857d" }}>Detaylı Bilgi →</Link>
-              </article>
+              {services.map((service, index) => (
+                <article key={index} className="card service-card" style={{ cursor: 'pointer' }}>
+                  <div 
+                    onClick={() => setExpandedService(expandedService === index ? null : index)}
+                    style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}
+                  >
+                    <div style={{ 
+                      fontSize: '2.5rem', 
+                      flexShrink: 0,
+                      width: '60px',
+                      height: '60px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%)',
+                      borderRadius: '16px',
+                      color: 'white'
+                    }}>
+                      {service.icon}
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <h3 className="heading-md" style={{ marginTop: 0, marginBottom: '8px' }}>{service.title}</h3>
+                      <p style={{ color: 'var(--muted)', lineHeight: 1.6 }}>{service.text}</p>
+                    </div>
+                    <div style={{ 
+                      fontSize: '1.5rem', 
+                      color: 'var(--brand)',
+                      transform: expandedService === index ? 'rotate(180deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.3s ease'
+                    }}>
+                      ▼
+                    </div>
+                  </div>
+                  
+                  <AnimatePresence>
+                    {expandedService === index && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        <div style={{ 
+                          marginTop: '20px', 
+                          paddingTop: '20px', 
+                          borderTop: '1px solid var(--line)',
+                          maxHeight: '500px',
+                          overflowY: 'auto'
+                        }}>
+                          <ImmersiveScrollGallery />
+                          <div style={{ padding: '20px', marginTop: '-100px', position: 'relative', zIndex: 10 }}>
+                            <pre style={{ 
+                              whiteSpace: 'pre-wrap', 
+                              fontFamily: 'inherit',
+                              fontSize: '0.9rem',
+                              lineHeight: 1.8,
+                              color: 'var(--text)'
+                            }}>
+                              {service.detail}
+                            </pre>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </article>
+              ))}
             </div>
 
             <div className="card value-block">
@@ -283,16 +635,22 @@ export default function HomePage() {
           <div className="container">
             <div className="section-title-wrap" style={{ textAlign: "center", margin: "0 auto 40px" }}>
               <span className="eyebrow" style={{ background: "rgba(255,255,255,0.1)", color: "#14b8a6" }}>Önce / Sonra</span>
-              <h2 className="heading-lg text-gradient">Farkı Gözlerinizle Görün</h2>
+              <RevealText
+                text="FARKI GÖZLERİNİZLE GÖRÜN"
+                textColor="text-[#13b3a3]"
+                overlayColor="text-[#0e1b3f]"
+                fontSize="text-[clamp(2.4rem,4vw,4.5rem)]"
+                letterDelay={0.04}
+              />
             </div>
 
-            <div className="grid compare-grid">
-              {compareItems.map((item) => (
+            <div className="grid compare-grid" style={{ transform: 'scale(0.95)' }}>
+              {compareItems.map((item, index) => (
                 <BeforeAfterSlider
-                  key={item.image}
+                  key={index}
                   title={item.title}
-                  before={`/assets/${item.image}-before.jpg`}
-                  after={`/assets/${item.image}-after.jpg`}
+                  before={item.before || `/assets/${item.image}-before.jpg`}
+                  after={item.after || `/assets/${item.image}-after.jpg`}
                 />
               ))}
             </div>
@@ -303,7 +661,13 @@ export default function HomePage() {
           <div className="container">
             <div className="card price-wrap" style={{ boxShadow: "0 30px 60px rgba(0,0,0,0.15)" }}>
               <aside className="price-side" style={{ background: "linear-gradient(135deg, #020617 0%, #1e293b 100%)" }}>
-                <h2 className="heading-lg text-gradient" style={{ fontSize: "3rem" }}>Analiz & Yatırım Tahmini</h2>
+                <RevealText
+                  text="ANINDA FIYAT TEKLİFİ ALIN"
+                  textColor="text-[#ffc82c]"
+                  overlayColor="text-[#13b3a3]"
+                  fontSize="text-[clamp(2.4rem,4vw,3rem)]"
+                  letterDelay={0.04}
+                />
                 <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.1rem" }}>Pergola, Rolling Roof, BioClimatic, CamTavan, ZipPerde ve tente ölçülerinizi girin, profesyonel restorasyon maliyetini görün.</p>
 
                 {/* Trust Badges */}
@@ -334,7 +698,13 @@ export default function HomePage() {
         <section className="section">
           <div className="container">
             <div className="section-title-wrap" style={{ textAlign: "center", margin: "0 auto" }}>
-              <h2 className="heading-lg">Teknik Uygulama Sürecimiz</h2>
+              <RevealText
+                text="TEKNİK UYGULAMA SÜRECİMİZ"
+                textColor="text-[#0e1b3f]"
+                overlayColor="text-[#13b3a3]"
+                fontSize="text-[clamp(2.4rem,4vw,4.5rem)]"
+                letterDelay={0.04}
+              />
               <p className="lead">5 Adımda Profesyonel Dış Mekan Bakımı ve Restorasyonu</p>
             </div>
 
@@ -365,7 +735,13 @@ export default function HomePage() {
             <div className="portfolio-top">
               <div className="section-title-wrap">
                 <span className="eyebrow">Referans İşlerimiz</span>
-                <h2 className="heading-lg">Tamamlanan Projeler</h2>
+                <RevealText
+                  text="TAMAMLANAN PROJELER"
+                  textColor="text-[#0e1b3f]"
+                  overlayColor="text-[#13b3a3]"
+                  fontSize="text-[clamp(2.4rem,4vw,4.5rem)]"
+                  letterDelay={0.04}
+                />
                 <p className="lead" style={{ fontWeight: 800, fontSize: "1.2rem", color: "var(--brand-dark)" }}>Restorasyon Portfolyomuzu İnceleyin</p>
               </div>
             </div>
@@ -441,7 +817,13 @@ export default function HomePage() {
           <div className="container">
             <div className="section-title-wrap">
               <span className="eyebrow" style={{ background: "rgba(34,197,94,.14)", color: "#15803d" }}>Uzman Rehberi</span>
-              <h2 className="heading-lg">Teknik İpuçları & Bakım Rehberleri</h2>
+              <RevealText
+                text="TEKNİK İPUÇLARI & BAKIM REHBERLERİ"
+                textColor="text-[#0e1b3f]"
+                overlayColor="text-[#13b3a3]"
+                fontSize="text-[clamp(2.4rem,4vw,4.5rem)]"
+                letterDelay={0.04}
+              />
             </div>
 
             <div className="blog-feature">
@@ -498,6 +880,15 @@ export default function HomePage() {
 
         <section className="section-tight">
           <div className="container">
+            <div className="section-title-wrap" style={{ textAlign: "center", margin: "0 auto 30px" }}>
+              <RevealText
+                text="MÜŞTERİ YORUMLARI"
+                textColor="text-[#0e1b3f]"
+                overlayColor="text-[#13b3a3]"
+                fontSize="text-[clamp(2.4rem,4vw,4.5rem)]"
+                letterDelay={0.04}
+              />
+            </div>
             <div className="grid testimonial-grid">
               {[
                 "Restoran pergola kumaşımızı değiştirmek yerine restore ettirdik. Hem iş kaybımız azaldı hem ciddi tasarruf ettik.",
@@ -526,7 +917,13 @@ export default function HomePage() {
         <section id="sss" className="section">
           <div className="container" style={{ maxWidth: 860 }}>
             <div className="section-title-wrap" style={{ margin: "0 auto", textAlign: "center" }}>
-              <h2 className="heading-lg">Sık Sorulan Sorular</h2>
+              <RevealText
+                text="SIK SORULAN SORULAR"
+                textColor="text-[#0e1b3f]"
+                overlayColor="text-[#13b3a3]"
+                fontSize="text-[clamp(2.4rem,4vw,4.5rem)]"
+                letterDelay={0.04}
+              />
               <p className="lead">Teknik süreçler ve bakım hakkında merak edilenler.</p>
             </div>
 
@@ -558,7 +955,13 @@ export default function HomePage() {
         <section id="iletisim" className="section">
           <div className="container">
             <div className="section-title-wrap" style={{ textAlign: "center", margin: "0 auto" }}>
-              <h2 className="heading-lg">Hemen Başlayalım</h2>
+              <RevealText
+                text="HEMEN BAŞLAYALIM"
+                textColor="text-[#0e1b3f]"
+                overlayColor="text-[#13b3a3]"
+                fontSize="text-[clamp(2.4rem,4vw,4.5rem)]"
+                letterDelay={0.04}
+              />
               <p className="lead">Bugün uzman ekibimizle iletişime geçin; teknik analiz sürecini başlatalım.</p>
             </div>
 

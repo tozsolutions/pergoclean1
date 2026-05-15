@@ -4,6 +4,7 @@ import { z } from "zod";
 import { sendWebhookWithRetry } from "@/lib/webhook-client";
 import { buildStandardPayload } from "@/lib/payload-utils";
 import { logEvent } from "@/lib/monitoring";
+import { sendEmail, buildEmailHTML } from "@/lib/email-sender";
 
 const contactSchema = baseFormSchema.extend({
   konu: z.string().min(1, "Konu alanı zorunludur."),
@@ -41,6 +42,10 @@ export async function POST(request: Request) {
     logEvent("leadSubmitted", { endpoint: "/api/lead/contact", payloadType: "contact" });
 
     await sendWebhookWithRetry(process.env.N8N_WEBHOOK_CONTACT_URL, payload);
+
+    // Send email
+    const emailHTML = buildEmailHTML(cleanBody, 'contact');
+    await sendEmail('pergoclean@tozyapi.com.tr', '📧 Yeni İletişim Mesajı', emailHTML);
 
     return NextResponse.json({
       success: true,

@@ -26,15 +26,23 @@ export function SiteHeader() {
   return (
     <header className="header">
       <div className="container header-inner">
-        <Link href="/" aria-label="PergoClean ana sayfa">
+        <Link href="/" aria-label="PergoClean ana sayfa" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <Image
             src="/assets/logo.png"
             alt="PergoClean Logo"
-            width={160}
-            height={160}
-            style={{ height: 64, width: "auto" }}
+            width={144}
+            height={144}
+            style={{ height: 58, width: "auto" }}
             priority
           />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+            <span style={{ fontSize: '1.1rem', fontWeight: 800, letterSpacing: '-0.02em' }}>
+              <span style={{ color: 'white' }}>P</span>ergo<span style={{ color: 'white' }}>C</span>lean
+            </span>
+            <span style={{ fontSize: '0.75rem', color: 'white', letterSpacing: '0.05em', fontWeight: 500 }}>
+              Bakım • Temizlik • Restorasyon
+            </span>
+          </div>
         </Link>
         <nav className="nav" aria-label="Ana menü">
           {navItems.map(([label, href]) => (

@@ -7,6 +7,8 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
   const [systemType, setSystemType] = useState("");
   const [packageType, setPackageType] = useState("eco");
   const [m2, setM2] = useState<number | "">("");
+  const [sehir, setSehir] = useState("");
+  const [geceCalismasi, setGeceCalismasi] = useState(false);
   const [adSoyad, setAdSoyad] = useState("");
   const [telefon, setTelefon] = useState("");
   const [email, setEmail] = useState("");
@@ -20,12 +22,22 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
 
   let calculatedPrice: number | null = null;
   if (!showPriceInfo && m2 && typeof m2 === "number" && m2 > 0) {
+    let basePrice = 0;
     if (systemType === "pergola") {
       const p = packageType === "eco" ? pricing.pergola.eco : pricing.pergola.plus;
-      calculatedPrice = m2 <= p.threshold ? p.base : m2 * p.perM2;
+      basePrice = m2 <= p.threshold ? p.base : m2 * p.perM2;
     } else if (systemType === "zip") {
-      calculatedPrice = m2 <= pricing.zip.threshold ? pricing.zip.base : m2 * pricing.zip.perM2;
+      basePrice = m2 <= pricing.zip.threshold ? pricing.zip.base : m2 * pricing.zip.perM2;
     }
+    // Antalya için %30 artış
+    if (sehir === "antalya") {
+      basePrice = basePrice * 1.30;
+    }
+    // Gece çalışması için %5 artış
+    if (geceCalismasi) {
+      basePrice = basePrice * 1.05;
+    }
+    calculatedPrice = basePrice;
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -40,6 +52,8 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
       sistemTipi: systemType,
       paketTipi: needsPackage ? packageType : "N/A",
       metrekare: m2 || "N/A",
+      sehir: sehir === "antalya" ? "Antalya (+%30)" : "Ankara",
+      geceCalismasi: geceCalismasi ? "Evet (+%5)" : "Hayır",
       adSoyad,
       telefon,
       email,
@@ -79,6 +93,46 @@ export function PricingCalculator({ endpoint }: { endpoint: string }) {
             <option value="cam_tavan">Cam Tavan / Tavan Zip</option>
             <option value="gunes_paneli">Güneş Paneli Üniteleri</option>
           </select>
+        </label>
+
+        {/* Şehir Seçimi */}
+        <label htmlFor="sehir">
+          <span style={{ display: "block", marginBottom: 8, fontWeight: 700 }}>Şehir Seçimi</span>
+          <select id="sehir" className="select" required value={sehir} onChange={(e) => setSehir(e.target.value)}>
+            <option value="" disabled>Seçiniz...</option>
+            <option value="ankara">Ankara</option>
+            <option value="antalya">Antalya</option>
+          </select>
+          {sehir === "antalya" && (
+            <span className="form-note" style={{ color: "#d97706", fontWeight: 600 }}>
+              Antalya bölgesi için fiyatlar %30 artırılmıştır.
+            </span>
+          )}
+        </label>
+
+        {/* Gece Çalışması */}
+        <label style={{
+          border: "1px solid var(--line)",
+          padding: 14,
+          borderRadius: 14,
+          cursor: "pointer",
+          background: geceCalismasi ? "rgba(255,177,26,.06)" : "white",
+          display: "flex",
+          alignItems: "center",
+          gap: 12
+        }}>
+          <input
+            type="checkbox"
+            checked={geceCalismasi}
+            onChange={(e) => setGeceCalismasi(e.target.checked)}
+            style={{ width: 20, height: 20 }}
+          />
+          <div>
+            <strong style={{ display: "block" }}>Gece Çalışması</strong>
+            <span className="form-note" style={{ fontSize: "0.8rem" }}>
+              Gece saatlerinde çalışma gerekiyorsa seçiniz (+%5)
+            </span>
+          </div>
         </label>
 
         {/* Paket Seçimi - Sadece Pergola grubu için */}

@@ -4,11 +4,14 @@ import { z } from "zod";
 import { sendWebhookWithRetry } from "@/lib/webhook-client";
 import { buildStandardPayload } from "@/lib/payload-utils";
 import { logEvent } from "@/lib/monitoring";
+import { sendEmail, buildEmailHTML } from "@/lib/email-sender";
 
 const quoteSchema = baseFormSchema.extend({
   sistemTipi: z.string().min(1, "Sistem tipi seçilmelidir."),
   paketTipi: z.string().optional(),
   metrekare: z.union([z.string(), z.number()]).optional(),
+  sehir: z.string().optional(),
+  geceCalismasi: z.string().optional(),
   hesaplananFiyat: z.string().optional()
 });
 
@@ -42,8 +45,12 @@ export async function POST(request: Request) {
 
     logEvent("leadSubmitted", { endpoint: "/api/lead/quote", payloadType: "quote" });
 
-    // Send with robust retry mechanism
+    // Send webhook (n8n)
     await sendWebhookWithRetry(process.env.N8N_WEBHOOK_QUOTE_URL, payload);
+
+    // Send email
+    const emailHTML = buildEmailHTML(cleanBody, 'quote');
+    await sendEmail('pergoclean@tozyapi.com.tr', '🏛️ Yeni Fiyat Teklifi Talebi', emailHTML);
 
     return NextResponse.json({
       success: true,
@@ -51,8 +58,6 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     logEvent("webhookFailed", { endpoint: "/api/lead/quote", reason: "Sunucu hatası", error: String(error) });
-    // We still return 200 to user if it's a webhook error handled inside the queue,
-    // but if the JSON parsing itself fails, it drops here.
     return NextResponse.json(
       { message: "İşlem sırasında bir hata oluştu." },
       { status: 500 }

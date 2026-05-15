@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
+import MagneticDock from "./ui/magnetic-dock";
 
 export function SiteFooter() {
   return (
@@ -11,13 +12,16 @@ export function SiteFooter() {
             <Image
               src="/assets/logo.png"
               alt="PergoClean footer logo"
-              width={120}
-              height={120}
-              style={{ height: 64, width: "auto", marginBottom: 16 }}
+              width={108}
+              height={108}
+              style={{ height: 58, width: "auto", marginBottom: 16 }}
             />
             <p style={{ maxWidth: 340, color: "rgba(255,255,255,.88)", lineHeight: 1.7 }}>
-              Türkiye&apos;nin güven veren pergola, rolling roof, bioclimatic, cam tavan, zip perde ve tente temizlik markası.
+              Türkiye&apos;nın güven veren pergola, rolling roof, bioclimatic, cam tavan, zip perde ve tente temizlik markası.
             </p>
+            <div style={{ marginTop: 20 }}>
+              <MagneticDock />
+            </div>
           </div>
           <div>
             <h3>Hizmetler</h3>
@@ -48,7 +52,7 @@ export function SiteFooter() {
             <p><strong>E-posta:</strong> <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></p>
           </div>
         </div>
-        <div style={{ marginTop: 36, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,.18)", display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+        <div style={{ marginTop: 36, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,.18)", display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
           <small>© 2026 PergoClean. Tüm hakları saklıdır.</small>
           <small>DesignBy TozSolutions</small>
         </div>
